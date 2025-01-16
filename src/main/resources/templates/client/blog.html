@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Coron-checkout</title>
+    <title>Cardealer - Blogs</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->
@@ -72,7 +72,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3 col-md-3">
                             <div class="logo">
-                                <a href="index.html"><img src="assets\img\logo\logo.jpg.png" alt=""></a>
+                                <a th:href="@{/}"><img src="assets\img\logo\logo.jpg.png" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -142,39 +142,8 @@
                                 <div class="main_menu d-none d-lg-block">
                                     <nav>
                                         <ul>
-                                            <li class="active"><a href="index.html">Home</a>
-                                                <div class="mega_menu jewelry">
-                                                    <div class="mega_items jewelry">
-                                                        <ul>
-                                                            <li><a href="index.html">Home 1</a></li>
-                                                            <li><a href="index-2.html">Home 2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li><a href="shop.html">shop</a>
-                                                <div class="mega_menu jewelry">
-                                                    <div class="mega_items jewelry">
-                                                        <ul>
-                                                            <li><a href="shop-list.html">shop list</a></li>
-                                                            <li><a href="shop.html">shop Full Width Grid</a>
-                                                            </li>
-                                                            <li><a href="shop-fullwidth-list.html">shop Full Width
-                                                                list</a></li>
-                                                            <li><a href="shop-sidebar.html">shop Right Sidebar</a></li>
-                                                            <li><a href="shop-sidebar-list.html">shop list Right
-                                                                Sidebar</a></li>
-                                                            <li><a href="single-product.html">Product Details</a></li>
-                                                            <li><a href="single-product-sidebar.html">Product
-                                                                sidebar</a></li>
-                                                            <li><a href="single-product-video.html">Product Details
-                                                                video</a></li>
-                                                            <li><a href="single-product-gallery.html">Product Details
-                                                                Gallery</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            <li class="active"><a th:href="@{/}">Home</a></li>
+                                            <li><a th:href="@{/shop}">shop</a></li>
                                             <li><a href="#">women</a>
                                                 <div class="mega_menu">
                                                     <div class="mega_top fix">
@@ -270,11 +239,7 @@
                                                         <div class="mega_items">
                                                             <h3><a href="#">Column2</a></h3>
                                                             <ul>
-                                                                <li><a href="blog.html">Blog </a></li>
                                                                 <li><a href="blog.html">Blog Details </a></li>
-                                                                <li><a href="blog-fullwidth.html">Blog FullWidth</a>
-                                                                </li>
-                                                                <li><a href="blog-sidebar.html">Blog Sidebar</a></li>
                                                                 <li><a href="faq.html">Frequently Questions</a></li>
                                                                 <li><a href="404.html">404</a></li>
                                                             </ul>
@@ -293,18 +258,10 @@
                                                 </div>
                                             </li>
 
-                                            <li><a href="blog.html">blog</a>
-                                                <div class="mega_menu jewelry">
-                                                    <div class="mega_items jewelry">
-                                                        <ul>
-                                                            <li><a href="blog.html">blog details</a></li>
-                                                            <li><a href="blog-fullwidth.html">blog fullwidth</a></li>
-                                                            <li><a href="blog-sidebar.html">blog sidebar</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                            <li><a href="/blog">blog</a>
+                                                <div class="mega_menu jewelry"></div>
                                             </li>
-                                            <li><a href="contact.html">contact us</a></li>
+                                            <li><a th:href="@{contact}">contact us</a></li>
 
                                         </ul>
                                     </nav>
@@ -312,17 +269,8 @@
                                 <div class="mobile-menu d-lg-none">
                                     <nav>
                                         <ul>
-                                            <li><a href="index.html">Home</a>
-                                                <div>
-                                                    <div>
-                                                        <ul>
-                                                            <li><a href="index.html">Home 1</a></li>
-                                                            <li><a href="index-2.html">Home 2</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li><a href="shop.html">shop</a>
+                                            <li><a th:href="@{/index}">Home</a></li>
+                                            <li><a th:href="@{/index}">shop</a>
                                                 <div>
                                                     <div>
                                                         <ul>
@@ -491,9 +439,9 @@
                     <div class="col-12">
                         <div class="breadcrumb_content">
                             <ul>
-                                <li><a href="index.html">home</a></li>
+                                <li><a th:href="@{/index}">home</a></li>
                                 <li><i class="fa fa-angle-right"></i></li>
-                                <li>checkout</li>
+                                <li>blog details</li>
                             </ul>
 
                         </div>
@@ -502,293 +450,401 @@
             </div>
             <!--breadcrumbs area end-->
 
-
-            <!--Checkout page section-->
-            <div class="Checkout_section">
+            <!--blog area start-->
+            <div class="main_blog_area blog_details">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="user-actions mb-20">
-                            <h3>
-                                <i class="fa fa-file-o" aria-hidden="true"></i>
-                                Returning customer?
-                                <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_login"
-                                   aria-expanded="true">Click here to login</a>
+                    <div class="col-lg-9 col-md-12">
+                        <div class="blog_details_left">
+                            <div class="blog_gallery">
+                                <div class="blog_header">
+                                                    <span>
+                                                        <a href="#">WordPress</a>
+                                                    </span>
+                                    <h2><a href="#">Post with Gallery</a></h2>
+                                    <div class="blog__post">
+                                        <ul>
+                                            <li class="post_author">Posts by : admin</li>
+                                            <li class="post_date"> Mar102015</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="blog_active owl-carousel">
+                                    <div class="blog_thumb blog__hover">
+                                        <a href="blog.html"><img src="assets\img\blog\blog9.jpg" alt=""></a>
+                                    </div>
+                                    <div class="blog_thumb">
+                                        <a href="blog.html"><img src="assets\img\blog\blog7.jpg" alt=""></a>
+                                    </div>
+                                    <div class="blog_thumb">
+                                        <a href="blog.html"><img src="assets\img\blog\blog8.jpg" alt=""></a>
+                                    </div>
+                                    <div class="blog_thumb">
+                                        <a href="blog.html"><img src="assets\img\blog\blog7.jpg" alt=""></a>
+                                    </div>
+                                </div>
 
-                            </h3>
-                            <div id="checkout_login" class="collapse" data-parent="#accordion">
-                                <div class="checkout_info">
-                                    <p>If you have shopped with us before, please enter your details in the boxes below.
-                                        If you are a new customer please proceed to the Billing & Shipping section.</p>
+                                <div class="blog_entry_content">
+                                    <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean
+                                        posuere libero eu augue condimentum rhoncus. Praesent ornare tortor ac ante
+                                        egestas hendrerit. Aliquam et metus pharetra, bibendum massa nec, fermentum
+                                        odio. Nunc id leo ultrices, mollis ligula in, finibus tortor. Mauris eu dui ut
+                                        lectus fermentum eleifend</p>
+
+                                    <p>Proin consectetur aliquam odio nec fringilla. Sed interdum at justo in efficitur.
+                                        Vivamus gravida volutpat sodales. Fusce ornare sit amet ligula condimentum
+                                        sagittis.</p>
+
+                                    <p class="blockquote">Quisque semper nunc vitae erat pellentesque, ac placerat arcu
+                                        consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt
+                                        ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend.
+                                        Proin dictum tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque
+                                        scelerisque.</p>
+
+                                    <p>Aenean et tempor eros, vitae sollicitudin velit. Etiam varius enim nec quam
+                                        tempor, sed efficitur ex ultrices. Phasellus pretium est vel dui vestibulum
+                                        condimentum. Aenean nec suscipit nibh. Phasellus nec lacus id arcu facilisis
+                                        elementum. Curabitur lobortis, elit ut elementum congue, erat ex bibendum odio,
+                                        nec iaculis lacus sem non lorem. Duis suscipit metus ante, sed convallis quam
+                                        posuere quis. Ut tincidunt eleifend odio, ac fringilla mi vehicula nec. Nunc
+                                        vitae lacus eget lectus imperdiet tempus sed in dui. Nam molestie magna at risus
+                                        consectetur, placerat suscipit justo dignissim. Sed vitae fringilla enim, nec
+                                        ullamcorper arcu.</p>
+
+                                    <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim
+                                        vitae lorem non mollis. Praesent pretium tellus in tortor viverra condimentum.
+                                        Nullam dignissim facilisis nisl, accumsan placerat justo ultricies vel. Vivamus
+                                        finibus mi a neque pretium, ut convallis dui lacinia. Morbi a rutrum velit.
+                                        Curabitur sagittis quam quis consectetur mattis. Aenean sit amet quam vel turpis
+                                        interdum sagittis et eget neque. Nunc ante quam, luctus et neque a, interdum
+                                        iaculis metus. Aliquam vel ante mattis, placerat orci id, vehicula quam.
+                                        Suspendisse quis eros cursus, viverra urna sed, commodo mauris. Cras diam arcu,
+                                        fringilla a sem condimentum, viverra facilisis nunc. Curabitur vitae orci id
+                                        nulla maximus maximus. Nunc pulvinar sollicitudin molestie.</p>
+                                </div>
+                                <div class="blog_entry_meta">
+                                    <ul>
+                                        <li><a href="#">0 comments</a></li>
+                                        <li> / Tags: <a href="#">fashion</a></li>
+                                    </ul>
+                                </div>
+                                <div class="wishlist-share">
+                                    <h4>Share on:</h4>
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-tumblr"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--services img area-->
+                            <div class="srrvices_img_area">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="single_img_services mb-20">
+                                            <div class="services_thumb">
+                                                <img src="assets\img\blog\blog6.jpg" alt="">
+                                            </div>
+                                            <div class="services_content">
+                                                <h3>DISCUSS IDEAS</h3>
+                                                <div class="tweetlink favorite">
+                                                    <a href="#"> March 10, 2018 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 ">
+                                        <div class="single_img_services mb-20">
+                                            <div class="services_thumb">
+                                                <img src="assets\img\blog\blog9.jpg" alt="">
+                                            </div>
+                                            <div class="services_content">
+                                                <h3>DESIGN THE COVER</h3>
+                                                <div class="tweetlink favorite">
+                                                    <a href="#"> March 10, 2018 </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="single_img_services mb-20">
+                                            <div class="services_thumb">
+                                                <img src="assets\img\blog\blog10.jpg" alt="">
+                                            </div>
+                                            <div class="services_content">
+                                                <h3>CORE DEVELOPMENT</h3>
+                                                <div class="tweetlink favorite">
+                                                    <a href="#"> March 10, 2018 </a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--services img end-->
+                            <div class="blog__page_content">
+                                <p>Suspendisse turpis ipsum, tempus in nulla eu, posuere pharetra nibh. In dignissim
+                                    vitae lorem non mollis. Praesent pretium tellus in tortor viverra condimentum.
+                                    Nullam dignissim facilisis nisl, accumsan placerat justo ultricies vel. Vivamus
+                                    finibus mi a neque pretium, ut convallis dui lacinia. Morbi a rutrum velit.
+                                    Curabitur sagittis quam quis consectetur mattis. Aenean sit amet quam vel turpis
+                                    interdum sagittis et eget neque. Nunc ante quam, luctus et neque a, interdum iaculis
+                                    metus. Aliquam vel ante mattis, placerat orci id, vehicula quam. Suspendisse quis
+                                    eros cursus, viverra urna sed, commodo mauris. Cras diam arcu, fringilla a sem
+                                    condimentum, viverra facilisis nunc. Curabitur vitae orci id nulla maximus maximus.
+                                    Nunc pulvinar sollicitudin molestie.</p>
+                            </div>
+                            <div class="comments_area">
+                                <div class="comments__title">
+                                    <h3>Leave a Reply </h3>
+                                </div>
+                                <div class="comments__notes">
+                                    <p>Your email address will not be published.</p>
+                                </div>
+                                <div class="product_review_form blog_form">
                                     <form action="#">
-                                        <div class="form_group mb-20">
-                                            <label>Username or email <span>*</span></label>
-                                            <input type="text">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <label for="review_comment">comment </label>
+                                                <textarea name="comment" id="review_comment"></textarea>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <label for="author">Name</label>
+                                                <input id="author" type="text">
+
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <label for="email">Email </label>
+                                                <input id="email" type="text">
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <label for="website">website </label>
+                                                <input id="website" type="text">
+                                            </div>
                                         </div>
-                                        <div class="form_group mb-25">
-                                            <label>Password <span>*</span></label>
-                                            <input type="text">
-                                        </div>
-                                        <div class="form_group group_3 ">
-                                            <input value="Login" type="submit">
-                                            <label for="remember_box">
-                                                <input id="remember_box" type="checkbox">
-                                                <span> Remember me </span>
-                                            </label>
-                                        </div>
-                                        <a href="#">Lost your password?</a>
+                                        <button type="submit">Post Comment</button>
                                     </form>
                                 </div>
                             </div>
-                        </div>
-                        <div class="user-actions mb-20">
-                            <h3>
-                                <i class="fa fa-file-o" aria-hidden="true"></i>
-                                Returning customer?
-                                <a class="Returning" href="#" data-toggle="collapse" data-target="#checkout_coupon"
-                                   aria-expanded="true">Click here to enter your code</a>
 
-                            </h3>
-                            <div id="checkout_coupon" class="collapse" data-parent="#accordion">
-                                <div class="checkout_info">
-                                    <form action="#">
-                                        <input placeholder="Coupon code" type="text">
-                                        <input value="Apply coupon" type="submit">
-                                    </form>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="checkout_form">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <form action="#">
-                                <h3>Billing Details</h3>
-                                <div class="row">
+                    <div class="col-lg-3 col-md-8 offset-md-2 offset-lg-0">
+                        <div class="blog_details_right">
+                            <div class="blog_widget search_widget mb-30">
+                                <h3>Search</h3>
+                                <form action="#">
+                                    <input placeholder="search.." type="text">
+                                    <button type="submit"><i class="fa fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="blog_widget recent-posts mb-30">
+                                <h3>Latest Tweets</h3>
+                                <div class="single_posts mb-20">
+                                    <div class="posts_thumb">
+                                        <a href="#"><img src="assets\img\blog\tweets.jpeg" alt=""></a>
+                                    </div>
+                                    <div class="post_content ">
+                                                        <span>
+                                                            <a class="tweet_name" href="#">Kevin Sobo</a>
+                                                            <a class="tweet_author" href="#">@roadthemes</a>
+                                                        </span>
+                                        <a href="#"> Sep 23 reply retweet 2 years ago </a>
+                                    </div>
+                                </div>
+                                <div class="single_posts mb-20">
+                                    <div class="posts_thumb">
+                                        <a href="#"><img src="assets\img\blog\tweets.jpeg" alt=""></a>
+                                    </div>
+                                    <div class="post_content ">
+                                                        <span>
+                                                            <a class="tweet_name" href="#">Kevin Sobo</a>
+                                                            <a class="tweet_author" href="#">@roadthemes</a>
+                                                        </span>
+                                        <a href="#"> Sep 23 reply retweet 2 years ago </a>
+                                    </div>
+                                </div>
+                                <div class="single_posts mb-20">
+                                    <div class="posts_thumb">
+                                        <a href="#"><img src="assets\img\blog\tweets.jpeg" alt=""></a>
+                                    </div>
+                                    <div class="post_content ">
+                                                        <span>
+                                                            <a class="tweet_name" href="#">Kevin Sobo</a>
+                                                            <a class="tweet_author" href="#">@roadthemes</a>
+                                                        </span>
+                                        <a href="#"> Sep 23 reply retweet 2 years ago </a>
+                                    </div>
+                                </div>
+                                <div class="post_button">
+                                    <a href="#"><i class="fa fa-twitter"></i> Follow @roadthemes</a>
+                                </div>
+                            </div>
+                            <div class="blog_widget widget_categoie  mb-30">
+                                <h3>Categories</h3>
+                                <ul>
+                                    <li><a href="#">Creative</a></li>
+                                    <li><a href="#">fashion</a></li>
+                                    <li><a href="#">image</a></li>
+                                    <li><a href="#">travel</a></li>
+                                    <li><a href="#">bideos</a></li>
+                                    <li><a href="#">WordPress</a></li>
+                                </ul>
+                            </div>
+                            <div class="blog_widget widget_categoie mb-30">
+                                <h3>Archives</h3>
+                                <ul>
+                                    <li><a href="#">Creative</a></li>
+                                    <li><a href="#">fashion</a></li>
+                                    <li><a href="#">image</a></li>
+                                    <li><a href="#">travel</a></li>
+                                    <li><a href="#">bideos</a></li>
+                                    <li><a href="#">WordPress</a></li>
+                                </ul>
+                            </div>
+                            <div class="blog_widget widget_recent  mb-30">
+                                <h3>Recent Posts</h3>
+                                <div class="widget_recent_inner">
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog11.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
 
-                                    <div class="col-lg-6 mb-30">
-                                        <label>First Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-lg-6 mb-30">
-                                        <label>Last Name <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>Company Name</label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label for="country">country <span>*</span></label>
-                                        <select name="cuntry" id="country">
-                                            <option value="2">bangladesh</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">Afghanistan</option>
-                                            <option value="5">Ghana</option>
-                                            <option value="6">Albania</option>
-                                            <option value="7">Bahrain</option>
-                                            <option value="8">Colombia</option>
-                                            <option value="9">Dominican Republic</option>
-
-                                        </select>
-                                    </div>
-
-                                    <div class="col-12 mb-30">
-                                        <label>Street address <span>*</span></label>
-                                        <input placeholder="House number and street name" type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <input placeholder="Apartment, suite, unit etc. (optional)" type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>Town / City <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <label>State / County <span>*</span></label>
-                                        <input type="text">
-                                    </div>
-                                    <div class="col-lg-6 mb-30">
-                                        <label>Phone<span>*</span></label>
-                                        <input type="text">
-
-                                    </div>
-                                    <div class="col-lg-6 mb-30">
-                                        <label> Email Address <span>*</span></label>
-                                        <input type="text">
-
-                                    </div>
-                                    <div class="col-12 mb-30">
-                                        <input id="account" type="checkbox" data-target="createp_account">
-                                        <label for="account" data-toggle="collapse" data-target="#collapseOne"
-                                               aria-controls="collapseOne">Create an account?</label>
-
-                                        <div id="collapseOne" class="collapse one" data-parent="#accordion">
-                                            <div class="card-body1">
-                                                <label> Account password <span>*</span></label>
-                                                <input placeholder="password" type="password">
-                                            </div>
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-30">
-                                        <input id="address" type="checkbox" data-target="createp_account">
-                                        <label class="righ_0" for="address" data-toggle="collapse"
-                                               data-target="#collapsetwo" aria-controls="collapseOne">Ship to a
-                                            different address?</label>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog13.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
 
-                                        <div id="collapsetwo" class="collapse one" data-parent="#accordion">
-                                            <div class="row">
-                                                <div class="col-lg-6 mb-30">
-                                                    <label>First Name <span>*</span></label>
-                                                    <input type="text">
-                                                </div>
-                                                <div class="col-lg-6 mb-30">
-                                                    <label>Last Name <span>*</span></label>
-                                                    <input type="text">
-                                                </div>
-                                                <div class="col-12 mb-30">
-                                                    <label>Company Name</label>
-                                                    <input type="text">
-                                                </div>
-                                                <div class="col-12 mb-30">
-                                                    <div class="select_form_select">
-                                                        <label for="countru_name">country <span>*</span></label>
-                                                        <select name="cuntry" id="countru_name">
-                                                            <option value="2">bangladesh</option>
-                                                            <option value="3">Algeria</option>
-                                                            <option value="4">Afghanistan</option>
-                                                            <option value="5">Ghana</option>
-                                                            <option value="6">Albania</option>
-                                                            <option value="7">Bahrain</option>
-                                                            <option value="8">Colombia</option>
-                                                            <option value="9">Dominican Republic</option>
-
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12 mb-30">
-                                                    <label>Street address <span>*</span></label>
-                                                    <input placeholder="House number and street name" type="text">
-                                                </div>
-                                                <div class="col-12 mb-30">
-                                                    <input placeholder="Apartment, suite, unit etc. (optional)"
-                                                           type="text">
-                                                </div>
-                                                <div class="col-12 mb-30">
-                                                    <label>Town / City <span>*</span></label>
-                                                    <input type="text">
-                                                </div>
-                                                <div class="col-12 mb-30">
-                                                    <label>State / County <span>*</span></label>
-                                                    <input type="text">
-                                                </div>
-                                                <div class="col-lg-6 mb-30">
-                                                    <label>Phone<span>*</span></label>
-                                                    <input type="text">
-
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <label> Email Address <span>*</span></label>
-                                                    <input type="text">
-
-                                                </div>
-                                            </div>
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
                                         </div>
                                     </div>
-                                    <div class="col-12">
-                                        <div class="order-notes">
-                                            <label for="order_note">Order Notes</label>
-                                            <textarea id="order_note"
-                                                      placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog14.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
+
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
                                         </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <form action="#">
-                                <h3>Your order</h3>
-                                <div class="order_table table-responsive mb-30">
-                                    <table>
-                                        <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td> Handbag fringilla <strong> × 2</strong></td>
-                                            <td> $165.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Handbag justo <strong> × 2</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Handbag elit <strong> × 2</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td> Handbag Rutrum <strong> × 1</strong></td>
-                                            <td> $50.00</td>
-                                        </tr>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Cart Subtotal</th>
-                                            <td>$215.00</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Shipping</th>
-                                            <td><strong>$5.00</strong></td>
-                                        </tr>
-                                        <tr class="order_total">
-                                            <th>Order Total</th>
-                                            <td><strong>$220.00</strong></td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="payment_method">
-                                    <div class="panel-default">
-                                        <input id="payment" name="check_method" type="radio"
-                                               data-target="createp_account">
-                                        <label for="payment" data-toggle="collapse" data-target="#method"
-                                               aria-controls="method">Create an account?</label>
+                            </div>
+                            <div class="blog_widget widget_recent  mb-30">
+                                <h3>Popular</h3>
+                                <div class="widget_recent_inner">
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog11.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
 
-                                        <div id="method" class="collapse one" data-parent="#accordion">
-                                            <div class="card-body1">
-                                                <p>Please send a check to Store Name, Store Street, Store Town, Store
-                                                    State / County, Store Postcode.</p>
-                                            </div>
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
                                         </div>
                                     </div>
-                                    <div class="panel-default">
-                                        <input id="payment_defult" name="check_method" type="radio"
-                                               data-target="createp_account">
-                                        <label for="payment_defult" data-toggle="collapse" data-target="#collapsedefult"
-                                               aria-controls="collapsedefult">PayPal <img
-                                                src="assets\img\visha\papyel.png" alt=""></label>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog13.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
 
-                                        <div id="collapsedefult" class="collapse one" data-parent="#accordion">
-                                            <div class="card-body1">
-                                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a
-                                                    PayPal account.</p>
-                                            </div>
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
                                         </div>
                                     </div>
-                                    <div class="order_button">
-                                        <button type="submit">Proceed to PayPal</button>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog14.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
+
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="blog_widget widget_recent  mb-30">
+                                <h3>Comments</h3>
+                                <div class="widget_recent_inner">
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog12.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
+
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
+                                        </div>
+                                    </div>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog12.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
+
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
+                                        </div>
+                                    </div>
+                                    <div class="single_posts">
+                                        <div class="posts_thumb">
+                                            <a href="#"><img src="assets\img\blog\blog12.jpg" alt=""></a>
+                                        </div>
+                                        <div class="post_content">
+                                                            <span>
+                                                                <a class="tweet_author"
+                                                                   href="#">blog1 Blog image post </a>
+
+                                                            </span>
+                                            <a href="#"> March 10, 2018 </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--Checkout page section end-->
+            <!--blog area end-->
 
         </div>
         <!--pos page inner end-->

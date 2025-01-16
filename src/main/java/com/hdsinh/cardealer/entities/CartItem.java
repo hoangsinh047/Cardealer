@@ -29,19 +29,19 @@ public class CartItem {
 
     }
 
-    public void setId(Long id) {
+    public void setProductId(Long id) {
         this.productId = id;
     }
 
-    public Long getId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setName(String name) {
+    public void setProductName(String name) {
         this.productName = name;
     }
 
-    public String getName() {
+    public String getProductName() {
         return productName;
     }
 

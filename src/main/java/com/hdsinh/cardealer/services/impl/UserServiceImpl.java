@@ -12,8 +12,4 @@ import org.springframework.stereotype.Repository;
 public class UserServiceImpl extends UserService {
     @Autowired
     private UserRepository userRepository;
-    @Override
-    public Users findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
 }

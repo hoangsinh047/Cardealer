@@ -9,11 +9,11 @@ public class Cart {
     private Map<Long, CartItem> items = new HashMap<>();
 
     public void addItem(CartItem item) {
-        if (items.containsKey(item.getId())) {
-            CartItem existingItem = items.get(item.getId());
+        if (items.containsKey(item.getProductId())) {
+            CartItem existingItem = items.get(item.getProductId());
             existingItem.setQuantity(existingItem.getQuantity() + item.getQuantity());
         } else {
-            items.put(item.getId(), item);
+            items.put(item.getProductId(), item);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.hdsinh.cardealer.entities;
 
-import java.util.Set;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
@@ -33,15 +32,13 @@ public class Users {
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER)
-    private Set<User_Role> userRoles;
 
     public Users() {
         super();
     }
 
     public Users(Long id, String userName, String passWord, Boolean enabled, String fullName
-            , String email, Set<User_Role> userRoles) {
+            , String email) {
         super();
         this.id = id;
         this.username = userName;
@@ -49,7 +46,6 @@ public class Users {
         this.enabled = enabled;
         this.fullName = fullName;
         this.email = email;
-        this.userRoles = userRoles;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -116,14 +112,6 @@ public class Users {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public Set<User_Role> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<User_Role> userRoles) {
-        this.userRoles = userRoles;
     }
 
     @PrePersist

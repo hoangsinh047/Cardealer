@@ -1,38 +1,31 @@
 package com.hdsinh.cardealer.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-    @RequestMapping("/")
-    public String Blogtohome() {
-        return "client/index";
-    }
 
-    @RequestMapping("/index")
-    public String backhome() {
-        return "client/index";
-    }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String login() {
         return "client/login";
     }
 
-    @RequestMapping("/shop")
+    @GetMapping("/shop")
     public String shop() {
-        return "client/shop-fullwidth";
+        return "shop";
     }
 
-    @RequestMapping("/blog")
+    @GetMapping("/blog")
     public String blog() {
-        return "client/blog-details";
+        return "blog";
     }
 
-    @RequestMapping("/contact")
+    @GetMapping("/contact")
     public String contact() {
         return "client/contact";
     }

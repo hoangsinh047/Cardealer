@@ -1,8 +1,6 @@
 package com.hdsinh.cardealer.security;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import com.hdsinh.cardealer.entities.Users;
 import org.springframework.security.core.GrantedAuthority;

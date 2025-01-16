@@ -14,17 +14,14 @@ public class Role {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User_Role> roleUsers;
 
     // Constructor mặc định
     public Role() {}
 
     // Constructor đầy đủ
-    public Role(Long id, String name, Set<User_Role> roleUsers) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.roleUsers = roleUsers;
     }
 
     // Getter và Setter
@@ -42,13 +39,5 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<User_Role> getRoleUsers() {
-        return roleUsers;
-    }
-
-    public void setRoleUsers(Set<User_Role> roleUsers) {
-        this.roleUsers = roleUsers;
     }
 }
