@@ -22,8 +22,18 @@ public class ShopController {
         } catch (Exception e) {
             model.addAttribute("errorMessage", "Loi roi");
             e.printStackTrace();
-            return "404";
+            return "client/404";
         }
+    }
+
+    @GetMapping("/checkout")
+    public String showCheckout(Model model) {
+        return "client/checkout";
+    }
+
+    @GetMapping("/singleproduct")
+    public String showSingleProduct(Model model) {
+        return "client/singleproduct";
     }
 }
 

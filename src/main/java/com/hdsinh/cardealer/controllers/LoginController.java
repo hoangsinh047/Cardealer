@@ -52,7 +52,6 @@ public class LoginController {
 
     @GetMapping("/index")
     public String showIndex() {
-        logger.info("GET method in showindex");
         return "client/index";
     }
 }

@@ -11,5 +11,10 @@ public class HomeController {
     public String home(Model model) {
         return "client/index";
     }
+
+    @GetMapping("/wishlist")
+    public String wishlist(Model model) {
+        return "client/wishlist";
+    }
 }
 

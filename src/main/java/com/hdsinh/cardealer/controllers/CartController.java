@@ -14,43 +14,4 @@ import java.util.List;
 
 @Controller
 public class CartController {
-    @Autowired
-    private CartService cartService;
-
-    @GetMapping("/addtocart")
-    public String addToCart(@RequestParam Long productId,
-                            @RequestParam int quantity,
-                            @RequestParam String productName,
-                            @RequestParam Double price,
-                            HttpSession session) {
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ArrayList<>();
-            session.setAttribute("cart", cart);
-        }
-
-        boolean productExitsts = false;
-        for (CartItem item : cart) {
-            if (item.getProductId().equals(productId)) {
-                item.setQuantity(item.getQuantity() + quantity);
-                productExitsts = true;
-                break;
-            }
-        }
-
-        if (!productExitsts) {
-            cart.add(new CartItem(productId, productName, price, quantity));
-        }
-
-        return "redirect:/cart";
-    }
-
-    @GetMapping("/cart")
-    public String viewCart(HttpSession session, Model model) {
-        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
-        if (cart == null) {
-            model.addAttribute("cartItems", cart);
-        }
-        return "client/cart";
-    }
 }
