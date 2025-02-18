@@ -10,20 +10,18 @@ import java.util.List;
 
 @Controller
 public class ShopController {
-    @Autowired
-    private ProductService productService;
+
+    private final ProductService productService;
+
+    public ShopController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping("/shop")
     public String showProduct(Model model) {
-        try {
-            List<Products> products = productService.getAllProducts();
-            model.addAttribute("products", products);
-            return "client/shop";
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "Loi roi");
-            e.printStackTrace();
-            return "client/404";
-        }
+        List<Products> products = this.productService.getAllProducts();
+        model.addAttribute("products", products);
+        return "client/shop";
     }
 
     @GetMapping("/checkout")

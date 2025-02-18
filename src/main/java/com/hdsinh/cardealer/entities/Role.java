@@ -1,7 +1,6 @@
 package com.hdsinh.cardealer.entities;
 
 import jakarta.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -25,6 +24,7 @@ public class Role {
     }
 
     // Getter và Setter
+
     public Long getId() {
         return id;
     }

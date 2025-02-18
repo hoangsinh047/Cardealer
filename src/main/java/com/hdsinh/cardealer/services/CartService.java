@@ -25,6 +25,5 @@ public class CartService {
     public double getTotal(HttpSession session) {
         Cart cart = getCart(session);
         return cart.getTotal();
-
     }
 }

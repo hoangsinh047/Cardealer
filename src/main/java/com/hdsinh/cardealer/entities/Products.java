@@ -18,6 +18,8 @@ public class Products {
     private String manufacturer;
     private String image_url;
     private BigDecimal price;
+    private Integer category_id;
+    private Integer quantity;
 
     private String getName() {
         return name;
@@ -65,5 +67,21 @@ public class Products {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(Integer category_id) {
+        this.category_id = category_id;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

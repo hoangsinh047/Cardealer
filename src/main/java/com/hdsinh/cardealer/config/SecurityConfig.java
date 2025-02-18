@@ -20,8 +20,6 @@ public class SecurityConfig {
     @Autowired
     private final CustomUserDetailsService userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
-
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -31,14 +29,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/**","/login","/index", "/assets/**", "/css/**", "/fonts/**", "/img/**", "/js/**").permitAll()
+                        .requestMatchers("/**","/login","/index").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/index" ,true)
+                        .defaultSuccessUrl("/home" ,true)
                         .failureUrl("/login?error=true")
                 )
                 .exceptionHandling(exception -> exception
@@ -58,7 +57,7 @@ public class SecurityConfig {
 
     @Bean
     WebSecurityCustomizer configureWebSecurity() {
-        return (web) -> web.ignoring().requestMatchers("/assets/**", "/css/**", "/fonts/**", "/img/**", "/js/**");
+        return (web) -> web.ignoring().requestMatchers("/assets/**", "/css/**", "/img/**", "/js/**");
     }
 
 }

@@ -43,15 +43,10 @@ public class LoginController {
             Users user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
                 session.setAttribute("user", user);
-                return "redirect:/index";
+                return "redirect:/home";
             }
         }
         redirectAttributes.addFlashAttribute("error", true);
         return "redirect:/login";
-    }
-
-    @GetMapping("/index")
-    public String showIndex() {
-        return "client/index";
     }
 }

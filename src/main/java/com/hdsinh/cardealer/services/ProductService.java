@@ -10,22 +10,22 @@ import java.util.Optional;
 
 @Service
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<Products> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Optional<Products> getProductById(int id) {
-        return productRepository.findById(id);
+    public List<Products> getAllProduct() {
+        return productRepository.findAll();
     }
 
-    public List<Products> searchProductByName(String name) {
-        return productRepository.findByNameContaining(name);
-    }
-
-    public List<Products> searchProductsByManufacturer (String manufacturer) {
-        return productRepository.findByManufacturer(manufacturer);
+    public Products saveProduct(Products products) {
+        return productRepository.save(products);
     }
 }
