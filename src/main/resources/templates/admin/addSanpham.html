@@ -133,58 +133,11 @@
     }
 </style>
 <!-- Navbar-->
-<header class="app-header">
-    <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar"
-                                    aria-label="Hide Sidebar"></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
+<div th:replace="~{admin/template/header :: header}"></div>
 
-
-        <!-- User Menu-->
-        <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
-
-        </li>
-    </ul>
-</header>
 <!-- Sidebar menu-->
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
-                                        alt="User Image">
-        <div>
-            <p class="app-sidebar__user-name"><b>Võ Trường</b></p>
-            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-        </div>
-    </div>
-    <hr>
-    <ul class="app-menu">
-        <li><a class="app-menu__item haha" href="phan-mem-ban-hang.html"><i class='app-menu__icon bx bx-cart-alt'></i>
-            <span class="app-menu__label">POS Bán Hàng</span></a></li>
-        <li><a class="app-menu__item " href="index.html"><i class='app-menu__icon bx bx-tachometer'></i><span
-                class="app-menu__label">Bảng điều khiển</span></a></li>
-        <li><a class="app-menu__item " href="table-data-table.html"><i class='app-menu__icon bx bx-id-card'></i>
-            <span class="app-menu__label">Quản lý nhân viên</span></a></li>
-        <li><a class="app-menu__item " href="#"><i class='app-menu__icon bx bx-user-voice'></i><span
-                class="app-menu__label">Quản lý khách hàng</span></a></li>
-        <li><a class="app-menu__item active" href="table-data-product.html"><i
-                class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a>
-        </li>
-        <li><a class="app-menu__item" href="table-data-oder.html"><i class='app-menu__icon bx bx-task'></i><span
-                class="app-menu__label">Quản lý đơn hàng</span></a></li>
-        <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
-                class="app-menu__label">Quản lý nội bộ
-          </span></a></li>
-        <li><a class="app-menu__item" href="table-data-money.html"><i class='app-menu__icon bx bx-dollar'></i><span
-                class="app-menu__label">Bảng kê lương</span></a></li>
-        <li><a class="app-menu__item" href="quan-ly-bao-cao.html"><i
-                class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
-        </li>
-        <li><a class="app-menu__item" href="page-calendar.html"><i class='app-menu__icon bx bx-calendar-check'></i><span
-                class="app-menu__label">Lịch công tác </span></a></li>
-        <li><a class="app-menu__item" href="#"><i class='app-menu__icon bx bx-cog'></i><span class="app-menu__label">Cài
-            đặt hệ thống</span></a></li>
-    </ul>
-</aside>
+<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
@@ -211,60 +164,61 @@
                                     class="fas fa-folder-plus"></i> Thêm tình trạng</a>
                         </div>
                     </div>
-                    <form class="row" th:action="@{admin/quanlySanpham}" th:object = "${products}" method="POST">
+                    <form class="row" th:action="@{admin/ql-san-pham/create}" method="POST" enctype="multipart/form-data">
                         <div class="form-group col-md-3">
-                            <label class="control-label">Mã sản phẩm </label>
-                            <input class="form-control" type="number" placeholder="" th:field="*{id}">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="control-label">Tên sản phẩm</label>
-                            <input class="form-control" type="text" th:field="*{name}">
+                            <label class="control-label">Tên xe</label>
+                            <input class="form-control" type="text">
                         </div>
 
+                        <div class="form-group col-md-3">
+                            <label for="tinhTrangSelect" class="control-label">Tình trạng</label>
+                            <select class="form-control" id="tinhTrangSelect" onchange="ChangeStatus()">
+                                <option>-- Chọn tình trạng --</option>
+                                <option>Xe mới</option>
+                                <option>Xe cũ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-3" id="soKmDiv" style="display: none;">
+                            <label class="control-label">Số KM đã đi</label>
+                            <input class="form-control" type="number">
+                        </div>
 
                         <div class="form-group  col-md-3">
                             <label class="control-label">Số lượng</label>
                             <input class="form-control" type="number">
                         </div>
-                        <div class="form-group col-md-3 ">
-                            <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>-- Chọn tình trạng --</option>
-                                <option>Còn hàng</option>
-                                <option>Hết hàng</option>
-                            </select>
-                        </div>
+
                         <div class="form-group col-md-3">
-                            <label for="exampleSelect1" class="control-label">Danh mục</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option>-- Chọn danh mục --</option>
-                                <option>Bàn ăn</option>
-                                <option>Bàn thông minh</option>
-                                <option>Tủ</option>
-                                <option>Ghế gỗ</option>
-                                <option>Ghế sắt</option>
-                                <option>Giường người lớn</option>
-                                <option>Giường trẻ em</option>
-                                <option>Bàn trang điểm</option>
-                                <option>Giá đỡ</option>
+                            <label for="hangXe" class="control-label">Hãng xe</label>
+                            <select class="form-control" id="hangXe">
+                                <option>-- Hãng xe --</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3 ">
-                            <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+                            <label for="exampleSelect1" class="control-label">Hộp số</label>
                             <select class="form-control" id="exampleSelect1">
-                                <option>-- Chọn nhà cung cấp --</option>
-                                <option>Phong vũ</option>
-                                <option>Thế giới di động</option>
-                                <option>FPT</option>
-                                <option>Võ Trường</option>
+                                <option>-- Hộp số --</option>
+                                <option>Số sàn</option>
+                                <option>Số tự động</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label for="nhienLieu" class="control-label">Nhiên liệu</label>
+                            <select class="form-control" id="nhienLieu">
+                                <option>-- Nhiên liệu --</option>
+                                <option>Xăng</option>
+                                <option>Dầu</option>
+                                <option>Động cơ Hybrid</option>
+                                <option>Điện</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="control-label">Giá bán</label>
+                            <label class="control-label">Màu sắc</label>
                             <input class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-3">
-                            <label class="control-label">Giá vốn</label>
+                            <label class="control-label">Giá bán</label>
                             <input class="form-control" type="text">
                         </div>
                         <div class="form-group col-md-12">
@@ -290,7 +244,7 @@
                     </form>
                 </div>
                 <button class="btn btn-save" type="submit">Lưu lại</button>
-                <a class="btn btn-cancel" href="/Sanpham">Hủy bỏ</a>
+                <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>
             </div>
         </div>
     </div>
@@ -439,6 +393,16 @@ MODAL
             reader.readAsDataURL(file);
         }
     });
+
+    function ChangeStatus() {
+        const statusSelected = document.getElementById("tinhTrangSelect").value;
+        if (statusSelected == "Xe cũ") {
+            document.getElementById("soKmDiv").style.display = 'inline';
+        } else {
+            document.getElementById("soKmDiv").style.display = 'none';
+        }
+    }
+
 
 </script>
 </body>

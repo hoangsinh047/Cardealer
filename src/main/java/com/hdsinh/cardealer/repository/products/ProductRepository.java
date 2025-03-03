@@ -1,9 +1,7 @@
-package com.hdsinh.cardealer.repository;
+package com.hdsinh.cardealer.repository.products;
 
 import com.hdsinh.cardealer.entities.Products;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface ProductRepository extends JpaRepository<Products, Long> {
 }

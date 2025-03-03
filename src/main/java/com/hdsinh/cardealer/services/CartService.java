@@ -1,7 +1,7 @@
 package com.hdsinh.cardealer.services;
 
 import com.hdsinh.cardealer.entities.CartItem;
-import com.hdsinh.cardealer.model.Cart;
+import com.hdsinh.cardealer.dto.Cart;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 

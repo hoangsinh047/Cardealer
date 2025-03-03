@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.model;
+package com.hdsinh.cardealer.dto;
 
 import com.hdsinh.cardealer.entities.CartItem;
 

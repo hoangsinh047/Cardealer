@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+
 @Entity
 @Table(name = "products")
 public class Products {
@@ -14,11 +15,14 @@ public class Products {
     @Column(name = "name", nullable = false)
     private String name;
 
+    private String status;
     private String description;
-    private String manufacturer;
+    private String manufacturer_id;
+    private String gearbox;
+    private String fuel;
+    private String color;
     private String image_url;
     private BigDecimal price;
-    private Integer category_id;
     private Integer quantity;
 
     private String getName() {
@@ -37,13 +41,6 @@ public class Products {
         this.description = description;
     }
 
-    private String getManufacturer() {
-        return manufacturer;
-    }
-
-    private void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
 
     private String getImage_url() {
         return image_url;
@@ -69,13 +66,6 @@ public class Products {
         this.id = id;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
-    }
 
     public Integer getQuantity() {
         return quantity;

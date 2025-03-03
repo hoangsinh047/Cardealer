@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.repository;
+package com.hdsinh.cardealer.repository.user;
 
 import com.hdsinh.cardealer.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
