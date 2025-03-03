@@ -10,9 +10,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -37,7 +34,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home" ,true)
+                        .defaultSuccessUrl("/admin" ,true)
                         .failureUrl("/login?error=true")
                 )
                 .exceptionHandling(exception -> exception
