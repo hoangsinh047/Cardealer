@@ -37,12 +37,12 @@ public class Users {
         super();
     }
 
-    public Users(Long id, String userName, String passWord, Boolean enabled, String fullName
+    public Users(Long id, String username, String password, Boolean enabled, String fullName
             , String email) {
         super();
         this.id = id;
-        this.username = userName;
-        this.password = passWord;
+        this.username = username;
+        this.password = password;
         this.enabled = enabled;
         this.fullName = fullName;
         this.email = email;
