@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
-
 @Entity
 @Table(name = "products")
 public class Products {
