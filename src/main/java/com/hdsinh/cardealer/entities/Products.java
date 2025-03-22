@@ -1,76 +1,57 @@
 package com.hdsinh.cardealer.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "products")
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Basic
+    @Column(name = "NAME", nullable = false)
     private String name;
 
+    @Basic
+    @Column(name = "STATUS", nullable = false)
     private String status;
+
+    @Basic
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
-    private String manufacturer_id;
+
+    @Basic
+    @Column(name = "MANUFACTURER_ID", nullable = false)
+    private Long manufacturerId;
+
+    @Basic
+    @Column(name = "GEARBOX", nullable = false)
     private String gearbox;
+
+    @Basic
+    @Column(name = "FUEL", nullable = false)
     private String fuel;
+
+    @Basic
+    @Column(name = "COLOR", nullable = false)
     private String color;
-    private String image_url;
+
+    @Basic
+    @Column(name = "IMAGE_URL", nullable = false)
+    private String imageUrl;
+
+    @Basic
+    @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
+
+    @Basic
+    @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
-
-    private String getName() {
-        return name;
-    }
-
-    private void setName(String name) {
-        this.name = name;
-    }
-
-    private String getDescription() {
-        return description;
-    }
-
-    private void setDescription(String description) {
-        this.description = description;
-    }
-
-
-    private String getImage_url() {
-        return image_url;
-    }
-
-    private void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
-
-    private BigDecimal getPrice() {
-        return price;
-    }
-
-    private void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
 }

@@ -13,24 +13,9 @@ public class ClientController {
         return "client/index";
     }
 
-    @GetMapping("/wishlist")
-    public String wishlist() {
-        return "client/wishlist";
-    }
-
-    @GetMapping("/blog")
-    public String blog() {
-        return "client/blog";
-    }
-
-    @GetMapping("/myaccount")
-    public String myaccount() {
-        return "client/my-account";
-    }
-
-    @GetMapping("cart")
-    public String cart() {
-        return "client/cart";
+    @GetMapping("cars")
+    public String cars() {
+        return "client/cars";
     }
 }
 

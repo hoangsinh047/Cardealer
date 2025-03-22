@@ -37,24 +37,10 @@ public class AdminController {
         return "admin/quanlyDonhang";
     }
 
-    @GetMapping("noi-bo")
-    public String quanlyNoiBo() {
-        return "admin/quanlyNoibo";
-    }
-
     @GetMapping("bao-cao")
     public String quanlyBaoCao() {
         return "admin/quanlyBaocao";
     }
 
-    @GetMapping("bang-ke-luong")
-    public String quanlyBangLuong() {
-        return "admin/quanlyBangluong";
-    }
-
-    @GetMapping("lich-cong-tac")
-    public String quanlyLichCongTac() {
-        return "admin/lichCongTac";
-    }
 
 }

@@ -50,9 +50,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    WebSecurityCustomizer configureWebSecurity() {
-        return (web) -> web.ignoring().requestMatchers("/assets/**", "/css/**", "/img/**", "/js/**", "/images/**", "/jqvmap/**", "/fonts/**", "/ckeditor/**");
-    }
-
 }
