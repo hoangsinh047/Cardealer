@@ -2,7 +2,7 @@ package com.hdsinh.cardealer.services.Employee;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Employee;
-import com.hdsinh.cardealer.repository.products.Employee.EmployeeRepository;
+import com.hdsinh.cardealer.repository.Employee.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

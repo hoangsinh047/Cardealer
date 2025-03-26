@@ -1,8 +1,14 @@
 package com.hdsinh.cardealer.dto;
 
 
+import jakarta.persistence.Lob;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 public class ProductDto {
     private Integer id;
     private String name;
@@ -12,11 +18,13 @@ public class ProductDto {
     private String gearbox;
     private String fuel;
     private String color;
-    private String image_url;
     private BigDecimal price;
     private Integer quantity;
 
     public ProductDto() {
 
     }
+
+    @Lob // Chỉ định đây là dữ liệu lớn (Large Object)
+    private byte[] image; // Lưu ảnh dưới dạng mảng byte
 }

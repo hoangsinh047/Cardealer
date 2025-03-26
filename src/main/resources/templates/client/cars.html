@@ -119,13 +119,13 @@
 
                             <select>
                                 <option value="">--All --</option>
-                                <option value="">--Sedan --</option>
-                                <option value="">--Suv --</option>
-                                <option value="">--Cuv --</option>
-                                <option value="">--Hatchback --</option>
-                                <option value="">--Bán tải --</option>
-                                <option value="">--Sport --</option>
-                                <option value="">--Mpv --</option>
+                                <option value="">Sedan </option>
+                                <option value="">Suv </option>
+                                <option value="">Cuv </option>
+                                <option value="">Hatchback </option>
+                                <option value="">Bán tải </option>
+                                <option value="">Sport </option>
+                                <option value="">Mpv</option>
                             </select>
                         </div>
                     </div>
@@ -136,12 +136,12 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value="">-- Toyota --</option>
-                                <option value="">-- Hyundai --</option>
-                                <option value="">-- Honda --</option>
-                                <option value="">-- Kia --</option>
-                                <option value="">-- Mitsubishi --</option>
-                                <option value="">-- Nissan --</option>
+                                <option value="">Toyota</option>
+                                <option value="">Hyundai</option>
+                                <option value="">Honda</option>
+                                <option value="">Kia</option>
+                                <option value="">Mitsubishi</option>
+                                <option value="">Nissan</option>
                             </select>
                         </div>
                     </div>
@@ -152,9 +152,9 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value="">-- All --</option>
-                                <option value="">-- All --</option>
-                                <option value="">-- All --</option>
+                                <option value=""> All </option>
+                                <option value=""> All </option>
+                                <option value=""> All </option>
                             </select>
                         </div>
                     </div>
@@ -165,9 +165,9 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value="">-- All --</option>
-                                <option value="">-- All --</option>
-                                <option value="">-- All --</option>
+                                <option value=""> All </option>
+                                <option value=""> All </option>
+                                <option value=""> All </option>
                             </select>
                         </div>
                     </div>
@@ -178,10 +178,10 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value="">-- Xăng --</option>
-                                <option value="">-- Dầu --</option>
-                                <option value="">-- Hybrid --</option>
-                                <option value="">-- Điện --</option>
+                                <option value="">Xăng</option>
+                                <option value="">Dầu</option>
+                                <option value="">Hybrid</option>
+                                <option value="">Điện</option>
                             </select>
                         </div>
                     </div>
@@ -192,8 +192,8 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value="">-- Số sàn --</option>
-                                <option value="">-- Số tự động --</option>
+                                <option value="">Số sàn</option>
+                                <option value="">Số tự động</option>
                             </select>
                         </div>
                     </div>
@@ -210,147 +210,26 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4" th:each="product : ${products}">
                 <div class="trainer-item">
                     <div class="image-thumb">
-                        <img th:src="@{assets/images/product-1-720x480.jpg}" alt="">
+                        <img th:src="@{${product.imageUrl}}" alt="Car Image">
                     </div>
                     <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
+                <span>
+                    <sup>$</sup><span th:text="${product.price}"></span>
+                </span>
 
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
+                        <h4 th:text="${product.name}"></h4>
 
                         <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-dashboard"></i> <span th:text="${product.odo}"></span> km &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cog"></i> <span th:text="${product.gearbox}"></span> &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cube"></i> <span th:text="${product.manufacturerId}"></span>
                         </p>
 
                         <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="trainer-item">
-                    <div class="image-thumb">
-                        <img th:src="@{assets/images/product-2-720x480.jpg}" alt="">
-                    </div>
-                    <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                        <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                        </p>
-
-                        <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="trainer-item">
-                    <div class="image-thumb">
-                        <img th:src="@{assets/images/product-3-720x480.jpg}" alt="">
-                    </div>
-                    <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                        <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                        </p>
-
-                        <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="trainer-item">
-                    <div class="image-thumb">
-                        <img th:src="@{assets/images/product-4-720x480.jpg}" alt="">
-                    </div>
-                    <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                        <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                        </p>
-
-                        <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="trainer-item">
-                    <div class="image-thumb">
-                        <img th:src="@{assets/images/product-5-720x480.jpg}" alt="">
-                    </div>
-                    <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                        <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                        </p>
-
-                        <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="trainer-item">
-                    <div class="image-thumb">
-                        <img th:src="@{assets/images/product-6-720x480.jpg}" alt="">
-                    </div>
-                    <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                        <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                        <p>
-                            <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                        </p>
-
-                        <ul class="social-icons">
-                            <li><a th:href="@{car-details.html}">+ View Car</a></li>
+                            <li><a th:href="@{/car-details/{id}(id=${product.id})}">+ View Car</a></li>
                         </ul>
                     </div>
                 </div>

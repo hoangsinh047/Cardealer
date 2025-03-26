@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/main1.css}">
     <!-- Font-icon css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- or -->
@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="/assets/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" th:src="@{/assets/ckeditor/ckeditor.js}"></script>
     <script src="http://code.jquery.com/jquery.min.js" type="text/javascript"></script>
     <script>
 
@@ -164,15 +164,15 @@
                                     class="fas fa-folder-plus"></i> Thêm tình trạng</a>
                         </div>
                     </div>
-                    <form class="row" th:action="@{admin/ql-san-pham/create}" method="POST" enctype="multipart/form-data">
+                    <form id="addProduct" class="row" th:action="@{/api/product/add}" method="POST" enctype="multipart/form-data">
                         <div class="form-group col-md-3">
                             <label class="control-label">Tên xe</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" name="tenXe">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="tinhTrangSelect" class="control-label">Tình trạng</label>
-                            <select class="form-control" id="tinhTrangSelect" onchange="ChangeStatus()">
+                            <select class="form-control" id="tinhTrangSelect" name="tinhTrang" onchange="ChangeStatus()">
                                 <option>-- Chọn tình trạng --</option>
                                 <option>Xe mới</option>
                                 <option>Xe cũ</option>
@@ -181,23 +181,23 @@
 
                         <div class="form-group col-md-3" id="soKmDiv" style="display: none;">
                             <label class="control-label">Số KM đã đi</label>
-                            <input class="form-control" type="number">
+                            <input class="form-control" type="number" name="soKm">
                         </div>
 
                         <div class="form-group  col-md-3">
                             <label class="control-label">Số lượng</label>
-                            <input class="form-control" type="number">
+                            <input class="form-control" type="number" name="soLuong">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="hangXe" class="control-label">Hãng xe</label>
-                            <select class="form-control" id="hangXe">
+                            <select class="form-control" id="hangXe" name="hangXe">
                                 <option>-- Hãng xe --</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3 ">
                             <label for="exampleSelect1" class="control-label">Hộp số</label>
-                            <select class="form-control" id="exampleSelect1">
+                            <select class="form-control" id="exampleSelect1" name="hopSo">
                                 <option>-- Hộp số --</option>
                                 <option>Số sàn</option>
                                 <option>Số tự động</option>
@@ -205,7 +205,7 @@
                         </div>
                         <div class="form-group col-md-3 ">
                             <label for="nhienLieu" class="control-label">Nhiên liệu</label>
-                            <select class="form-control" id="nhienLieu">
+                            <select class="form-control" id="nhienLieu" name="nhienLieu">
                                 <option>-- Nhiên liệu --</option>
                                 <option>Xăng</option>
                                 <option>Dầu</option>
@@ -215,11 +215,11 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">Màu sắc</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" name="mauSac">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">Giá bán</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" name="giaBan">
                         </div>
                         <div class="form-group col-md-12">
                             <label class="control-label">Ảnh sản phẩm</label>
@@ -241,10 +241,14 @@
                             <textarea class="form-control" name="mota" id="mota"></textarea>
                             <script>CKEDITOR.replace('mota');</script>
                         </div>
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-save" type="submit">Lưu lại</button>
+                            <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>
+                        </div>
                     </form>
                 </div>
-                <button class="btn btn-save" type="submit">Lưu lại</button>
-                <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>
+<!--                <button class="btn btn-save" type="submit">Lưu lại</button>-->
+<!--                <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>-->
             </div>
         </div>
     </div>
@@ -308,15 +312,6 @@ MODAL DANH MỤC
                     <div class="form-group col-md-12">
                         <label class="control-label">Danh mục sản phẩm hiện đang có</label>
                         <ul style="padding-left: 20px;">
-                            <li>Bàn ăn</li>
-                            <li>Bàn thông minh</li>
-                            <li>Tủ</li>
-                            <li>Ghế gỗ</li>
-                            <li>Ghế sắt</li>
-                            <li>Giường người lớn</li>
-                            <li>Giường trẻ em</li>
-                            <li>Bàn trang điểm</li>
-                            <li>Giá đỡ</li>
                         </ul>
                     </div>
                 </div>
@@ -370,7 +365,7 @@ MODAL
 -->
 
 
-<script src="/assets/js/jquery-3.2.1.min.js"></script>
+<script src="/assets/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="/assets/js/popper.min.js"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/main.js"></script>
@@ -404,6 +399,43 @@ MODAL
     }
 
 
+</script>
+<script>
+    $("#addProduct").submit(function(e) {
+        e.preventDefault(); // Ngăn chặn submit mặc định
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "/api/product/add", // API endpoint
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                alert("Thêm sản phẩm thành công!");
+                // Có thể chuyển hướng về trang danh sách sản phẩm:
+                window.location.href = "/cars";
+            },
+            error: function(xhr, status, error) {
+                console.error("Lỗi: " + error);
+                $("#errorLog").text("Có lỗi xảy ra khi thêm sản phẩm: " + xhr.responseText);
+            }
+        });
+    });
+
+    fetch("http://localhost:8080/api/manufacturers/getList")
+        .then(response => response.json())
+        .then(data => {
+            let select = document.getElementById("hangXe");
+            data.forEach(manufacturer => {
+                let option = document.createElement("option");
+                option.value = manufacturer.id;
+                option.textContent = manufacturer.name;
+                select.appendChild(option);
+            });
+        })
+        .catch(error => console.error("Lỗi khi tải danh sách hãng xe:", error));
 </script>
 </body>
 

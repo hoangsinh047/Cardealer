@@ -12,10 +12,5 @@ public class ClientController {
     public String home() {
         return "client/index";
     }
-
-    @GetMapping("cars")
-    public String cars() {
-        return "client/cars";
-    }
 }
 
