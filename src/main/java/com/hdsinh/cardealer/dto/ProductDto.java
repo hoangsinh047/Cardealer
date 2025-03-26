@@ -10,21 +10,29 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ProductDto {
-    private Integer id;
+    private Long id;
     private String name;
     private String status;
     private String description;
-    private String manufacturer_id;
+    private String manufacturerName;
     private String gearbox;
     private String fuel;
     private String color;
     private BigDecimal price;
     private Integer quantity;
+    private String imageUrl;
 
-    public ProductDto() {
-
+    public ProductDto(Long id, String name, String status, String description, String manufacturerName, String gearbox,
+                      String fuel, String color, BigDecimal price, Integer quantity) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.manufacturerName = manufacturerName;
+        this.gearbox = gearbox;
+        this.fuel = fuel;
+        this.color = color;
+        this.price = price;
+        this.quantity = quantity;
     }
-
-    @Lob // Chỉ định đây là dữ liệu lớn (Large Object)
-    private byte[] image; // Lưu ảnh dưới dạng mảng byte
 }

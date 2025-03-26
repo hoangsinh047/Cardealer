@@ -28,8 +28,6 @@ public class ProductController {
         return "client/cars";
     }
 
-
-
     @GetMapping("/{id}")
     public String showProductDetail(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);

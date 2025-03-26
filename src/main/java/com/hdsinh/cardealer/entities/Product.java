@@ -3,7 +3,6 @@ package com.hdsinh.cardealer.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.math.BigDecimal;
 
 @Getter
@@ -44,17 +43,21 @@ public class Product {
 
     @Basic
     @Column(name = "IMAGE_URL", nullable = true)
-    private byte[] imageUrl;
+    private String imageUrl;
 
     @Basic
     @Column(name = "PRICE", nullable = false)
     private BigDecimal price;
 
     @Basic
-    @Column(name = "ODO", nullable = false)
+    @Column(name = "ODO")
     private Integer odo;
 
     @Basic
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
+
+    @Transient
+    private String manufacturerName;
+
 }

@@ -27,6 +27,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         sql.append("    p.STATUS status, ");
         sql.append("    p.DESCRIPTION description, ");
         sql.append("    p.MANUFACTURER_ID manufacturerId, ");
+        sql.append("    m.NAME manufacturerName, ");
         sql.append("    p.GEARBOX gearbox, ");
         sql.append("    p.FUEL fuel, ");
         sql.append("    p.COLOR color, ");
@@ -34,6 +35,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         sql.append("    p.PRICE price, ");
         sql.append("    p.QUANTITY quantity ");
         sql.append("FROM PRODUCTS p ");
+        sql.append("JOIN MANUFACTURER m ON p.MANUFACTURER_ID = m.ID ");
         sql.append("WHERE 1=1 ");
 
         if (search != null && !search.isEmpty()) {
@@ -56,6 +58,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .addScalar("status", StandardBasicTypes.STRING)
                 .addScalar("description", StandardBasicTypes.STRING)
                 .addScalar("manufacturerId", StandardBasicTypes.LONG)
+                .addScalar("manufacturerName", StandardBasicTypes.STRING)
                 .addScalar("gearbox", StandardBasicTypes.STRING)
                 .addScalar("fuel", StandardBasicTypes.STRING)
                 .addScalar("color", StandardBasicTypes.STRING)

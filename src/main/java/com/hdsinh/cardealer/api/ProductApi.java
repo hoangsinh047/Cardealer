@@ -87,7 +87,7 @@ public class ProductApi {
             product.setStatus(status);
             product.setOdo(odo);
             product.setQuantity(quantity);
-            product.setManufacturer(manufacturer);
+            product.setManufacturerId(manufacturerId);
             product.setGearbox(gearbox);
             product.setFuel(fuel);
             product.setColor(color);

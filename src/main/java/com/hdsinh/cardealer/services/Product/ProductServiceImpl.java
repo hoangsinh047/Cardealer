@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     public List<Product> getAllProducts() {
-        return this.productRepository.findAll();
+        return productRepository.loadAll("", 0, 100);
     }
 
     public Product getProductById(Long id) {

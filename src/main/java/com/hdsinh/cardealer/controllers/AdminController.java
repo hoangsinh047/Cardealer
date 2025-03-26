@@ -1,14 +1,22 @@
 package com.hdsinh.cardealer.controllers;
 
+import com.hdsinh.cardealer.entities.Product;
+import com.hdsinh.cardealer.services.Product.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/admin")
 @SessionAttributes("admin")
 public class AdminController {
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping
     public String adminPage(Model model) {
@@ -22,17 +30,22 @@ public class AdminController {
         return "admin/quanlyNhanvien";
     }
 
-    @GetMapping("/ql-san-pham")
-    public String quanlySanpham() {
-        return "admin/quanlySanpham";
+    @GetMapping("/san-pham")
+    public String quanlySanPham(Model model) {
+        List<Product> products = productService.getAllProducts();
+        if (!products.isEmpty()) {
+            System.out.println("ManufacturerName của sản phẩm đầu tiên: " + products.get(0).getManufacturerName());
+        }
+        model.addAttribute("products", products);
+        return "admin/quanlySanpham"; // Tên view (admin/products.html)
     }
 
-    @GetMapping("/ql-san-pham/new")
+    @GetMapping("/san-pham/new")
     public String themSanpham(Model model) {
         return "admin/addSanpham";
     }
 
-    @GetMapping("ql-don-hang")
+    @GetMapping("don-hang")
     public String quanlyDonhang() {
         return "admin/quanlyDonhang";
     }
