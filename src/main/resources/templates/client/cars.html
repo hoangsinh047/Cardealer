@@ -119,12 +119,12 @@
 
                             <select>
                                 <option value="">--All --</option>
-                                <option value="">Sedan </option>
-                                <option value="">Suv </option>
-                                <option value="">Cuv </option>
-                                <option value="">Hatchback </option>
-                                <option value="">Bán tải </option>
-                                <option value="">Sport </option>
+                                <option value="">Sedan</option>
+                                <option value="">Suv</option>
+                                <option value="">Cuv</option>
+                                <option value="">Hatchback</option>
+                                <option value="">Bán tải</option>
+                                <option value="">Sport</option>
                                 <option value="">Mpv</option>
                             </select>
                         </div>
@@ -152,9 +152,9 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value=""> All </option>
-                                <option value=""> All </option>
-                                <option value=""> All </option>
+                                <option value=""> All</option>
+                                <option value=""> All</option>
+                                <option value=""> All</option>
                             </select>
                         </div>
                     </div>
@@ -165,9 +165,9 @@
 
                             <select>
                                 <option value="">-- All --</option>
-                                <option value=""> All </option>
-                                <option value=""> All </option>
-                                <option value=""> All </option>
+                                <option value=""> All</option>
+                                <option value=""> All</option>
+                                <option value=""> All</option>
                             </select>
                         </div>
                     </div>
@@ -225,11 +225,11 @@
                         <p>
                             <i class="fa fa-dashboard"></i> <span th:text="${product.odo}"></span> km &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-cog"></i> <span th:text="${product.gearbox}"></span> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> <span th:text="${product.manufacturerId}"></span>
+                            <i class="fa fa-cube"></i> <span th:text="${product.manufacturerName}"></span>
                         </p>
 
                         <ul class="social-icons">
-                            <li><a th:href="@{/car-details/{id}(id=${product.id})}">+ View Car</a></li>
+                            <li><a th:href="@{/cars/{id}(id=${product.id})}">+ View Car</a></li>
                         </ul>
                     </div>
                 </div>

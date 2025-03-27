@@ -1958,7 +1958,7 @@
 			 */
 			this.$loader = $('<div/>', { 'class': 'footable-loader' }).append($('<span/>', {'class': 'fooicon fooicon-loader'}));
 			/**
-			 * The options for the plugin. This is a merge of user defined options and the default options.
+			 * The options for the plugin. This is a merge of User defined options and the default options.
 			 * @instance
 			 * @type {object}
 			 */

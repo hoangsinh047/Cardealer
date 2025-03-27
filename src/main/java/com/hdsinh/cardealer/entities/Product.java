@@ -3,7 +3,10 @@ package com.hdsinh.cardealer.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.awt.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -23,11 +26,17 @@ public class Product {
     private String status;
 
     @Basic
+    @Lob
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @Basic
     @Column(name = "manufacturer_id", nullable = false)
     private Long manufacturerId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "manufacturer_id", insertable = false, updatable = false)
+    private Manufacturer manufacturer;
 
     @Basic
     @Column(name = "GEARBOX", nullable = false)
@@ -50,12 +59,24 @@ public class Product {
     private BigDecimal price;
 
     @Basic
+    @Column(name = "TYPE")
+    private String type;
+
+    @Basic
     @Column(name = "ODO")
-    private Integer odo;
+    private String odo;
 
     @Basic
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
+
+    @Basic
+    @Column(name = "first_regis")
+    private Date firstRegis;
+
+    @Basic
+    @Column(name = "num_seat", nullable = false)
+    private Integer numSeat;
 
     @Transient
     private String manufacturerName;

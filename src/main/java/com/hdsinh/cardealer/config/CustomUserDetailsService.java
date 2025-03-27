@@ -1,7 +1,7 @@
 package com.hdsinh.cardealer.config;
 
 import com.hdsinh.cardealer.entities.Users;
-import com.hdsinh.cardealer.repository.user.UserRepository;
+import com.hdsinh.cardealer.repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

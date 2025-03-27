@@ -12461,7 +12461,7 @@ body .fc {
 }
 
 .fc-highlight {
-  /* when user is selecting cells */
+  /* when User is selecting cells */
   background: #bce8f1;
   opacity: .3;
   filter: alpha(opacity=30);
@@ -13188,7 +13188,7 @@ a.fc-more:hover {
   padding-top: 1px;
   /* add a pixel to make sure there are 2px padding above events */
   padding-bottom: 1em;
-  /* ensure a space at bottom of cell for user selecting/clicking */
+  /* ensure a space at bottom of cell for User selecting/clicking */
 }
 
 .fc-basic-view .fc-body .fc-row {

@@ -2,11 +2,16 @@ package com.hdsinh.cardealer.services.Employee;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Employee;
+import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.repository.Employee.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -37,5 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         res.setCount(count);
 
         return res;
+    }
+
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 }

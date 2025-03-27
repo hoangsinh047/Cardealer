@@ -1,14 +1,21 @@
 package com.hdsinh.cardealer.api;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
+import com.hdsinh.cardealer.entities.Employee;
+import com.hdsinh.cardealer.entities.Manufacturer;
+import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.services.Employee.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @RestController
 @RequestMapping("api/employee")
@@ -28,13 +35,42 @@ public class EmployeeApi {
 
         ObjectDto objectDto = null;
         try {
-            objectDto = employeeService.loadAll(search,  start, total);
+            objectDto = employeeService.loadAll(search, start, total);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return new ResponseEntity<>(objectDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return new ResponseEntity<>(objectDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Employee> addProduct(
+            @RequestParam("tenNhanVien") String name,
+            @RequestParam("email") String email,
+            @RequestParam("address") String address,
+            @RequestParam("phoneNumber") Integer phone,
+            @RequestParam("sex") String sex,
+            @RequestParam("birthDay" ) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birthDay,
+            @RequestParam("position") String position,
+            @RequestParam("degree") String degree) {
+
+        // Tạo đối tượng sản phẩm
+        Employee employee = new Employee();
+        employee.setName(name);
+        employee.setEmail(email);
+        employee.setAddress(address);
+        employee.setPhone(phone);
+        employee.setSex(sex);
+        employee.setBirth(birthDay);
+        employee.setCreatedDate(LocalDateTime.now());
+        employee.setPosition(position);
+        employee.setDegree(degree);
+
+        // Lưu sản phẩm vào DB
+        Employee savedEmployee = employeeService.save(employee);
+
+        return ResponseEntity.ok(savedEmployee);
     }
 
 }

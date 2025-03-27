@@ -39,12 +39,8 @@
             <div class="row element-button">
               <div class="col-sm-2">
 
-                <a class="btn btn-add btn-sm" href="form-add-nhan-vien.html" title="Thêm"><i class="fas fa-plus"></i>
+                <a class="btn btn-add btn-sm" th:href="@{/admin/nhan-vien/new }" title="Thêm"><i class="fas fa-plus"></i>
                   Tạo mới nhân viên</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm nhap-tu-file" type="button" title="Nhập" onclick="myFunction(this)"><i
-                    class="fas fa-file-upload"></i> Tải từ file</a>
               </div>
 
               <div class="col-sm-2">
@@ -52,20 +48,7 @@
                     class="fas fa-print"></i> In dữ liệu</a>
               </div>
               <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm print-file js-textareacopybtn" type="button" title="Sao chép"><i
-                    class="fas fa-copy"></i> Sao chép</a>
-              </div>
-
-              <div class="col-sm-2">
                 <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i
-                    class="fas fa-file-pdf"></i> Xuất PDF</a>
-              </div>
-              <div class="col-sm-2">
-                <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
-                    class="fas fa-trash-alt"></i> Xóa tất cả </a>
               </div>
             </div>
             <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
@@ -84,6 +67,24 @@
                 </tr>
               </thead>
               <tbody>
+              <tr th:each="employee : ${employee}">
+                <th width="10"><input type="checkbox" id=""></th>
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.name}"></td>
+                <td th:text="${employee.address}"></td>
+                <td th:text="${#dates.format(employee.birth, 'yyyy-MM-dd')}"></td>
+                <td th:text="${employee.sex}"></td>
+                <td th:text="${employee.phone}"></td>
+                <td th:text="${employee.position}"></td>
+                <td>
+                  <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                          onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                  </button>
+                  <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                          data-toggle="modal"
+                          data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
 
               </tbody>
             </table>
@@ -165,18 +166,18 @@
 -->
 
   <!-- Essential javascripts for application to work-->
-  <script src="/assets/js/jquery-3.2.1.min.js"></script>
-  <script src="/assets/js/popper.min.js"></script>
-  <script src="/assets/js/bootstrap.min.js"></script>
+  <script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
+  <script th:src="@{/assets/js/popper.min.js}"></script>
+  <script th:src="@{/assets/js/bootstrap.min.js}"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="/assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
   <!-- The javascript plugin to display page loading on top-->
-  <script src="/assets/js/plugins/pace.min.js"></script>
+  <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
   <!-- Page specific javascripts-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
   <!-- Data table plugin-->
-  <script type="text/javascript" src="/assets/js/plugins/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="/assets/js/plugins/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" th:src="@{/assets/js/plugins/jquery.dataTables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/assets/js/plugins/dataTables.bootstrap.min.js}"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <script>
     function deleteRow(r) {

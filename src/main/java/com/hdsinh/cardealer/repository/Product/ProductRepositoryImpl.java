@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.repository.product;
+package com.hdsinh.cardealer.repository.Product;
 
 import com.hdsinh.cardealer.entities.Product;
 import jakarta.persistence.EntityManager;
@@ -25,11 +25,14 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         sql.append("    p.ID id, ");
         sql.append("    p.NAME name, ");
         sql.append("    p.STATUS status, ");
+        sql.append("    p.ODO odo, ");
+        sql.append("    p.FIRST_REGIS firstRegis, ");
         sql.append("    p.DESCRIPTION description, ");
         sql.append("    p.MANUFACTURER_ID manufacturerId, ");
         sql.append("    m.NAME manufacturerName, ");
         sql.append("    p.GEARBOX gearbox, ");
         sql.append("    p.FUEL fuel, ");
+        sql.append("    p.TYPE type, ");
         sql.append("    p.COLOR color, ");
         sql.append("    p.IMAGE_URL imageUrl, ");
         sql.append("    p.PRICE price, ");
@@ -56,11 +59,14 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .addScalar("id", StandardBasicTypes.LONG)
                 .addScalar("name", StandardBasicTypes.STRING)
                 .addScalar("status", StandardBasicTypes.STRING)
+                .addScalar("odo", StandardBasicTypes.STRING)
+                .addScalar("firstRegis", StandardBasicTypes.STRING)
                 .addScalar("description", StandardBasicTypes.STRING)
                 .addScalar("manufacturerId", StandardBasicTypes.LONG)
                 .addScalar("manufacturerName", StandardBasicTypes.STRING)
                 .addScalar("gearbox", StandardBasicTypes.STRING)
                 .addScalar("fuel", StandardBasicTypes.STRING)
+                .addScalar("type", StandardBasicTypes.STRING)
                 .addScalar("color", StandardBasicTypes.STRING)
                 .addScalar("imageUrl", StandardBasicTypes.STRING)
                 .addScalar("price", StandardBasicTypes.BIG_DECIMAL)

@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.repository.product;
+package com.hdsinh.cardealer.repository.Product;
 
 import com.hdsinh.cardealer.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;

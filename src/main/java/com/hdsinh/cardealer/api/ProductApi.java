@@ -3,17 +3,20 @@ package com.hdsinh.cardealer.api;
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Manufacturer;
 import com.hdsinh.cardealer.entities.Product;
-import com.hdsinh.cardealer.repository.manufacturer.ManufacturerRepository;
+import com.hdsinh.cardealer.repository.Manufacturer.ManufacturerRepository;
 import com.hdsinh.cardealer.services.Product.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -47,11 +50,6 @@ public class ProductApi {
         return new ResponseEntity<>(objectDto, HttpStatus.OK);
     }
 
-    @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
-
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable Long id) {
         return productService.getProductById(id);
@@ -68,11 +66,13 @@ public class ProductApi {
         public ResponseEntity<Product> addProduct(
                 @RequestParam("tenXe") String name,
                 @RequestParam("tinhTrang") String status,
-                @RequestParam(value = "soKm", required = false) Integer odo,
+                @RequestParam(value = "soKm", required = false) String odo,
+                @RequestParam("dangKy") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date firstRegis,
                 @RequestParam("soLuong") int quantity,
                 @RequestParam("hangXe") Long manufacturerId,
                 @RequestParam("hopSo") String gearbox,
                 @RequestParam("nhienLieu") String fuel,
+                @RequestParam("kieuXe") String type,
                 @RequestParam("mauSac") String color,
                 @RequestParam("giaBan") BigDecimal price,
                 @RequestParam("mota") String description,
@@ -86,10 +86,12 @@ public class ProductApi {
             product.setName(name);
             product.setStatus(status);
             product.setOdo(odo);
+            product.setFirstRegis(firstRegis);
             product.setQuantity(quantity);
             product.setManufacturerId(manufacturerId);
             product.setGearbox(gearbox);
             product.setFuel(fuel);
+            product.setType(type);
             product.setColor(color);
             product.setPrice(price);
             product.setDescription(description);

@@ -31,7 +31,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public String showProductDetail(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id);
-        model.addAttribute("product", product);
+        model.addAttribute("products", product);
         return "client/car-details";
     }
 }

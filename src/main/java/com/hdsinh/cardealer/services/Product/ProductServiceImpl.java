@@ -2,7 +2,7 @@ package com.hdsinh.cardealer.services.Product;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Product;
-import com.hdsinh.cardealer.repository.product.ProductRepository;
+import com.hdsinh.cardealer.repository.Product.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,7 +65,7 @@ public class ProductServiceImpl implements ProductService{
             // Lưu file ảnh vào thư mục server
             imageUrl.transferTo(file);
 
-            // Gán đường dẫn vào product
+            // Gán đường dẫn vào Product
             product.setImageUrl("/assets/images/img_test/" + fileName);
         }
         return productRepository.save(product);
