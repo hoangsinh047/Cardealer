@@ -1,6 +1,7 @@
 package com.hdsinh.cardealer.services.Employee;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
+import com.hdsinh.cardealer.dto.Response;
 import com.hdsinh.cardealer.entities.Employee;
 import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.repository.Employee.EmployeeRepository;
@@ -11,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Slf4j
@@ -25,6 +28,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public List<Employee> findAll() {
         return this.employeeRepository.findAll();
+    }
+
+    public String generateEmployeeCode() {
+        Random random = new Random();
+        int number = random.nextInt(10000); // Tạo số ngẫu nhiên từ 0 đến 9999
+        return String.format("EM%04d", number); // Định dạng thành EMxxxx
     }
 
     @Override
@@ -45,6 +54,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee save(Employee employee) {
+        if (employee.getCode() == null || employee.getCode().isEmpty()) {
+            employee.setCode(generateEmployeeCode());
+        }
         return employeeRepository.save(employee);
+    }
+
+
+    public boolean delete(Long id) {
+        Optional<Employee> product = employeeRepository.findById(id);
+        if (product.isPresent()) {
+            employeeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

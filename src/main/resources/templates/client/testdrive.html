@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+
+    <title>Đăng Ký Lái Thử Xe - Car Dealer Website</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{assets/css/font-awesome.css}">
+    <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .nav li.active a {
+            color: #ff6600;
+            font-weight: bold;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 30px;
+        }
+
+        .section-title span {
+            color: #ff6600;
+        }
+
+        .decorative-line {
+            display: block;
+            width: 100px;
+            height: 3px;
+            background-color: #ff6600;
+            margin: 20px auto 40px;
+        }
+
+        label.required:after {
+            content: " *";
+            color: red;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-submit {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover {
+            background-color: #e55a00;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            appearance: auto;
+            margin: 0;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- ***** Header Area Start ***** -->
+<div th:replace="~{client/include/header :: header}"></div>
+
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section class="section section-bg" id="call-to-action"
+         th:style="|background-image: url('@{/assets/images/banner-image-1-1920x500.jpg}')|">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cta-content">
+                    <br>
+                    <br>
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">ĐĂNG KÝ <em>LÁI THỬ</em></h2>
+                    <p>Trải nghiệm cảm giác lái xe tuyệt vời cùng chúng tôi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Call to Action End ***** -->
+
+<!-- ***** Test Drive Form Section Start ***** -->
+<section class="section" id="contact-us">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-title">ĐĂNG KÝ <span>LÁI THỬ</span></h2>
+                <span class="decorative-line"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="contact-form">
+                    <form id="testDriveForm" th:action="@{/api/test-drive/add}" method="POST" enctype="multipart/form-data">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="code" hidden="hidden">
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="fullName" class="required">Họ và tên</label>
+                                    <input type="text" id="fullName" name="tenKhachhang" class="form-control" placeholder="Nhập họ và tên của bạn" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="phoneNumber" class="required">Số điện thoại</label>
+                                    <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Nhập số điện thoại của bạn" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="car" class="required">Mẫu xe đăng ký lái thử</label>
+                                    <select class="form-control" id="car" name="tenSanPham" required>
+                                        <option value="">-- Chọn xe --</option>
+                                        <option th:each="product : ${product}"
+                                                th:value="${product.id}"
+                                                th:text="${product.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-12">
+                                <div class="form-group">
+                                    <label for="testDriveDate" class="required">Ngày đăng ký lái thử</label>
+                                    <input type="date" id="testDriveDate" name="testDriveDate" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label for="address" class="required">Địa chỉ</label>
+                                    <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ của bạn" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="hasLicense" name="hasLicense" value="có" required>
+                                    <label for="hasLicense" class="required">Tôi đã có Giấy Phép Lái Xe hợp lệ</label>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn-submit">ĐĂNG KÝ NGAY</button>
+                                <div class="footer-text">
+                                    Sau khi đăng ký, chúng tôi sẽ liên hệ với bạn trong vòng 24 giờ làm việc.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Test Drive Form Section End ***** -->
+
+<!-- ***** Footer Start ***** -->
+<div th:replace="~{client/include/footer:: footer}"></div>
+
+<!-- jQuery -->
+<!-- Bootstrap -->
+<script th:src="@{assets/js/popper.js}"></script>
+<script th:src="@{assets/js/bootstrap.min.js}"></script>
+
+<!-- Plugins -->
+<script th:src="@{assets/js/scrollreveal.min.js}"></script>
+<script th:src="@{assets/js/waypoints.min.js}"></script>
+<script th:src="@{assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{assets/js/imgfix.min.js}"></script>
+<script th:src="@{assets/js/mixitup.js}"></script>
+<script th:src="@{assets/js/accordions.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Global Init -->
+<script th:src="@{assets/js/custom.js}"></script>
+
+<script>
+    $(document).ready(function() {
+        // Set minimum date for test drive to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const formattedDate = tomorrow.toISOString().split('T')[0];
+        document.getElementById('testDriveDate').setAttribute('min', formattedDate);
+
+        // Form validation
+        $('#testDriveForm').submit(function(e) {
+            let valid = true;
+
+            // Basic validation
+            if ($('#fullName').val().trim() === '') {
+                valid = false;
+                $('#fullName').css('border-color', 'red');
+            }
+
+            if ($('#phoneNumber').val().trim() === '') {
+                valid = false;
+                $('#phoneNumber').css('border-color', 'red');
+            }
+
+            if ($('#car').val() === '') {
+                valid = false;
+                $('#car').css('border-color', 'red');
+            }
+
+            if ($('#address').val().trim() === '') {
+                valid = false;
+                $('#address').css('border-color', 'red');
+            }
+
+            if ($('#testDriveDate').val() === '') {
+                valid = false;
+                $('#testDriveDate').css('border-color', 'red');
+            }
+
+            if (!$('#hasLicense').is(':checked')) {
+                valid = false;
+                $('#hasLicense').next('label').css('color', 'red');
+            }
+
+            if (!valid) {
+                e.preventDefault();
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc');
+            }
+        });
+
+        // Reset field styling on input
+        $('input, select').on('input change', function() {
+            $(this).css('border-color', '');
+            $(this).next('label').css('color', '');
+        });
+    });
+</script>
+<script>
+    $("#testDriveForm").submit(function (e) {
+        e.preventDefault(); // Ngăn chặn submit mặc định
+        console.log("Form đã được submit.");
+
+        var formData = new FormData(this);
+        console.log("FormData đã được tạo:", formData);
+
+        $.ajax({
+            url: "/api/test-drive/add",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                console.log("Đang gửi dữ liệu tới server...");
+            },
+            success: function (response) {
+                console.log("Success:", response); // Kiểm tra phản hồi từ server
+                Swal.fire({
+                    title: "Gửi yêu cầu thành công!",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    console.log("Chuyển hướng đến trang /test-drive");
+                    window.location.replace("/test-drive");
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi: " + error);
+                console.error("Chi tiết lỗi:", xhr.responseText);
+                Swal.fire({
+                    title: "Có lỗi xảy ra!",
+                    text: xhr.responseText,
+                    icon: "error"
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

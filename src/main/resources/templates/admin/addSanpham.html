@@ -152,19 +152,16 @@
                 <div class="tile-body">
                     <div class="row element-button">
                         <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
-                                    class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
-                        </div>
-                        <div class="col-sm-2">
                             <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
-                                    class="fas fa-folder-plus"></i> Thêm danh mục</a>
-                        </div>
-                        <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
-                                    class="fas fa-folder-plus"></i> Thêm tình trạng</a>
+                                    class="fas fa-folder-plus"></i> Thêm hãng xe mới</a>
                         </div>
                     </div>
-                    <form id="addProduct" class="row" th:action="@{/api/product/add}" method="POST" enctype="multipart/form-data">
+                    <form id="addProduct" class="row" th:action="@{/api/product/add}" method="POST"
+                          enctype="multipart/form-data">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">ID nhân viên</label>
+                            <input class="form-control" type="text" required name="code" id="employeeCode" readonly>
+                        </div>
                         <div class="form-group col-md-3">
                             <label class="control-label">Tên xe</label>
                             <input class="form-control" type="text" name="tenXe">
@@ -172,7 +169,8 @@
 
                         <div class="form-group col-md-3">
                             <label for="tinhTrangSelect" class="control-label">Tình trạng</label>
-                            <select class="form-control" id="tinhTrangSelect" name="tinhTrang" onchange="ChangeStatus()">
+                            <select class="form-control" id="tinhTrangSelect" name="tinhTrang"
+                                    onchange="ChangeStatus()">
                                 <option>-- Chọn tình trạng --</option>
                                 <option>Xe mới</option>
                                 <option>Xe cũ</option>
@@ -246,7 +244,8 @@
                         <div class="form-group col-md-12">
                             <label class="control-label">Ảnh sản phẩm</label>
                             <div id="myfileupload">
-                                <input type="file" id="uploadfile" name="ImageUpload" onchange="readURL(this);"/>
+                                <input type="file" id="uploadfile" name="ImageUpload" multiple
+                                       onchange="previewImages();"/>
                             </div>
                             <div id="thumbbox">
                                 <img height="450" width="400" alt="Thumb image" id="thumbimage" style="display: none"/>
@@ -265,123 +264,52 @@
                         </div>
                         <div class="form-group col-md-12">
                             <button class="btn btn-save" type="submit">Lưu lại</button>
-                            <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>
+                            <a class="btn btn-cancel" th:href="@{/admin/san-pham}">Hủy bỏ</a>
                         </div>
                     </form>
                 </div>
-<!--                <button class="btn btn-save" type="submit">Lưu lại</button>-->
-<!--                <a class="btn btn-cancel" th:href="@{/admin/ql-san-pham}">Hủy bỏ</a>-->
             </div>
         </div>
     </div>
 </main>
 
-
-<!--
-MODAL CHỨC VỤ
--->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-     data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới nhà cung cấp</h5>
-              </span>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Nhập tên chức vụ mới</label>
-                        <input class="form-control" type="text" required>
-                    </div>
-                </div>
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
-                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                <BR>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<!--
-MODAL
--->
-
-
-<!--
-MODAL DANH MỤC
--->
 <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
      data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới hãng xe</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
             <div class="modal-body">
-                <div class="row">
-                    <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới danh mục </h5>
-              </span>
+                <form id="addManufacturerForm" action="/api/manufacturers/add" method="POST">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Nhập tên hãng xe mới</label>
+                            <input class="form-control" type="text" id="manufacturerName" name="tenHangXe" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="control-label">Danh mục hãng xe hiện đang có</label>
+                            <ul id="manufacturerList" style="padding-left: 20px;">
+                                <li>Đang tải danh sách...</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Nhập tên danh mục mới</label>
-                        <input class="form-control" type="text" required>
+                    <div class="form-group text-center">
+                        <button class="btn btn-save" type="submit">Lưu lại</button>
+                        <button class="btn btn-cancel" type="button" data-dismiss="modal">Hủy bỏ</button>
                     </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Danh mục sản phẩm hiện đang có</label>
-                        <ul style="padding-left: 20px;">
-                        </ul>
-                    </div>
-                </div>
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
-                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                <BR>
-            </div>
-            <div class="modal-footer">
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!--
-MODAL
--->
-
-
 <!--
 MODAL TÌNH TRẠNG
 -->
-<div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-     data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Thêm mới tình trạng</h5>
-              </span>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label">Nhập tình trạng mới</label>
-                        <input class="form-control" type="text" required>
-                    </div>
-                </div>
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
-                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                <BR>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
 <!--
 MODAL
 -->
@@ -393,23 +321,38 @@ MODAL
 <script src="/assets/js/main.js"></script>
 <script src="/assets/js/plugins/pace.min.js"></script>
 <script>
-    const inpFile = document.getElementById("inpFile");
-    const loadFile = document.getElementById("loadFile");
-    const previewContainer = document.getElementById("imagePreview");
-    const previewImage = previewContainer.querySelector(".image-preview__image");
-    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-    inpFile.addEventListener("change", function () {
-        const file = this.files[0];
-        if (file) {
+    function previewImages() {
+        const inpFile = document.getElementById("uploadfile");
+        const previewContainer = document.getElementById("thumbbox");
+        previewContainer.innerHTML = ""; // Xóa ảnh cũ trước khi hiển thị ảnh mới
+
+        const files = inpFile.files;
+        if (files.length === 0) {
+            return;
+        }
+
+        for (const file of files) {
+            if (!file.type.startsWith("image/")) {
+                alert("Vui lòng chọn file ảnh!");
+                continue;
+            }
+
             const reader = new FileReader();
-            previewDefaultText.style.display = "none";
-            previewImage.style.display = "block";
-            reader.addEventListener("load", function () {
-                previewImage.setAttribute("src", this.result);
-            });
+            reader.onload = function (e) {
+                const img = document.createElement("img");
+                img.setAttribute("src", e.target.result);
+                img.setAttribute("height", "150"); // Định kích thước ảnh xem trước
+                img.setAttribute("width", "150");
+                img.style.margin = "5px";
+                img.style.border = "1px solid #ddd";
+                img.style.borderRadius = "5px";
+
+                previewContainer.appendChild(img);
+            };
             reader.readAsDataURL(file);
         }
-    });
+    }
+
 
     function ChangeStatus() {
         const statusSelected = document.getElementById("tinhTrangSelect").value;
@@ -425,28 +368,41 @@ MODAL
 
 </script>
 <script>
-    $("#addProduct").submit(function(e) {
-        e.preventDefault(); // Ngăn chặn submit mặc định
+    $("#addProduct").submit(function (e) {
+        e.preventDefault();
 
         var formData = new FormData(this);
 
+        // Kiểm tra file có được chọn hay không
+        var fileInput = $("#uploadfile")[0].files[0];
+        if (!fileInput) {
+            swal("Vui lòng chọn ảnh!", {icon: "warning"});
+            return;
+        }
+
+        console.log("File Name:", fileInput.name);
+        console.log("FormData:", formData);
+
         $.ajax({
-            url: "/api/product/add", // API endpoint
+            url: "/api/product/add",
             type: "POST",
             data: formData,
             processData: false,
             contentType: false,
-            success: function(response) {
-                alert("Thêm sản phẩm thành công!");
-                // Có thể chuyển hướng về trang danh sách sản phẩm:
-                window.location.href = "/admin/ql-san-pham";
+            success: function (response) {
+                console.log("Success:", response);
+                swal("Thêm sản phẩm thành công!", {icon: "success"})
+                    .then(() => {
+                        window.location.replace("/admin/san-pham");
+                    });
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.error("Lỗi: " + error);
-                $("#errorLog").text("Có lỗi xảy ra khi thêm sản phẩm: " + xhr.responseText);
+                swal("Có lỗi xảy ra: " + xhr.responseText, {icon: "error"});
             }
         });
     });
+
 
     fetch("http://localhost:8080/api/manufacturers/getList")
         .then(response => response.json())
@@ -461,6 +417,109 @@ MODAL
         })
         .catch(error => console.error("Lỗi khi tải danh sách hãng xe:", error));
 </script>
-</body>
+<script>
+    function generateEmployeeCode() {
+        let randomNumber = Math.floor(1000 + Math.random() * 9000); // Tạo số 4 chữ số
+        document.getElementById("employeeCode").value = "P" + randomNumber;
+    }
 
+    window.onload = generateEmployeeCode; // Gọi khi trang tải xong
+</script>
+<script>
+    document.getElementById("addManufacturerForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Ngăn chặn gửi form mặc định
+
+        let inputField = document.getElementById("manufacturerName");
+        let tenHangXe = inputField.value.trim();
+
+        // Xóa lỗi cũ nếu có
+        inputField.style.border = "";
+        document.getElementById("errorMessage")?.remove();
+
+        if (!tenHangXe) {
+            // Hiển thị lỗi nếu trống
+            inputField.style.border = "2px solid red";
+            let errorMsg = document.createElement("small");
+            errorMsg.id = "errorMessage";
+            errorMsg.style.color = "red";
+            errorMsg.innerText = "Tên hãng xe không được để trống!";
+            inputField.parentNode.appendChild(errorMsg);
+            return;
+        }
+
+        console.log("Gửi request đến API...");
+
+        let formData = new FormData();
+        formData.append("tenHangXe", tenHangXe);
+
+        fetch("/api/manufacturers/add", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Lỗi HTTP: " + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Phản hồi từ API:", data);
+                alert("Thêm hãng xe thành công!");
+                inputField.value = "";
+                $("#adddanhmuc").modal("hide"); // Ẩn modal
+            })
+            .catch(error => {
+                alert("Lỗi khi thêm hãng xe: " + error.message);
+                console.error("Error:", error);
+            });
+    });
+
+</script>
+<script>
+    // Hàm gọi API để lấy danh sách hãng xe
+    function loadManufacturers() {
+        fetch('http://localhost:8080/api/manufacturers/getList')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi khi tải danh sách: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const manufacturerList = document.getElementById('manufacturerList');
+
+                // Xóa nội dung hiện tại
+                manufacturerList.innerHTML = '';
+
+                // Kiểm tra nếu data là mảng và có dữ liệu
+                if (Array.isArray(data) && data.length > 0) {
+                    // Thêm từng hãng xe vào danh sách
+                    data.forEach(manufacturer => {
+                        const li = document.createElement('li');
+                        // Giả sử API trả về đối tượng có thuộc tính 'name' hoặc 'tenHangXe'
+                        // Điều chỉnh tùy theo cấu trúc thực tế của dữ liệu
+                        li.textContent = manufacturer.name || manufacturer.tenHangXe || manufacturer.ten || JSON.stringify(manufacturer);
+                        manufacturerList.appendChild(li);
+                    });
+                } else {
+                    // Hiển thị thông báo nếu không có dữ liệu
+                    const li = document.createElement('li');
+                    li.textContent = 'Không có hãng xe nào';
+                    manufacturerList.appendChild(li);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const manufacturerList = document.getElementById('manufacturerList');
+                manufacturerList.innerHTML = '<li style="color: red;">Lỗi khi tải danh sách hãng xe</li>';
+            });
+    }
+
+    // Gọi hàm khi trang được tải hoặc khi modal mở
+    document.addEventListener('DOMContentLoaded', loadManufacturers);
+
+    // Nếu bạn muốn tải lại danh sách mỗi khi modal được mở
+    $('#adddanhmuc').on('shown.bs.modal', loadManufacturers);
+</script>
+</body>
 </html>

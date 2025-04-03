@@ -57,7 +57,7 @@
                     <div class="widget-small info coloured-icon"><i class='icon bx bxs-data fa-3x'></i>
                         <div class="info">
                             <h4>Tổng sản phẩm</h4>
-                            <p><b>1850 sản phẩm</b></p>
+                            <p><b id="total-products">Loading...</b></p>
                             <p class="info-tong">Tổng số sản phẩm được quản lý.</p>
                         </div>
                     </div>
@@ -66,8 +66,8 @@
                 <div class="col-md-6">
                     <div class="widget-small warning coloured-icon"><i class='icon bx bxs-shopping-bags fa-3x'></i>
                         <div class="info">
-                            <h4>Tổng đơn hàng</h4>
-                            <p><b>247 đơn hàng</b></p>
+                            <h4>Tổng hóa đơn</h4>
+                            <p><b id="bill">Loading...</b></p>
                             <p class="info-tong">Tổng số hóa đơn bán hàng trong tháng.</p>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     <div class="widget-small danger coloured-icon"><i class='icon bx bxs-error-alt fa-3x'></i>
                         <div class="info">
                             <h4>Sắp hết hàng</h4>
-                            <p><b>4 sản phẩm</b></p>
+                            <p><b id="low-stock-count">Loading...</b></p>
                             <p class="info-tong">Số sản phẩm cảnh báo hết cần nhập thêm.</p>
                         </div>
                     </div>
@@ -227,6 +227,41 @@
         }
     }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/api/product/getAllProduct")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("total-products").innerText = data.count + " Sản phẩm";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy tổng sản phẩm:", error);
+            });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/api/product/lowStockCount")
+            .then(response => response.json())
+            .then(count => {
+                document.getElementById("low-stock-count").innerText = count + " sản phẩm";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy số lượng sản phẩm sắp hết:", error);
+            });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/api/bill/getAllBill")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("bill").innerText = data.count + " Hóa đơn";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy tổng sản phẩm:", error);
+            });
+    })
+
+</script>
+
+
 </body>
 
 </html>

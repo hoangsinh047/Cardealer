@@ -1,11 +1,13 @@
 package com.hdsinh.cardealer.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.awt.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -18,6 +20,10 @@ public class Product {
     private Long id;
 
     @Basic
+    @Column(name = "CODE")
+    private String code;
+
+    @Basic
     @Column(name = "NAME", nullable = false)
     private String name;
 
@@ -27,7 +33,7 @@ public class Product {
 
     @Basic
     @Lob
-    @Column(name = "DESCRIPTION", nullable = false)
+    @Column(name = "DESCRIPTION", nullable = false, columnDefinition = "LONGTEXT")
     private String description;
 
     @Basic
@@ -50,8 +56,7 @@ public class Product {
     @Column(name = "COLOR", nullable = false)
     private String color;
 
-    @Basic
-    @Column(name = "IMAGE_URL", nullable = true)
+    @Column(name = "IMAGE_URL", nullable = true, columnDefinition = "LONGTEXT")
     private String imageUrl;
 
     @Basic
@@ -70,9 +75,9 @@ public class Product {
     @Column(name = "QUANTITY", nullable = false)
     private Integer quantity;
 
-    @Basic
-    @Column(name = "first_regis")
-    private Date firstRegis;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "first_regis", nullable = true)
+    private LocalDate firstRegis;
 
     @Basic
     @Column(name = "num_seat", nullable = false)

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Car Dealer Website Template</title>
+    <title>CAR DEALER WEBSITE</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{assets/css/bootstrap.min.css}">
 
@@ -17,373 +18,353 @@
 
     <link rel="stylesheet" th:href="@{assets/css/style.css}">
 
-    </head>
-    
-    <body>
-    
-    <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
-      <div class="preloader-inner">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
         <span class="dot"></span>
         <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      </div>
     </div>
-    <!-- ***** Preloader End ***** -->
-    
-    
-    <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a th:href="@{/}" class="logo">Car Dealer<em> Website</em></a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li><a th:href="@{/}" class="active">Home</a></li>
-                            <li><a th:href="@{/cars}">Cars</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{#}" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                              
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" th:href="@{/about}">About Us</a>
-                                    <a class="dropdown-item" th:href="@{/blog}">Blog</a>
-                                    <a class="dropdown-item" th:href="@{/team}">Team</a>
-                                    <a class="dropdown-item" th:href="@{/testimonials}">Testimonials</a>
-                                    <a class="dropdown-item" th:href="@{/faq}">FAQ</a>
-                                    <a class="dropdown-item" th:href="@{/terms}">Terms</a>
-                                </div>
-                            </li>
-                            <li><a th:href="@{/contact}">Contact</a></li>
-                        </ul>        
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<!-- Modal -->
+<div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="consultationModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="consultationModalLabel"
+                    style="font-family: 'Roboto', sans-serif; font-weight: bold;">Yêu cầu tư vấn</h5>
+                <!-- Nút đóng (X) -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
             </div>
-        </div>
-    </header>
-    <!-- ***** Header Area End ***** -->
-
-    <!-- ***** Main Banner Area Start ***** -->
-    <div class="main-banner" id="top">
-        <video autoplay muted loop id="bg-video">
-            <source th:src="@{assets/images/video.mp4}" type="video/mp4" />
-        </video>
-
-        <div class="video-overlay header-text">
-            <div class="caption">
-                <h6></h6>
-                <h2>Best <em>car dealer</em> in town!</h2>
-                <div class="main-button">
-                    <a th:href="@{/contact}">Contact Us</a>
-                </div>
+            <div class="modal-body">
+                <form id="addCustomer" th:action="@{/api/customer/add}" method="POST">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="code" hidden="hidden">
+                    <div class="mb-3" style="font-family: 'Roboto', sans-serif">
+                        <label for="name" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="name" name="tenKhachhang"
+                               placeholder="Nhập họ và tên" required>
+                    </div>
+                    <div class="mb-3" style="font-family: 'Roboto', sans-serif">
+                        <label for="phone" class="form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" id="phone" name="phoneNumber"
+                               placeholder="Nhập số điện thoại" required>
+                    </div>
+                    <div class="mb-3" style="font-family: 'Roboto', sans-serif">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email"
+                               required>
+                    </div>
+                    <div class="mb-3" style="font-family: 'Roboto', sans-serif">
+                        <label for="car" class="form-label">Chọn xe</label>
+                        <select class="form-select" id="car" name="tenSanPham" required>
+                            <option value="">-- Chọn xe --</option>
+                            <option th:each="product : ${products}"
+                                    th:value="${product.id}"
+                                    th:text="${product.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="message" name="content" class="form-control" rows="4"
+                                  placeholder="Điền yêu cầu/ thắc mắc......"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Gửi yêu cầu</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- ***** Main Banner Area End ***** -->
+</div>
 
-   <!-- ***** Cars Starts ***** -->
-    <section class="section" id="trainers">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading">
-                        <h2>Featured <em>Cars</em></h2>
-                        <img th:src="@{assets/images/line-dec.png}" alt="">
-                        <p>Nunc urna sem, laoreet ut metus id, aliquet consequat magna. Sed viverra ipsum dolor, ultricies fermentum massa consequat eu.</p>
-                    </div>
+
+<!-- ***** Header Area Start ***** -->
+<div th:replace="~{client/include/header :: header}"></div>
+
+<!-- ***** Header Area End ***** -->
+
+<!-- ***** Main Banner Area Start ***** -->
+<div th:replace="~{client/include/banner :: banner}"></div>
+
+<!-- ***** Main Banner Area End ***** -->
+
+<!-- ***** Cars Starts ***** -->
+<section class="section" id="trainers">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Sản phẩm <em>tiêu biểu</em></h2>
+                    <img th:src="@{assets/images/line-dec.png}" alt="">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="trainer-item">
-                        <div class="image-thumb">
-                            <img th:src="@{assets/images/product-1-720x480.jpg}" alt="">
-                        </div>
-                        <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                            <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                            <p>
-                                <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                            </p>
-
-                            <ul class="social-icons">
-                                <li><a th:href="@{/car-details}">+ View Car</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="trainer-item">
-                        <div class="image-thumb">
-                            <img th:src="@{assets/images/product-2-720x480.jpg}" alt="">
-                        </div>
-                        <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                            <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                            <p>
-                                <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                            </p>
-
-                            <ul class="social-icons">
-                                <li><a th:href="@{/car-details}">+ View Car</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="trainer-item">
-                        <div class="image-thumb">
-                            <img th:src="@{assets/images/product-3-720x480.jpg}" alt="">
-                        </div>
-                        <div class="down-content">
-                            <span>
-                                <del><sup>$</sup>11999 </del> &nbsp; <sup>$</sup>11779
-                            </span>
-
-                            <h4>Lorem ipsum dolor sit amet, consectetur</h4>
-
-                            <p>
-                                <i class="fa fa-dashboard"></i> 130 000km &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cube"></i> 1800 cc &nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-cog"></i> Manual &nbsp;&nbsp;&nbsp;
-                            </p>
-
-                            <ul class="social-icons">
-                                <li><a th:href="@{/car-details}">+ View Car</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="main-button text-center">
-                <a th:href="@{/cars}">View Cars</a>
             </div>
         </div>
-    </section>
-    <!-- ***** Cars Ends ***** -->
-
-    <section class="section section-bg" id="schedule" th:style="|background-image: url('@{/assets/images/about-fullscreen-1-1920x700.jpg}')|">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading dark-bg">
-                        <h2>Read <em>About Us</em></h2>
-                        <img th:src="@{assets/images/line-dec.png}" alt="">
-                        <p>Nunc urna sem, laoreet ut metus id, aliquet consequat magna. Sed viverra ipsum dolor, ultricies fermentum massa consequat eu.</p>
+        <div class="row" style="font-family: 'Roboto', sans-serif; font-weight: bold">
+            <div class="col-lg-4" th:each="product, stat : ${products}" th:if="${stat.index} < 3">
+                <div class="trainer-item">
+                    <div class="image-thumb">
+                        <img th:src="@{${#strings.arraySplit(product.imageUrl, ',')[0]}}" alt="Car Image">
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="cta-content text-center">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore deleniti voluptas enim! Provident consectetur id earum ducimus facilis, aspernatur hic, alias, harum rerum velit voluptas, voluptate enim! Eos, sunt, quidem.</p>
+                    <div class="down-content">
+                <span>
+                    <sup>Giá từ: </sup><span
+                        th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} +' đ '"></span>
+                </span>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto nulla quo cum officia laboriosam. Amet tempore, aliquid quia eius commodi, doloremque omnis delectus laudantium dolor reiciendis non nulla! Doloremque maxime quo eum in culpa mollitia similique eius doloribus voluptatem facilis! Voluptatibus, eligendi, illum. Distinctio, non!</p>
+                        <h4 th:text="${product.name}"></h4>
+
+                        <p>
+                            <i class="fa fa-dashboard"></i> <span th:text="${product.odo}"></span> km &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cog"></i> <span th:text="${product.gearbox}"></span> &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-cube"></i> <span th:text="${product.manufacturerName}"></span>
+                        </p>
+
+                        <ul class="social-icons">
+                            <li><a th:href="@{/cars/{id}(id=${product.id})}">+ Chi tiết</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- ***** Blog Start ***** -->
-    <section class="section" id="our-classes">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading">
-                        <h2>Read our <em>Blog</em></h2>
-                        <img th:src="@{assets/images/line-dec.png}" alt="">
-                        <p>Nunc urna sem, laoreet ut metus id, aliquet consequat magna. Sed viverra ipsum dolor, ultricies fermentum massa consequat eu.</p>
-                    </div>
+
+        <br>
+
+        <div class="main-button text-center">
+            <a th:href="@{/cars}">Xem thêm</a>
+        </div>
+    </div>
+</section>
+<!-- ***** Cars Ends ***** -->
+
+<section class="section section-bg" id="schedule"
+         th:style="|background-image: url('@{/assets/images/about-fullscreen-1-1920x700.jpg}')|">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading dark-bg">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Về <em>chúng tôi</em></h2>
+                    <img th:src="@{assets/images/line-dec.png}" alt="">
+                    <p style="font-family: 'Roboto', sans-serif; font-weight: bold">Chúng tôi chuyên cung cấp xe cũ, qua
+                        sử dụng được kiểm định chính hãng, với phương châm hoạt động tận tình, chu đáo và hết mình vì
+                        khách hàng.</p>
                 </div>
             </div>
-            <div class="row" id="tabs">
-              <div class="col-lg-4">
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cta-content text-center" style="font-family: 'Roboto', sans-serif; font-weight: bold">
+                    <p>Đại lý luôn không ngừng nỗ lực để có thể mang đến những sản phẩm chất lượng tốt nhất dành cho
+                        khách hàng.</p>
+
+                    <p>Mua bán các dòng xe qua sử dụng như: Vios, Camry, Altis, Innova, Fortuner, v.v. Được kiểm định
+                        tiêu chuẩn, bảo hành chính hãng 20.000km hoặc 12 tháng.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ***** Blog Start ***** -->
+<section class="section" id="our-classes">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Tin tức <em>xe</em></h2>
+                    <img th:src="@{assets/images/line-dec.png}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="tabs">
+            <div class="col-lg-4">
                 <ul>
-                  <li><a href='#tabs-1'>Lorem ipsum dolor sit amet, consectetur adipisicing.</a></li>
-                  <li><a href='#tabs-2'>Aspernatur excepturi magni, placeat rerum nobis magnam libero! Soluta.</a></li>
-                  <li><a href='#tabs-3'>Sunt hic recusandae vitae explicabo quidem laudantium corrupti non adipisci nihil.</a></li>
-                  <div class="main-rounded-button"><a th:href="@{blog.html}">Read More</a></div>
+                    <li><a href='#tabs-1' style="font-family: 'Roboto', sans-serif; font-weight: bold">Hyundai nhá hàng
+                        SUV lạ, có thể là Ioniq 4: Dáng bo tròn, đèn hậu 3D uốn cong khác hẳn Ioniq 5 đang bán tại Việt
+                        Nam.</a></li>
+                    <li><a href='#tabs-2'>Aspernatur excepturi magni, placeat rerum nobis magnam libero! Soluta.</a>
+                    </li>
+                    <li><a href='#tabs-3'>Sunt hic recusandae vitae explicabo quidem laudantium corrupti non adipisci
+                        nihil.</a></li>
+                    <div class="main-rounded-button"><a th:href="@{blog.html}">Read More</a></div>
                 </ul>
-              </div>
-              <div class="col-lg-8">
+            </div>
+            <div class="col-lg-8">
                 <section class='tabs-content'>
-                  <article id='tabs-1'>
-                    <img th:src="@{assets/images/blog-image-1-940x460.jpg}" alt="">
-                    <h4>Lorem ipsum dolor sit amet, consectetur adipisicing.</h4>
+                    <article id='tabs-1'>
+                        <img th:src="@{assets/images/blog-image-1-940x460.jpg}" alt="">
+                        <h4 style="font-family: 'Roboto', sans-serif; font-weight: bold">Mẫu SUV điện mới của Hyundai
+                            được hé lộ qua những hình ảnh teaser gần đây.</h4>
 
-                    <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
+                        <p><i class="fa fa-user"></i> Hoang Sinh &nbsp;|&nbsp; <i class="fa fa-calendar"></i><span
+                                id="realTime"></span>
 
-                    <p>Phasellus convallis mauris sed elementum vulputate. Donec posuere leo sed dui eleifend hendrerit. Sed suscipit suscipit erat, sed vehicula ligula. Aliquam ut sem fermentum sem tincidunt lacinia gravida aliquam nunc. Morbi quis erat imperdiet, molestie nunc ut, accumsan diam.</p>
-                    <div class="main-button">
-                        <a th:href="@{/blog-details}">Continue Reading</a>
-                    </div>
-                  </article>
-                  <article id='tabs-2'>
-                    <img th:src="@{assets/images/blog-image-2-940x460.jpg}" alt="">
-                    <h4>Aspernatur excepturi magni, placeat rerum nobis magnam libero! Soluta.</h4>
-                    <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
-                    <p>Integer dapibus, est vel dapibus mattis, sem mauris luctus leo, ac pulvinar quam tortor a velit. Praesent ultrices erat ante, in ultricies augue ultricies faucibus. Nam tellus nibh, ullamcorper at mattis non, rhoncus sed massa. Cras quis pulvinar eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                    <div class="main-button">
-                        <a th:href="@{/blog-details}">Continue Reading</a>
-                    </div>
-                  </article>
-                  <article id='tabs-3'>
-                    <img th:src="@{assets/images/blog-image-3-940x460.jpg}" alt="">
-                    <h4>Sunt hic recusandae vitae explicabo quidem laudantium corrupti non adipisci nihil.</h4>
-                    <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
-                    <p>Fusce laoreet malesuada rhoncus. Donec ultricies diam tortor, id auctor neque posuere sit amet. Aliquam pharetra, augue vel cursus porta, nisi tortor vulputate sapien, id scelerisque felis magna id felis. Proin neque metus, pellentesque pharetra semper vel, accumsan a neque.</p>
-                    <div class="main-button">
-                        <a th:href="@{/blog-details}">Continue Reading</a>
-                    </div>
-                  </article>
-                </section>
-              </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Blog End ***** -->
-
-    <!-- ***** Call to Action Start ***** -->
-    <section class="section section-bg" id="call-to-action" th:style="|background-image: url(@{assets/images/banner-image-1-1920x500.jpg}'')|">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="cta-content">
-                        <h2>Send us a <em>message</em></h2>
-                        <p>Ut consectetur, metus sit amet aliquet placerat, enim est ultricies ligula, sit amet dapibus odio augue eget libero. Morbi tempus mauris a nisi luctus imperdiet.</p>
+                        <p style="font-family: 'Roboto', sans-serif">Hyundai đang chuẩn bị ra mắt một mẫu SUV chạy hoàn
+                            toàn bằng điện, được thiết kế đặc biệt cho
+                            thị trường Trung Quốc. Mẫu xe mới này là sản phẩm của liên doanh Hyundai Bắc Kinh và hiện
+                            vẫn
+                            chưa được đặt tên chính thức. Mới đây, hãng đã tung ra những hình ảnh teaser đầu tiên của
+                            mẫu xe
+                            này trước khi chính thức ra mắt dự kiến vào cuối năm nay.</p>
                         <div class="main-button">
-                            <a th:href="@{/contact}">Contact us</a>
+                            <a th:href="@{/blog-details}">Continue Reading</a>
                         </div>
+                    </article>
+                    <article id='tabs-2'>
+                        <img th:src="@{assets/images/blog-image-2-940x460.jpg}" alt="">
+                        <h4>Aspernatur excepturi magni, placeat rerum nobis magnam libero! Soluta.</h4>
+                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020
+                            10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i> 15 comments</p>
+                        <p>Integer dapibus, est vel dapibus mattis, sem mauris luctus leo, ac pulvinar quam tortor a
+                            velit. Praesent ultrices erat ante, in ultricies augue ultricies faucibus. Nam tellus nibh,
+                            ullamcorper at mattis non, rhoncus sed massa. Cras quis pulvinar eros. Orci varius natoque
+                            penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        <div class="main-button">
+                            <a th:href="@{/blog-details}">Continue Reading</a>
+                        </div>
+                    </article>
+                    <article id='tabs-3'>
+                        <img th:src="@{assets/images/blog-image-3-940x460.jpg}" alt="">
+                        <h4>Sunt hic recusandae vitae explicabo quidem laudantium corrupti non adipisci nihil.</h4>
+                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020
+                            10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i> 15 comments</p>
+                        <p>Fusce laoreet malesuada rhoncus. Donec ultricies diam tortor, id auctor neque posuere sit
+                            amet. Aliquam pharetra, augue vel cursus porta, nisi tortor vulputate sapien, id scelerisque
+                            felis magna id felis. Proin neque metus, pellentesque pharetra semper vel, accumsan a
+                            neque.</p>
+                        <div class="main-button">
+                            <a th:href="@{/blog-details}">Continue Reading</a>
+                        </div>
+                    </article>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Blog End ***** -->
+
+<!-- ***** Call to Action Start ***** -->
+<section class="section section-bg" id="call-to-action"
+         th:style="|background-image: url(@{assets/images/banner-image-1-1920x500.jpg}'')|">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cta-content">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Gửi tin nhắn <em>cho chúng tôi</em>
+                    </h2>
+                    <p style="font-family: 'Roboto', sans-serif; font-weight: bold">Hãy liên hệ với chúng tôi nếu bạn có
+                        bất kỳ câu hỏi nào. Chúng tôi luôn sẵn sàng hỗ trợ bạn
+                        một cách nhanh chóng và tận tình."</p>
+                    <div class="main-button">
+                        <a th:href="@{/contact}" style="font-family: 'Roboto', sans-serif; font-weight: bold">Liên
+                            hệ</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ***** Call to Action End ***** -->
+    </div>
+</section>
+<!-- ***** Call to Action End ***** -->
 
-    <!-- ***** Testimonials Item Start ***** -->
-    <section class="section" id="features">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading">
-                        <h2>Read our <em>Testimonials</em></h2>
-                        <img th:src="@{assets/images/line-dec.png}" alt="waves">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem incidunt alias minima tenetur nemo necessitatibus?</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="features-items">
-                        <li class="feature-item">
-                            <div class="left-icon">
-                                <img th:src="@{assets/images/features-first-icon.png}" alt="First One">
-                            </div>
-                            <div class="right-content">
-                                <h4>John Doe</h4>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta numquam maxime voluptatibus, impedit sed! Necessitatibus repellendus sed deleniti id et!"</em></p>
-                            </div>
-                        </li>
-                        <li class="feature-item">
-                            <div class="left-icon">
-                                <img th:src="@{assets/images/features-first-icon.png}" alt="second one">
-                            </div>
-                            <div class="right-content">
-                                <h4>John Doe</h4>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta numquam maxime voluptatibus, impedit sed! Necessitatibus repellendus sed deleniti id et!"</em></p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="features-items">
-                        <li class="feature-item">
-                            <div class="left-icon">
-                                <img th:src="@{assets/images/features-first-icon.png}" alt="fourth muscle">
-                            </div>
-                            <div class="right-content">
-                                <h4>John Doe</h4>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta numquam maxime voluptatibus, impedit sed! Necessitatibus repellendus sed deleniti id et!"</em></p>
-                            </div>
-                        </li>
-                        <li class="feature-item">
-                            <div class="left-icon">
-                                <img th:src="@{assets/images/features-first-icon.png}" alt="training fifth">
-                            </div>
-                            <div class="right-content">
-                                <h4>John Doe</h4>
-                                <p><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta numquam maxime voluptatibus, impedit sed! Necessitatibus repellendus sed deleniti id et!"</em></p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+<!-- ***** Testimonials Item Start ***** -->
+<!-- ***** Testimonials Item End ***** -->
 
-            <br>
+<!-- ***** Footer Start ***** -->
+<div th:replace="~{client/include/footer:: footer}"></div>
 
-            <div class="main-button text-center">
-                <a th:href="@{/testimonials}">Read More</a>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Testimonials Item End ***** -->
-    
-    <!-- ***** Footer Start ***** -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2020 Company Name
-                        - Template by: <a th:href="@{https://www.phpjabbers.com/}">PHPJabbers.com</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- jQuery -->
-    <script th:src="@{assets/js/jquery-2.1.0.min.js}"></script>
+<!-- jQuery -->
+<script th:src="@{/assets/js/jquery-2.1.0.min.js}"></script>
 
-    <!-- Bootstrap -->
-    <script th:src="@{assets/js/popper.js}"></script>
-    <script th:src="@{assets/js/bootstrap.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{/assets/js/popper.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
 
-    <!-- Plugins -->
-    <script th:src="@{assets/js/scrollreveal.min.js}"></script>
-    <script th:src="@{assets/js/waypoints.min.js}"></script>
-    <script th:src="@{assets/js/jquery.counterup.min.js}"></script>
-    <script th:src="@{assets/js/imgfix.min.js}"></script>
-    <script th:src="@{assets/js/mixitup.js}"></script>
-    <script th:src="@{assets/js/accordions.js}"></script>
-    
-    <!-- Global Init -->
-    <script th:src="@{assets/js/custom.js}"></script>
+<!-- Plugins -->
+<script th:src="@{/assets/js/scrollreveal.min.js}"></script>
+<script th:src="@{/assets/js/waypoints.min.js}"></script>
+<script th:src="@{/assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/assets/js/imgfix.min.js}"></script>
+<script th:src="@{/assets/js/mixitup.js}"></script>
+<script th:src="@{/assets/js/accordions.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
-  </body>
+<!-- Global Init -->
+<script th:src="@{assets/js/custom.js}"></script>
+<script>
+    function updateTime() {
+        document.getElementById("realTime").innerHTML = moment().format(' DD.MM.YYYY HH:mm');
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Mobile menu toggle
+    $('.menu-trigger').click(function() {
+        $('.nav').toggleClass('active1');
+    });
+</script>
+<script>
+    // Hiển thị modal khi trang được tải
+    window.onload = function () {
+        var myModal = new bootstrap.Modal(document.getElementById('consultationModal'), {
+            keyboard: false // Vô hiệu hóa việc đóng modal bằng bàn phím
+        });
+        myModal.show(); // Hiển thị modal
+    };
+
+    // Hàm đóng modal (nếu cần)
+    function closeForm() {
+        var myModal = new bootstrap.Modal(document.getElementById('consultationModal'));
+        myModal.hide(); // Đóng modal
+    }
+</script>
+<script>
+    $("#addCustomer").submit(function (e) {
+    e.preventDefault();
+    console.log("Form submitted!"); // Kiểm tra form có submit không
+
+    var formData = new FormData(this);
+
+    $.ajax({
+        url: "/api/customer/add",
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            console.log("Success:", response); // Kiểm tra phản hồi từ server
+            Swal.fire({
+                title: "Gửi yêu cầu tư vấn thành công!",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false
+            });
+            setTimeout(() => {
+                closeForm(); // Đóng modal sau khi alert hiển thị xong
+            }, 2000);
+            $("#addCustomer")[0].reset(); // Reset form
+        },
+        error: function (xhr, status, error) {
+            console.error("Lỗi: " + error);
+            Swal.fire({
+                title: "Có lỗi xảy ra!",
+                text: xhr.responseText,
+                icon: "error"
+            });
+        }
+    });
+});
+</script>
+
+</body>
 </html>

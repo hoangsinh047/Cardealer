@@ -1,16 +1,23 @@
 package com.hdsinh.cardealer.dto;
 
 
+import com.hdsinh.cardealer.entities.Product;
 import jakarta.persistence.Lob;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.sql.In;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 public class ProductDto {
     private Long id;
+    private String code;
     private String name;
     private String status;
     private String description;
@@ -20,19 +27,31 @@ public class ProductDto {
     private String color;
     private BigDecimal price;
     private Integer quantity;
-    private String imageUrl;
+    private String type;
+    private String odo;
+    private LocalDate firstRegis;
+    private Integer numSeat;
+    private List<String> images;
 
-    public ProductDto(Long id, String name, String status, String description, String manufacturerName, String gearbox,
-                      String fuel, String color, BigDecimal price, Integer quantity) {
-        this.id = id;
-        this.name = name;
-        this.status = status;
-        this.description = description;
-        this.manufacturerName = manufacturerName;
-        this.gearbox = gearbox;
-        this.fuel = fuel;
-        this.color = color;
-        this.price = price;
-        this.quantity = quantity;
+    public ProductDto() {
+    }
+
+    public ProductDto(Product product) {
+        this.id = product.getId();
+        this.code = product.getCode();
+        this.name = product.getName();
+        this.status = product.getStatus();
+        this.description = product.getDescription();
+        this.manufacturerName = product.getManufacturer().getName();
+        this.gearbox = product.getGearbox();
+        this.fuel = product.getFuel();
+        this.color = product.getColor();
+        this.price = product.getPrice();
+        this.quantity = product.getQuantity();
+        this.type = product.getType();
+        this.odo = product.getOdo();
+        this.firstRegis = product.getFirstRegis();
+        this.numSeat = product.getNumSeat();
+        this.images = Arrays.asList(product.getImageUrl().split(","));
     }
 }

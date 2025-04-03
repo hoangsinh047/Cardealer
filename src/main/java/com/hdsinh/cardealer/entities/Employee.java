@@ -19,6 +19,10 @@ public class Employee {
     private Long id;
 
     @Basic
+    @Column(name = "CODE")
+    private String code;
+
+    @Basic
     @Column(name = "NAME")
     private String name;
 

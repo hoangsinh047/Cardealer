@@ -132,10 +132,10 @@
     }
 </style>
 <!-- Navbar-->
-<!--<div th:replace="~{admin/template/header :: header}"></div>-->
+<div th:replace="~{admin/template/header :: header}"></div>
 
 <!--&lt;!&ndash; Sidebar menu&ndash;&gt;-->
-<!--<div th:replace="~{admin/template/sidebar :: sidebar}"></div>-->
+<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
 
 <main class="app-content">
     <div class="app-title">
@@ -159,6 +159,10 @@
 
                     </div>
                     <form id="addEmployeeForm" class="row" th:action="@{/api/employee/add}" method="POST" enctype="multipart/form-data">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">ID nhân viên</label>
+                            <input class="form-control" type="text" required name="code" id="employeeCode" readonly>
+                        </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Họ và tên</label>
                             <input class="form-control" type="text" required name="tenNhanVien">
@@ -192,6 +196,7 @@
                             <label for="exampleSelect1" class="control-label">Chức vụ</label>
                             <select class="form-control" id="exampleSelect1" name="position">
                                 <option>-- Chọn chức vụ --</option>
+                                <option value="Leader">Leader</option>
                                 <option value="Sale">Sale</option>
                                 <option value="Tư vấn">Tư vấn</option>
                                 <option value="Dịch vụ">Dịch vụ</option>
@@ -261,14 +266,15 @@ MODAL
 
 
 <!-- Essential javascripts for application to work-->
-<script th:src="@{/assets/js/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
 <script th:src="@{/assets/js/popper.min.js}"></script>
 <script th:src="@{/assets/js/bootstrap.min.js}"></script>
 <script th:src="@{/assets/js/main.js}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
 
-<script>$("#addEmployeeForm").submit(function (e) {
+<script>
+    $("#addEmployeeForm").submit(function (e) {
     e.preventDefault(); // Ngăn chặn submit mặc định
 
     var formData = new FormData(this);
@@ -280,15 +286,26 @@ MODAL
         processData: false,
         contentType: false,
         success: function (response) {
-            alert("Thêm nhân viên thành công!");
-            window.location.href = "/admin/nhan-vien";
+            console.log("Success:", response); // Kiểm tra phản hồi từ server
+            swal("Thêm nhân viên thành công!", { icon: "success" })
+                .then(() => {
+                    window.location.replace("/admin/nhan-vien");
+                });
         },
         error: function (xhr, status, error) {
             console.error("Lỗi: " + error);
-            alert("Có lỗi xảy ra: " + xhr.responseText);
+            swal("Có lỗi xảy ra: " + xhr.responseText, { icon: "error" });
         }
     });
 });
+</script>
+<script>
+    function generateEmployeeCode() {
+        let randomNumber = Math.floor(1000 + Math.random() * 9000); // Tạo số 4 chữ số
+        document.getElementById("employeeCode").value = "EM" + randomNumber;
+    }
+
+    window.onload = generateEmployeeCode; // Gọi khi trang tải xong
 </script>
 
 </body>

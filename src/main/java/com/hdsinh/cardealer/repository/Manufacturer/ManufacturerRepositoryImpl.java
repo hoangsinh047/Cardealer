@@ -31,4 +31,13 @@ public class ManufacturerRepositoryImpl implements ManufacturerRepositoryCustom{
 
         return query.getResultList();
     }
+
+    @Override
+    public boolean existsByName(String name) {
+        String query = "SELECT COUNT(m) FROM Manufacturer m WHERE m.name = :name";
+        Long count = entityManager.createQuery(query, Long.class)
+                .setParameter("name", name)
+                .getSingleResult();
+        return count > 0;
+    }
 }

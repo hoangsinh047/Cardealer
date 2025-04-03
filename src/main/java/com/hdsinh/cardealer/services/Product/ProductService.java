@@ -12,7 +12,13 @@ public interface ProductService {
 
     Product getProductById(Long id);
 
+    Long getLowStockCount();
+
     ObjectDto loadAll(String search, Integer start, Integer total);
 
-    Product addProduct(Product product, MultipartFile imageUrl) throws IOException;
+    Product addProduct(Product product, MultipartFile[] imageFiles) throws IOException;
+
+    boolean delete(Long id);
+
+    List<Product> getProductsWithBills();
 }

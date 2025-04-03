@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Danh sách đơn hàng | Quản trị Admin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Main CSS-->
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/main1.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <!-- Font-icon css-->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+</head>
+
+<body class="app sidebar-mini rtl">
+<!-- Navbar-->
+<div th:replace="~{admin/template/header :: header}"></div>
+
+<!-- Sidebar menu-->
+<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">Danh sách đơn hàng</li>
+            <li class="breadcrumb-item"><a href="#">Thêm đơn hàng</a></li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Tạo mới đơn hàng</h3>
+                <div class="tile-body">
+                    <form id="addBillForm" class="row" th:action="@{/api/bill/add}" method="POST"
+                          enctype="multipart/form-data">
+                        <div class="form-group col-md-4">
+                            <label class="control-label">ID đơn hàng</label>
+                            <input class="form-control" type="text" required name="code" id="employeeCode" readonly>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Tên khách hàng</label>
+                            <input class="form-control" type="text" required name="tenKhachHang">
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Số điện thoại khách hàng</label>
+                            <input class="form-control" type="number" required name="soDienThoai">
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Địa chỉ khách hàng</label>
+                            <input class="form-control" type="text" required name="address">
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Tên nhân viên</label>
+                            <select class="form-control" required name="tenNhanVien">
+                                <option>-- Nhân viên --</option>
+                                <option th:each="employee : ${employees}"
+                                        th:value="${employee.id}"
+                                        th:text="${employee.name}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Ngày làm đơn hàng</label>
+                            <input class="form-control" type="date" required name="createdDate">
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Tên sản phẩm</label>
+                            <select class="form-control" id="productSelect" required name="tenSanPham">
+                                <option>-- Sản phẩm --</option>
+                                <option th:each="product : ${product}"
+                                        th:value="${product.id}"
+                                        th:text="${product.name}"
+                                        th:data-price="${product.price}"
+                                        th:data-quantity="${product.quantity}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Số lượng</label>
+                            <input class="form-control" type="number" id="quantityInput" required name="soLuong">
+                            <small id="quantityWarning" class="text-danger" style="display: none;">❌ Số lượng vượt quá
+                                kho!</small>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Tổng giá</label>
+                            <!-- Input hiển thị định dạng, remove name để không submit -->
+                            <input class="form-control" type="text" id="totalPriceDisplay" readonly>
+                            <!-- Input ẩn chứa giá trị gốc (không định dạng) -->
+                            <input type="hidden" id="totalPriceInput" name="tongGia">
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-save" type="submit">Lưu lại</button>
+                            <a class="btn btn-cancel" th:href="@{/admin/don-hang}">Hủy bỏ</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Essential javascripts for application to work-->
+<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/assets/js/popper.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/main.js}"></script>
+<!-- The javascript plugin to display page loading on top-->
+<script th:src="@{/assets/js/plugins/pace.min.js}"></script>
+
+<script>
+    $("#addBillForm").submit(function (e) {
+
+        e.preventDefault();
+        console.log("Form submitted!"); // Kiểm tra form có submit không
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: "/api/bill/add",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Success:", response); // Kiểm tra phản hồi từ server
+                swal("Thêm hóa đơn thành công!", { icon: "success" })
+                    .then(() => {
+                        window.location.replace("/admin/don-hang");
+                    });
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi: " + error);
+                swal("Có lỗi xảy ra: " + xhr.responseText, { icon: "error" });
+            }
+        });
+
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let productSelect = document.getElementById("productSelect");
+        let quantityInput = document.getElementById("quantityInput");
+        let quantityWarning = document.getElementById("quantityWarning");
+        let totalPriceInput = document.getElementById("totalPriceInput");
+        let totalPriceDisplay = document.getElementById("totalPriceDisplay");
+
+        function formatNumber(number) {
+            return new Intl.NumberFormat('vi-VN').format(number);
+        }
+
+        function calculateTotal() {
+            let selectedOption = productSelect.options[productSelect.selectedIndex];
+            let price = selectedOption.getAttribute("data-price");
+            let availableQuantity = selectedOption.getAttribute("data-quantity"); // Số lượng tồn kho
+            let quantity = parseInt(quantityInput.value);
+
+            if (!price || isNaN(quantity) || quantity <= 0) {
+                totalPriceInput.value = "";
+                totalPriceDisplay.value = "";
+                return;
+            }
+
+            if (quantity > availableQuantity) {
+                quantityWarning.style.display = "block";
+                quantityInput.value = availableQuantity; // Giới hạn số lượng tối đa
+                quantity = availableQuantity;
+            } else {
+                quantityWarning.style.display = "none";
+            }
+
+            let totalPrice = price * quantity;
+            totalPriceInput.value = totalPrice;
+            totalPriceDisplay.value = formatNumber(totalPrice);
+        }
+
+        productSelect.addEventListener("change", function () {
+            quantityInput.value = ""; // Reset số lượng khi đổi sản phẩm
+            quantityWarning.style.display = "none";
+            totalPriceInput.value = "";
+            totalPriceDisplay.value = "";
+        });
+
+        quantityInput.addEventListener("input", calculateTotal);
+    });
+</script>
+<script>
+    function generateEmployeeCode() {
+        let randomNumber = Math.floor(1000 + Math.random() * 9000); // Tạo số 4 chữ số
+        document.getElementById("employeeCode").value = "B" + randomNumber;
+    }
+
+    window.onload = generateEmployeeCode; // Gọi khi trang tải xong
+</script>
+
+</body>
+</html>

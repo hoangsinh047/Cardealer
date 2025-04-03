@@ -23,6 +23,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ");
         sql.append("    p.ID id, ");
+        sql.append("    p.CODE code, ");
         sql.append("    p.NAME name, ");
         sql.append("    p.STATUS status, ");
         sql.append("    p.ODO odo, ");
@@ -36,7 +37,8 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         sql.append("    p.COLOR color, ");
         sql.append("    p.IMAGE_URL imageUrl, ");
         sql.append("    p.PRICE price, ");
-        sql.append("    p.QUANTITY quantity ");
+        sql.append("    p.QUANTITY quantity, ");
+        sql.append("    p.num_seat numSeat ");
         sql.append("FROM PRODUCTS p ");
         sql.append("JOIN MANUFACTURER m ON p.MANUFACTURER_ID = m.ID ");
         sql.append("WHERE 1=1 ");
@@ -57,10 +59,11 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
         // Khai báo và gán giá trị cho res
         Query query = entityManager.unwrap(Session.class).createNativeQuery(sql.toString())
                 .addScalar("id", StandardBasicTypes.LONG)
+                .addScalar("code", StandardBasicTypes.STRING)
                 .addScalar("name", StandardBasicTypes.STRING)
                 .addScalar("status", StandardBasicTypes.STRING)
                 .addScalar("odo", StandardBasicTypes.STRING)
-                .addScalar("firstRegis", StandardBasicTypes.STRING)
+                .addScalar("firstRegis", StandardBasicTypes.LOCAL_DATE)
                 .addScalar("description", StandardBasicTypes.STRING)
                 .addScalar("manufacturerId", StandardBasicTypes.LONG)
                 .addScalar("manufacturerName", StandardBasicTypes.STRING)
@@ -71,6 +74,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .addScalar("imageUrl", StandardBasicTypes.STRING)
                 .addScalar("price", StandardBasicTypes.BIG_DECIMAL)
                 .addScalar("quantity", StandardBasicTypes.INTEGER)
+                .addScalar("numSeat", StandardBasicTypes.INTEGER)
                 .setResultTransformer(Transformers.aliasToBean(Product.class));
 
         return query.getResultList();

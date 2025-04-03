@@ -14,7 +14,16 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     @Autowired
     private ManufacturerRepository manufacturerRepository;
 
+    public Manufacturer addManufacturer(String name) {
+        if (manufacturerRepository.existsByName(name)) {
+            throw new RuntimeException("Hãng xe này đã tồn tại!");
+        }
+        Manufacturer manufacturer = new Manufacturer(name);
+        return manufacturerRepository.save(manufacturer);
+    }
+
     public List<Manufacturer> getAllManufacturers() {
         return manufacturerRepository.findAll();
     }
+
 }

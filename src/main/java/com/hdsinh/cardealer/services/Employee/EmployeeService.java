@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface EmployeeService {
     List<Employee> findAll();
-
+    String generateEmployeeCode();
     ObjectDto loadAll(String search, Integer start, Integer total);
     Employee save(Employee employee);
+    boolean delete(Long id);
 }

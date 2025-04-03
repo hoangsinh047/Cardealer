@@ -1,14 +1,17 @@
 package com.hdsinh.cardealer.controllers;
 
-import com.hdsinh.cardealer.entities.Employee;
-import com.hdsinh.cardealer.entities.Product;
+import com.hdsinh.cardealer.dto.BillDto;
+import com.hdsinh.cardealer.entities.*;
+import com.hdsinh.cardealer.services.Bill.BillService;
+import com.hdsinh.cardealer.services.Customer.CustomerService;
 import com.hdsinh.cardealer.services.Employee.EmployeeService;
 import com.hdsinh.cardealer.services.Product.ProductService;
+import com.hdsinh.cardealer.services.Testdrive.TestdriveService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -22,6 +25,15 @@ public class AdminController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private BillService billService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private TestdriveService testdriveService;
 
     @GetMapping
     public String adminPage(Model model) {
@@ -54,15 +66,49 @@ public class AdminController {
         return "admin/addSanpham";
     }
 
-    @GetMapping("don-hang")
-    public String quanlyDonhang() {
+    @GetMapping("/don-hang")
+    public String quanlyDonhang(Model model) {
+        List<Bill> bills = billService.findAll();
+        List<Employee> employees = employeeService.findAll();
+        List<Product> product = productService.getAllProducts();
+        model.addAttribute("bill", bills);
+        model.addAttribute("employees", employees);
+        model.addAttribute("product", product);
         return "admin/quanlyDonhang";
     }
 
-    @GetMapping("bao-cao")
-    public String quanlyBaoCao() {
+    @GetMapping("/don-hang/new")
+    public String taomoiHoadon(Model model) {
+        List<Employee> employees = employeeService.findAll();
+        List<Product> product = productService.getAllProducts();
+        model.addAttribute("employees", employees);
+        model.addAttribute("product", product);
+        return "admin/addHoadon";
+    }
+
+    @GetMapping("/bao-cao")
+    public String quanlyBaoCao(Model model) {
+        List<Bill> bills = billService.findAll();
+        List<Employee> employees = employeeService.findAll();
+        List<Product> product = productService.getAllProducts();
+        model.addAttribute("bill", bills);
+        model.addAttribute("employees", employees);
+        model.addAttribute("product", product);
         return "admin/quanlyBaocao";
     }
 
+    @GetMapping("/khach-hang")
+    public String quanlyKhachhang(Model model) {
+        List<Customer> customer = customerService.findAll();
+        model.addAttribute("customer", customer);
+        return "admin/quanlyKhachhang";
+    }
+
+    @GetMapping("/lai-thu")
+    public String quanlyLaithu(Model model) {
+        List<Testdrive> testdrive = testdriveService.findAll();
+        model.addAttribute("testdrive", testdrive);
+        return "admin/danhsachDangkylaithu";
+    }
 
 }

@@ -16,4 +16,13 @@ public class Manufacturer {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    public Manufacturer( String name) {
+        this.name = name;
+    }
+
+    public Manufacturer() {
+
+    }
+
 }

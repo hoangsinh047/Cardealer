@@ -25,14 +25,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom{
         sql.append("SELECT ");
         sql.append("    e.ID id, ");
         sql.append("    e.NAME name, ");
-        sql.append("    e.BIRTH birthDay, ");
+        sql.append("    e.CODE code, ");
+        sql.append("    e.BIRTH birth, ");
         sql.append("    e.SEX sex, ");
         sql.append("    e.PHONE phone, ");
         sql.append("    e.EMAIL email, ");
         sql.append("    e.DEGREE degree, ");
         sql.append("    e.POSITION position, ");
         sql.append("    e.ADDRESS address, ");
-        sql.append("    e.CREATED_DATE createdDate, ");
+        sql.append("    e.CREATED_DATE createdDate ");
         sql.append("FROM EMPLOYEE e ");
         sql.append("WHERE 1=1 ");
 
@@ -53,14 +54,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom{
         Query query = entityManager.unwrap(Session.class).createNativeQuery(sql.toString())
                 .addScalar("id", StandardBasicTypes.LONG)
                 .addScalar("name", StandardBasicTypes.STRING)
-                .addScalar("birthDay", StandardBasicTypes.DATE)
+                .addScalar("code", StandardBasicTypes.STRING)
+                .addScalar("birth", StandardBasicTypes.DATE)
                 .addScalar("sex", StandardBasicTypes.STRING)
                 .addScalar("phone", StandardBasicTypes.INTEGER)
                 .addScalar("email", StandardBasicTypes.STRING)
                 .addScalar("degree", StandardBasicTypes.STRING)
                 .addScalar("position", StandardBasicTypes.STRING)
                 .addScalar("address", StandardBasicTypes.STRING)
-                .addScalar("createdDate", StandardBasicTypes.DATE)
+                .addScalar("createdDate", StandardBasicTypes.LOCAL_DATE_TIME)
                 .setResultTransformer(Transformers.aliasToBean(Employee.class));
 
         return query.getResultList();

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Quản trị Admin</title>
+    <title>Danh sách sản phẩm | Quản trị Admin</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,16 +74,17 @@
                         <tbody>
                         <tr th:each="product : ${products}">
                             <th width="10"><input type="checkbox" id=""></th>
-                            <td th:text="${product.id}"></td>
+                            <td th:text="${product.code}"></td>
                             <td th:text="${product.name}"></td>
                             <td th:text="${product.gearbox}"></td>
                             <td th:text="${product.quantity}"></td>
                             <td th:text="${product.status}"></td>
-                            <td th:text="${product.price}"></td>
+                            <td th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')}"></td>
                             <td th:text="${product.manufacturerName}"></td>
                             <td>
                                 <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                        onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
+                                        th:attr="data-id=${product.id}" onclick="myFunction(this)">
+                                    <i class="fas fa-trash-alt"></i>
                                 </button>
                                 <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
                                         data-toggle="modal"
@@ -230,25 +231,89 @@ MODAL
     }
 </script>
 <script>
-    function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("myTable").deleteRow(i);
+    // Hàm lấy id từ thuộc tính data-id của button và gọi deleteRow
+    function myFunction(button) {
+        const id = button.getAttribute("data-id"); // hoặc button.dataset.id
+        deleteRow(button, id);
     }
 
-    jQuery(function () {
-        jQuery(".trash").click(function () {
-            swal({
-                title: "Cảnh báo",
-                text: "Bạn có chắc chắn là muốn xóa sản phẩm này?",
-                buttons: ["Hủy bỏ", "Đồng ý"],
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Đã xóa thành công.!", {});
-                    }
-                });
+    function deleteRow(button, id) {
+        swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc chắn muốn xóa sản phẩm này?",
+            buttons: ["Hủy bỏ", "Đồng ý"],
+        }).then((willDelete) => {
+            if (willDelete) {
+                fetch(`/api/product/${id}`, {method: "DELETE"})
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === "success") {  // kiểm tra thuộc tính 'status'
+                            console.log('dang xoa')
+                            swal("Đã xóa thành công!", { icon: "success" });
+                            // Xóa dòng khỏi bảng, cập nhật lại danh sách
+                            let row = button.closest("tr");
+                            row.remove();
+                            loadProduct();
+                        } else {
+                            console.log('loi khi xoa')
+                            swal("Lỗi khi xóa!", { icon: "error" });
+                        }
+                    })
+                    .catch(error => {
+                        console.log('bo cua loi dang xoa')
+                        swal("Lỗi khi xóa!", {icon: "error"});
+                        console.error("Lỗi:", error);
+                    });
+            }
         });
-    });
+    }
+
+    function loadProduct() {
+        fetch('/api/product/getAllProduct')
+            .then(response => response.json())
+            .then(result => {
+                // Giả sử result có cấu trúc: { count: số lượng, data: [ {...} ] }
+                const products = result.data;
+
+                // Lấy phần tử tbody của bảng
+                const tbody = document.querySelector('#sampleTable tbody');
+                tbody.innerHTML = ''; // Xóa nội dung cũ
+
+                products.forEach(product => {
+                    // Định dạng giá tiền với dấu phân cách hàng nghìn
+                    const formattedPrice = new Intl.NumberFormat('vi-VN').format(product.price);
+
+                    // Tạo một hàng mới cho sản phẩm
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <th width="10"><input type="checkbox"></th>
+                    <td>${product.code}</td>
+                    <td>${product.name}</td>
+                    <td>${product.gearbox}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.status}</td>
+                    <td>${formattedPrice} đ</td>
+                    <td>${product.manufacturerName}</td>
+                    <td width="150">
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
+                                data-id="${product.id}" onclick="myFunction(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                data-toggle="modal" data-target="#ModalUP" onclick="editProduct(${product.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải danh sách sản phẩm:', error);
+            });
+    }
+
     oTable = $('#sampleTable').dataTable();
     $('#all').click(function (e) {
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));

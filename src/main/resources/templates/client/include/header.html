@@ -1,0 +1,55 @@
+<style>
+    .nav li.active a {
+        color: #ff6600; /* Màu nổi bật */
+        font-weight: bold;
+        border-bottom: 2px solid #ff6600; /* Gạch dưới để nhấn mạnh */
+    }
+</style>
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a th:href="@{/}" class="logo">Car Dealer<em> Website</em></a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li class="active1">
+                            <a th:href="@{/}" style="font-family: 'Roboto', sans-serif; font-weight: bold">Trang chủ</a>
+                        </li>
+                        <li class="active2">
+                            <a th:href="@{/cars}" style="font-family: 'Roboto', sans-serif; font-weight: bold">Sản
+                                phẩm</a>
+                        </li>
+                        <li class="active3">
+                            <a th:href="@{/test-drive}" style="font-family: 'Roboto', sans-serif; font-weight: bold">Lái
+                                thử xe</a>
+                        </li>
+                        <li class="dropdown" >
+                            <a class="dropdown-toggle" data-toggle="dropdown" th:href="@{#}" role="button"
+                               aria-haspopup="true" aria-expanded="false"
+                               style="font-family: 'Roboto', sans-serif; font-weight: bold">Về chúng tôi</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" th:href="@{/about}">About Us</a>
+                                <a class="dropdown-item" th:href="@{/blog}">Blog</a>
+                                <a class="dropdown-item" th:href="@{/team}">Team</a>
+                                <a class="dropdown-item" th:href="@{/testimonials}">Testimonials</a>
+                                <a class="dropdown-item" th:href="@{/faq}">FAQ</a>
+                                <a class="dropdown-item" th:href="@{/terms}">Terms</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a th:href="@{/contact}" style="font-family: 'Roboto', sans-serif; font-weight: bold">Liên
+                                hệ</a>
+                        </li>
+                    </ul>
+                    <a class="menu-trigger">
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

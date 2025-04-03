@@ -8,4 +8,6 @@ public interface ManufacturerRepositoryCustom {
 
     List<Manufacturer> loadAll();
 
+    boolean existsByName(String name);
+
 }
