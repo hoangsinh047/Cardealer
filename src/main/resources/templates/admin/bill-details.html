@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết hóa đơn | Quản trị Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/assets/css/main1.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+</head>
+
+<body class="app sidebar-mini rtl" onload="time()">
+
+<!-- Header -->
+<div th:replace="~{admin/template/header :: header}"></div>
+
+<!-- Sidebar -->
+<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+
+<!-- Main Content -->
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item"><a th:href="@{/admin/don-hang}">Danh sách hóa đơn</a></li>
+            <li class="breadcrumb-item active"><a href="#">Chi tiết hóa đơn</a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h3 class="tile-title">Thông tin chi tiết hóa đơn</h3>
+                <div class="tile-body">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Mã hóa đơn:</label>
+                            <p th:text="${bill.code}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Tên khách hàng:</label>
+                            <p th:text="${bill.name}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Nhân viên tạo:</label>
+                            <p th:text="${bill.employeeName}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Tên sản phẩm:</label>
+                            <p th:text="${bill.productName}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Số lượng:</label>
+                            <p th:text="${bill.quantity}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Ngày tạo:</label>
+                            <p th:text="${#temporals.format(bill.createdDate, 'yyyy-MM-dd')}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Số điện thoại:</label>
+                            <p th:text="${bill.phone}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Địa chỉ:</label>
+                            <p th:text="${bill.address}"></p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Tổng tiền:</label>
+                            <p th:text="${#numbers.formatInteger(bill.price, 0, 'COMMA')} + ' VNĐ'"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile-footer">
+                    <a th:href="@{/admin/don-hang}" class="btn btn-secondary">Quay lại</a>
+                    <a th:href="@{/admin/don-hang/export/{id}(id=${bill.id})}" class="btn btn-primary" target="_blank">
+                        Xuất hóa đơn PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- JS -->
+<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/popper.min.js}"></script>
+<script th:src="@{/assets/js/plugins/pace.min.js}"></script>
+
+<script>
+    function time() {
+        var today = new Date();
+        var weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+        var day = weekday[today.getDay()];
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        var nowTime = h + " giờ " + m + " phút " + s + " giây";
+        var todayStr = day + ', ' + dd + '/' + mm + '/' + yyyy;
+        document.getElementById("clock").innerHTML = '<span class="date">' + todayStr + ' - ' + nowTime + '</span>';
+        setTimeout(time, 1000);
+    }
+
+    function checkTime(i) {
+        return i < 10 ? "0" + i : i;
+    }
+</script>
+
+</body>
+
+</html>

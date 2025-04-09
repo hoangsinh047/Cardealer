@@ -1,17 +1,14 @@
 package com.hdsinh.cardealer.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "products")
 public class Product {
@@ -28,32 +25,33 @@ public class Product {
     private String name;
 
     @Basic
-    @Column(name = "STATUS", nullable = false)
+    @Column(name = "STATUS")
     private String status;
 
     @Basic
     @Lob
-    @Column(name = "DESCRIPTION", nullable = false, columnDefinition = "LONGTEXT")
+    @Column(name = "DESCRIPTION", columnDefinition = "LONGTEXT")
     private String description;
 
     @Basic
-    @Column(name = "manufacturer_id", nullable = false)
+    @Column(name = "manufacturer_id")
     private Long manufacturerId;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manufacturer_id", insertable = false, updatable = false)
     private Manufacturer manufacturer;
 
     @Basic
-    @Column(name = "GEARBOX", nullable = false)
+    @Column(name = "GEARBOX")
     private String gearbox;
 
     @Basic
-    @Column(name = "FUEL", nullable = false)
+    @Column(name = "FUEL")
     private String fuel;
 
     @Basic
-    @Column(name = "COLOR", nullable = false)
+    @Column(name = "COLOR")
     private String color;
 
     @Column(name = "IMAGE_URL", nullable = true, columnDefinition = "LONGTEXT")
@@ -72,7 +70,7 @@ public class Product {
     private String odo;
 
     @Basic
-    @Column(name = "QUANTITY", nullable = false)
+    @Column(name = "QUANTITY")
     private Integer quantity;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -80,7 +78,7 @@ public class Product {
     private LocalDate firstRegis;
 
     @Basic
-    @Column(name = "num_seat", nullable = false)
+    @Column(name = "num_seat")
     private Integer numSeat;
 
     @Transient

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-  <head>
+<head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
 
-      <title>CAR DEALER WEBSITE</title>
+    <title>CAR DEALER WEBSITE</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{assets/css/bootstrap.min.css}">
 
@@ -17,159 +18,207 @@
 
     <link rel="stylesheet" th:href="@{assets/css/style.css}">
 
-    </head>
-    
-    <body>
-    
-    <!-- ***** Preloader Start ***** -->
-    <div id="js-preloader" class="js-preloader">
-      <div class="preloader-inner">
+</head>
+
+<body>
+
+<!-- ***** Preloader Start ***** -->
+<div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
         <span class="dot"></span>
         <div class="dots">
-          <span></span>
-          <span></span>
-          <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-      </div>
     </div>
-    <!-- ***** Preloader End ***** -->
-    
-    
-    <!-- ***** Header Area Start ***** -->
-    <div th:replace="~{client/include/header :: header}"></div>
+</div>
+<!-- ***** Preloader End ***** -->
 
-    <!-- ***** Header Area End ***** -->
 
-    <section class="section section-bg" id="call-to-action" th:style="|background-image: url('@{assets/images/banner-image-1-1920x500.jpg}')|">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="cta-content">
-                        <br>
-                        <br>
-                        <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Hãy liên hệ <em>với chúng tôi</em></h2>
-                        <p style="font-family: 'Roboto', sans-serif; font-weight: bold">Liên hệ với chúng tôi để nhận được sự tư vấn và hỗ trợ tốt nhất.</p>
-                    </div>
+<!-- ***** Header Area Start ***** -->
+<div th:replace="~{client/include/header :: header}"></div>
+
+<!-- ***** Header Area End ***** -->
+
+<section class="section section-bg" id="call-to-action"
+         th:style="|background-image: url('@{/assets/images/banner-image-1-1920x500.jpg}')|">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="cta-content">
+                    <br>
+                    <br>
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Hãy liên hệ <em>với chúng tôi</em>
+                    </h2>
+                    <p style="font-family: 'Roboto', sans-serif; font-weight: bold">Liên hệ với chúng tôi để nhận được
+                        sự tư vấn và hỗ trợ tốt nhất.</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- ***** Features Item Start ***** -->
-    <section class="section" id="features">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-6 offset-lg-3">
-                    <div class="section-heading">
-                        <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Thông tin <em> liên lạc</em></h2>
-                        <img th:src="@{assets/images/line-dec.png}" alt="waves">
-                        
-                    </div>
-                </div>
+<!-- ***** Features Item Start ***** -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading">
+                    <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Thông tin <em> liên lạc</em></h2>
+                    <img th:src="@{/assets/images/line-dec.png}" alt="waves">
 
-                <div class="col-md-4">
-                    <div class="icon">
-                        <i class="fa fa-phone"></i>
-                    </div>
-
-                    <h5><a th:href="@{#}">0123 - 456 - 789</a></h5>
-
-                    <br>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="icon">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-
-                    <h5><a href="mailto:hoangsinh047@gmail.com">hoangsinh047@gmail.com</a></h5>
-                    <br>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="icon">
-                        <i class="fa fa-map-marker"></i>
-                    </div>
-
-                    <h5 style="font-family: 'Roboto', sans-serif; font-weight: bold">Từ liêm, Hà Nội</h5>
-
-                    <br>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- ***** Features Item End ***** -->
-   
-    <!-- ***** Contact Us Area Starts ***** -->
-    <section class="section" id="contact-us" style="margin-top: 0">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <div id="map">
-                        <iframe src="https://maps.google.com/maps?q=Hà+Nội,+Vietnam&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen>
-                        </iframe>
-                    </div>
+
+            <div class="col-md-4">
+                <div class="icon">
+                    <i class="fa fa-phone"></i>
                 </div>
-                <div class="col-lg-6 col-md-6 col-xs-12">
-                    <div class="contact-form section-bg" style="|background-image: url('@{assets/images/contact-1-720x480.jpg}')|">
-                        <form id="contact" action="" method="post">
-                          <div class="row">
+
+                <h5><a th:href="@{#}">0123 - 456 - 789</a></h5>
+
+                <br>
+            </div>
+
+            <div class="col-md-4">
+                <div class="icon">
+                    <i class="fa fa-envelope"></i>
+                </div>
+
+                <h5><a href="mailto:hoangsinh047@gmail.com">hoangsinh047@gmail.com</a></h5>
+                <br>
+            </div>
+
+            <div class="col-md-4">
+                <div class="icon">
+                    <i class="fa fa-map-marker"></i>
+                </div>
+
+                <h5 style="font-family: 'Roboto', sans-serif; font-weight: bold">Mỹ Đình, Nam Từ Liêm, Hà Nội</h5>
+
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ***** Features Item End ***** -->
+
+<!-- ***** Contact Us Area Starts ***** -->
+<section class="section" id="contact-us" style="margin-top: 0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div id="map">
+                    <iframe src="https://maps.google.com/maps?q=Hà+Nội,+Vietnam&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            width="100%" height="600px" frameborder="0" style="border:0" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-12">
+                <div class="contact-form section-bg"
+                     style="|background-image: url('@{/assets/images/contact-1-720x480.jpg}')|">
+                    <form id="addCustomer" th:action="@{/api/customer/add}" method="POST">
+                        <div class="row">
+                            <input type="text" class="form-control" id="code" name="code" placeholder="code"
+                                   hidden="hidden">
                             <div class="col-md-6 col-sm-12">
-                              <fieldset>
-                                <input name="name" type="text" id="name" placeholder="Your Name*" required="">
-                              </fieldset>
+                                <fieldset>
+                                    <input name="tenKhachhang" type="text" id="name" placeholder="Họ và tên*" required="" >
+                                </fieldset>
                             </div>
                             <div class="col-md-6 col-sm-12">
-                              <fieldset>
-                                <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your Email*" required="">
-                              </fieldset>
+                                <fieldset>
+                                    <input name="email" type="text" id="email" pattern="[^ @]*@[^ @]*"
+                                           placeholder="Email của bạn*" required="">
+                                </fieldset>
                             </div>
                             <div class="col-md-12 col-sm-12">
-                              <fieldset>
-                                <input name="subject" type="text" id="subject" placeholder="Subject">
-                              </fieldset>
+                                <fieldset>
+                                    <input name="phoneNumber" type="text" id="subject" placeholder="Tiêu đề">
+                                </fieldset>
                             </div>
                             <div class="col-lg-12">
-                              <fieldset>
-                                <textarea name="message" rows="6" id="message" placeholder="Message" required=""></textarea>
-                              </fieldset>
+                                <fieldset>
+                                    <textarea name="content" rows="6" id="message" placeholder="Yêu cầu"
+                                              required=""></textarea>
+                                </fieldset>
                             </div>
                             <div class="col-lg-12">
-                              <fieldset>
-                                <button type="submit" id="form-submit" class="main-button">Send Message</button>
-                              </fieldset>
+                                <fieldset>
+                                    <button type="submit" id="form-submit" class="main-button">Gửi yêu cầu</button>
+                                </fieldset>
                             </div>
-                          </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- ***** Contact Us Area Ends ***** -->
-    
-    <!-- ***** Footer Start ***** -->
-    <div th:replace="~{client/include/footer:: footer}"></div>
+    </div>
+</section>
+<!-- ***** Contact Us Area Ends ***** -->
+
+<!-- ***** Footer Start ***** -->
+<div th:replace="~{client/include/footer:: footer}"></div>
 
 
-    <!-- jQuery -->
-    <script th:src="@{assets/js/jquery-2.1.0.min.js}"></script>
+<!-- jQuery -->
+<script th:src="@{assets/js/jquery-2.1.0.min.js}"></script>
 
-    <!-- Bootstrap -->
-    <script th:src="@{assets/js/popper.js}"></script>
-    <script th:src="@{assets/js/bootstrap.min.js}"></script>
+<!-- Bootstrap -->
+<script th:src="@{assets/js/popper.js}"></script>
+<script th:src="@{assets/js/bootstrap.min.js}"></script>
 
-    <!-- Plugins -->
-    <script th:src="@{assets/js/scrollreveal.min.js}"></script>
-    <script th:src="@{assets/js/waypoints.min.js}"></script>
-    <script th:src="@{assets/js/jquery.counterup.min.js}"></script>
-    <script th:src="@{assets/js/imgfix.min.js}"></script>
-    <script th:src="@{assets/js/mixitup.js}"></script>
-    <script th:src="@{assets/js/accordions.js}"></script>
-    
-    <!-- Global Init -->
-    <script th:src="@{assets/js/custom.js}"></script>
+<!-- Plugins -->
+<script th:src="@{assets/js/scrollreveal.min.js}"></script>
+<script th:src="@{assets/js/waypoints.min.js}"></script>
+<script th:src="@{assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{assets/js/imgfix.min.js}"></script>
+<script th:src="@{assets/js/mixitup.js}"></script>
+<script th:src="@{assets/js/accordions.js}"></script>
 
-  </body>
+<!-- Global Init -->
+<script th:src="@{assets/js/custom.js}"></script>
+<script>
+    $("#addCustomer").submit(function (e) {
+        e.preventDefault();
+        console.log("Form submitted!"); // Debug kiểm tra
+
+        const formData = new FormData(this);
+
+        $.ajax({
+            url: "/api/customer/add",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Success:", response);
+
+                Swal.fire({
+                    title: "Gửi yêu cầu tư vấn thành công!",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+
+                setTimeout(() => {
+                    window.location.href = "/contact"; // 👉 Chuyển về trang /contact
+                }, 2000);
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi: " + error);
+
+                Swal.fire({
+                    title: "Có lỗi xảy ra!",
+                    text: xhr.responseText || "Vui lòng thử lại sau.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+</script>
+
+
+</body>
 </html>

@@ -77,8 +77,8 @@
         <div class="col-md-4">
             <div class="widget-small info coloured-icon"><i class='icon fa-3x bx bxs-user-badge'></i>
                 <div class="info">
-                    <h4>Nhân viên mới</h4>
-                    <p><b id="newEmployeeCount">Loading...</b></p>
+                    <h4>Đăng ký lái thử</h4>
+                    <p><b id="newTestdrive">Loading...</b></p>
                 </div>
             </div>
         </div>
@@ -101,13 +101,21 @@
                     <table class="table table-hover table-bordered">
                         <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
+                            <th width="120">Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá tiền</th>
                             <th>Hãng xe</th>
+                            <th width="130">Số lượng bán ra</th>
                         </tr>
                         </thead>
                         <tbody>
+                        <tr th:each="productbest : ${productsBest}">
+                            <td th:text="${productbest.code}"></td>
+                            <td th:text="${productbest.name}"></td>
+                            <td th:text="${#numbers.formatInteger(productbest.price, 0, 'COMMA')}"></td>
+                            <td th:text="${productbest.manufacturerName}"></td>
+                            <td th:text="${productbest.totalSoldQuantity}"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -138,7 +146,6 @@
                             <td th:text="${bill.productName}"></td>
                             <td th:text="${bill.quantity}"></td>
                             <td th:text="${#numbers.formatInteger(bill.price, 0, 'COMMA')}"></td>
-
                         </tr>
                         </tbody>
                     </table>
@@ -158,22 +165,18 @@
                         <tr>
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
-                            <th>Ảnh</th>
                             <th>Số lượng</th>
                             <th>Tình trạng</th>
                             <th>Giá tiền</th>
-                            <th>Danh mục</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>83826226</td>
-                            <td>Tủ ly - tủ bát</td>
-                            <td><img src="/img-sanpham/tu.jpg" alt="" width="100px;"></td>
-                            <td>0</td>
-                            <td><span class="badge bg-danger">Hết hàng</span></td>
-                            <td>2.450.000 đ</td>
-                            <td>Tủ</td>
+                        <tr th:each="productstock : ${productStock}">
+                            <td th:text="${productstock.code}"></td>
+                            <td th:text="${productstock.name}"></td>
+                            <td th:text="${productstock.quantity}"></td>
+                            <td th:text="${productstock.status}"></td>
+                            <td th:text="${#numbers.formatInteger(productstock.price, 0, 'COMMA')}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -185,7 +188,7 @@
         <div class="col-md-12">
             <div class="tile">
                 <div>
-                    <h3 class="tile-title">NHÂN VIÊN MỚI</h3>
+                    <h3 class="tile-title">NHÂN VIÊN</h3>
                 </div>
                 <div class="tile-body">
                     <table class="table table-hover table-bordered">
@@ -200,29 +203,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Hồ Thị Thanh Ngân</td>
-                            <td>155-157 Trần Quốc Thảo, Quận 3, Hồ Chí Minh</td>
-                            <td>12/02/1999</td>
-                            <td>Nữ</td>
-                            <td>0926737168</td>
-                            <td>Bán hàng</td>
-                        </tr>
-                        <tr>
-                            <td>Trần Khả Ái</td>
-                            <td>6 Nguyễn Lương Bằng, Tân Phú, Quận 7, Hồ Chí Minh</td>
-                            <td>22/12/1999</td>
-                            <td>Nữ</td>
-                            <td>0931342432</td>
-                            <td>Bán hàng</td>
-                        </tr>
-                        <tr>
-                            <td>Nguyễn Đặng Trọng Nhân</td>
-                            <td>59C Nguyễn Đình Chiểu, Quận 3, Hồ Chí Minh</td>
-                            <td>23/07/1996</td>
-                            <td>Nam</td>
-                            <td>0846881155</td>
-                            <td>Dịch vụ</td>
+                        <tr th:each="employee : ${employees}">
+                            <td th:text="${employee.name}"></td>
+                            <td th:text="${employee.address}"></td>
+                            <td th:text="${#dates.format(employee.birth, 'yyyy-MM-dd')}"></td>
+                            <td th:text="${employee.sex}"></td>
+                            <td th:text="${employee.phone}"></td>
+                            <td th:text="${employee.position}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -233,9 +220,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="tile">
-                <h3 class="tile-title">DỮ LIỆU HÀNG THÁNG</h3>
+                <h3 class="tile-title">THỐNG KÊ SỐ ĐƠN HÀNG THEO THÁNG</h3>
                 <div class="embed-responsive embed-responsive-16by9">
-                    <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+                    <canvas class="embed-responsive-item" id="orderLineChart"></canvas>
                 </div>
             </div>
         </div>
@@ -243,38 +230,116 @@
             <div class="tile">
                 <h3 class="tile-title">THỐNG KÊ DOANH SỐ</h3>
                 <div class="embed-responsive embed-responsive-16by9">
-                    <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+                    <canvas class="embed-responsive-item" id="revenueBarChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="text-right" style="font-size: 12px">
-        <p><b>Hệ thống quản lý V2.0 | Code by Trường</b></p>
+        <p><b>Copyright 2025 Phần mềm quản lý showroom ô tô | Dev By Sinh</b></p>
     </div>
 </main>
 <!-- Essential javascripts for application to work-->
-<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
-<script th:src="@{/assets/js/popper.min.js}"></script>
-<script th:src="@{/assets/js/bootstrap.min.js}"></script>
-<script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/assets/js/report/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/assets/js/report/popper.min.js}"></script>
+<script th:src="@{/assets/js/report/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/main1.js}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
 <!-- Page specific javascripts-->
-<script type="text/javascript" th:src="@{/assets/js/plugins/chart.js}"></script>
-<script type="text/javascript">
-    var data = {
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Thống kê tổng số nhân viên
+        fetch("/api/employee/getAllEmployee")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("employee").innerText = data.count + " Nhân viên";
+                loadRecentEmployees(data.data); // Truyền dữ liệu sang hàm xử lý nhân viên mới
+            })
+            .catch(error => console.error("Lỗi khi lấy tổng nhân viên:", error));
+
+        // Tổng số sản phẩm
+        fetch("/api/product/getAllProduct")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("total-products").innerText = data.count + " Sản phẩm";
+                loadOutOfStockCount(data.data); // Truyền sang xử lý sản phẩm hết hàng
+            })
+            .catch(error => console.error("Lỗi khi lấy tổng sản phẩm:", error));
+
+        // Tổng số hóa đơn
+        fetch("/api/bill/getAllBill")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("bill").innerText = data.count + " Hóa đơn";
+            })
+            .catch(error => console.error("Lỗi khi lấy tổng hóa đơn:", error));
+
+        // Tổng doanh thu
+        fetch("/api/bill/total-revenue")
+            .then(response => response.json())
+            .then(totalRevenue => {
+                document.getElementById('totalRevenue').innerText = totalRevenue.toLocaleString('vi-VN') + " đ";
+            })
+            .catch(error => console.error("Lỗi khi lấy tổng doanh thu:", error));
+
+        fetch("/api/test-drive/getAllList")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("newTestdrive").innerText = data.count + " Đăng ký";
+            })
+            .catch(error => console.error("Lỗi khi lấy tổng:", error));
+        // Gọi đồng hồ thời gian
+        time();
+    });
+
+    function loadOutOfStockCount(products) {
+        const outOfStockCount = products.filter(p => p.quantity === 0).length;
+        document.getElementById('outOfStockCount').innerHTML = `<b>${outOfStockCount} sản phẩm</b>`;
+    }
+
+    // Đồng hồ thời gian
+    function time() {
+        const today = new Date();
+        const weekday = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+        const day = weekday[today.getDay()];
+        const dd = today.getDate().toString().padStart(2, '0');
+        const mm = (today.getMonth() + 1).toString().padStart(2, '0');
+        const yyyy = today.getFullYear();
+
+        let h = today.getHours();
+        let m = checkTime(today.getMinutes());
+        let s = checkTime(today.getSeconds());
+        const nowTime = `${h} giờ ${m} phút ${s} giây`;
+
+        const dateStr = `${day}, ${dd}/${mm}/${yyyy}`;
+        document.getElementById("clock").innerHTML = `<span class="date">${dateStr} - ${nowTime}</span>`;
+
+        setTimeout(time, 1000);
+    }
+
+    function checkTime(i) {
+        return i < 10 ? "0" + i : i;
+    }
+</script>
+
+<!-- Chart Script -->
+<script>
+    const chartData = {
         labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
-        datasets: [{
-            label: "Dữ liệu đầu tiên",
-            fillColor: "rgba(255, 255, 255, 0.158)",
-            strokeColor: "black",
-            pointColor: "rgb(220, 64, 59)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "green",
-            data: [20, 59, 90, 51, 56, 100, 40, 60, 78, 53, 33, 81]
-        },
+        datasets: [
+            {
+                label: "Dữ liệu đầu tiên",
+                fillColor: "rgba(255, 255, 255, 0.158)",
+                strokeColor: "black",
+                pointColor: "rgb(220, 64, 59)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "green",
+                data: [20, 59, 90, 51, 56, 100, 40, 60, 78, 53, 33, 81]
+            },
             {
                 label: "Dữ liệu kế tiếp",
                 fillColor: "rgba(255, 255, 255, 0.158)",
@@ -288,16 +353,18 @@
         ]
     };
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctxLine = $("#lineChartDemo").get(0).getContext("2d");
+        new Chart(ctxLine).Line(chartData);
 
-    var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-    var lineChart = new Chart(ctxl).Line(data);
-
-    var ctxb = $("#barChartDemo").get(0).getContext("2d");
-    var barChart = new Chart(ctxb).Bar(data);
+        const ctxBar = $("#barChartDemo").get(0).getContext("2d");
+        new Chart(ctxBar).Bar(chartData);
+    });
 </script>
-<!-- Google analytics script-->
+
+<!-- Google Analytics -->
 <script type="text/javascript">
-    if (document.location.hostname == 'pratikborsadiya.in') {
+    if (document.location.hostname === 'pratikborsadiya.in') {
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
@@ -315,168 +382,85 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        fetch("/api/employee/getAllEmployee")
+        fetch("/api/bill/revenue-by-month")
             .then(response => response.json())
             .then(data => {
-                document.getElementById("employee").innerText = data.count + " Nhân viên";
-            })
-            .catch(error => {
-                console.error("Lỗi khi lấy tổng nhân viên:", error);
-            });
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/api/product/getAllProduct")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("total-products").innerText = data.count + " Sản phẩm";
-            })
-            .catch(error => {
-                console.error("Lỗi khi lấy tổng sản phẩm:", error);
-            });
-    });
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/api/bill/getAllBill")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("bill").innerText = data.count + " Hóa đơn";
-            })
-            .catch(error => {
-                console.error("Lỗi khi lấy tổng hóa đơn:", error);
-            });
-    });
+                // Khởi tạo mảng tháng theo thứ tự
+                const months = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+                    "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"];
 
-    async function fetchTotalRevenue() {
-        try {
-            let response = await fetch('/api/bill/total-revenue');
-            let totalRevenue = await response.json();
-            document.getElementById('totalRevenue').innerText = totalRevenue.toLocaleString('vi-VN') + " đ";
-        } catch (error) {
-            console.error("Lỗi khi lấy tổng doanh thu:", error);
-        }
-    }
+                // Dữ liệu doanh thu tương ứng
+                const revenues = months.map(month => data[month] || 0);
 
-    fetchTotalRevenue();
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/api/product/popular")
-            .then(response => response.json())
-            .then(data => {
-                let tbody = document.querySelector("table tbody");
-                tbody.innerHTML = ""; // Xóa dữ liệu cũ
-
-                data.forEach(product => {
-                    let row = `
-                    <tr>
-                        <td>${product.id}</td>
-                        <td>${product.name}</td>
-                        <td>${new Intl.NumberFormat('vi-VN', {
-                        style: 'currency',
-                        currency: 'VND'
-                    }).format(product.price)}</td>
-                        <td>${product.manufacturerName || "Không có thông tin"}</td>
-                    </tr>
-                `;
-                    tbody.innerHTML += row;
+                // Vẽ biểu đồ cột
+                const ctx = document.getElementById('revenueBarChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                            label: 'Doanh thu theo tháng (VNĐ)',
+                            data: revenues,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString('vi-VN') + " đ";
+                                    }
+                                },
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true
+                            }
+                        }
+                    }
                 });
-            })
-            .catch(error => console.error("Lỗi khi tải dữ liệu:", error));
+            });
     });
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/bill/order-count-by-month")
+            .then(res => res.json())
+            .then(data => {
+                const labels = Object.keys(data); // Tháng 1, Tháng 2,...
+                const counts = Object.values(data); // Số đơn hàng tương ứng
 
-    function loadOutOfStockCount() {
-        fetch('/api/product/getAllProduct')
-            .then(response => response.json())
-            .then(result => {
-                const products = result.data;
-
-                // Đếm số lượng sản phẩm có quantity = 0
-                const outOfStockCount = products.filter(product => product.quantity === 0).length;
-
-                // Cập nhật số lượng sản phẩm hết hàng trên giao diện
-                document.getElementById('outOfStockCount').innerHTML = `<b>${outOfStockCount} sản phẩm</b>`;
-            })
-            .catch(error => {
-                console.error('Lỗi khi tải danh sách sản phẩm:', error);
+                const ctx = document.getElementById("orderLineChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Số đơn hàng theo tháng (2025)',
+                            data: counts,
+                            fill: false,
+                            borderColor: 'blue',
+                            backgroundColor: 'blue',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             });
-    }
-
-    // Gọi hàm khi trang được tải
-    document.addEventListener('DOMContentLoaded', loadOutOfStockCount);
-
-    function loadRecentEmployees() {
-        fetch('/api/employee/getAllEmployee')
-            .then(response => response.json())
-            .then(result => {
-                const employees = result.data;
-
-                // Lấy ngày hôm nay và hôm qua theo định dạng yyyy-MM-dd
-                const today = new Date();
-                const yesterday = new Date();
-                yesterday.setDate(today.getDate() - 1);
-
-                const formattedToday = today.toISOString().split('T')[0];
-                const formattedYesterday = yesterday.toISOString().split('T')[0];
-
-                // Lọc nhân viên có createdDate là hôm nay hoặc hôm qua
-                const newEmployeeCount = employees.filter(employee =>
-                    employee.createdDate === formattedToday || employee.createdDate === formattedYesterday
-                ).length;
-
-                // Cập nhật giao diện với số lượng nhân viên mới
-                document.getElementById('newEmployeeCount').innerHTML = `<b>${newEmployeeCount} nhân viên</b>`;
-            })
-            .catch(error => {
-                console.error('Lỗi khi tải danh sách nhân viên:', error);
-            });
-    }
-
-    // Gọi hàm khi trang tải xong
-    document.addEventListener('DOMContentLoaded', loadRecentEmployees);
-
-
+    });
 </script>
-<script type="text/javascript">
-    //Thời Gian
-    function time() {
-        var today = new Date();
-        var weekday = new Array(7);
-        weekday[0] = "Chủ Nhật";
-        weekday[1] = "Thứ Hai";
-        weekday[2] = "Thứ Ba";
-        weekday[3] = "Thứ Tư";
-        weekday[4] = "Thứ Năm";
-        weekday[5] = "Thứ Sáu";
-        weekday[6] = "Thứ Bảy";
-        var day = weekday[today.getDay()];
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        nowTime = h + " giờ " + m + " phút " + s + " giây";
-        if (dd < 10) {
-            dd = '0' + dd
-        }
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-        tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-            '</span>';
-        document.getElementById("clock").innerHTML = tmp;
-        clocktime = setTimeout("time()", "1000", "Javascript");
 
-        function checkTime(i) {
-            if (i < 10) {
-                i = "0" + i;
-            }
-            return i;
-        }
-    }
-</script>
 
 </body>
 

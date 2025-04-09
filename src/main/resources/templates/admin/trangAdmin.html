@@ -47,7 +47,7 @@
                     <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
                         <div class="info">
                             <h4>Tổng khách hàng</h4>
-                            <p><b>56 khách hàng</b></p>
+                            <p><b id="total-customer">Loading...</b></p>
                             <p class="info-tong">Tổng số khách hàng được quản lý.</p>
                         </div>
                     </div>
@@ -85,18 +85,24 @@
                 <!-- col-12 -->
                 <div class="col-md-12">
                     <div class="tile">
-                        <h3 class="tile-title">Khách hàng mới</h3>
+                        <h3 class="tile-title">Khách hàng</h3>
                         <div>
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Tên khách hàng</th>
-                                    <th>Ngày sinh</th>
+                                    <th>Email</th>
                                     <th>Số điện thoại</th>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody id="customer-table" th:each="customer : ${customer}">
+                                <td th:text="${customer.code}"></td>
+                                <td th:text="${customer.name}"></td>
+                                <td th:text="${customer.email}"></td>
+                                <td th:text="${customer.phone}"></td>
+
+                                </tbody>
                             </table>
                         </div>
 
@@ -111,17 +117,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="tile">
-                        <h3 class="tile-title">Dữ liệu 6 tháng đầu vào</h3>
+                        <h3 class="tile-title">THỐNG KÊ SỐ ĐƠN HÀNG 6 THÁNG</h3>
                         <div class="embed-responsive embed-responsive-16by9">
-                            <canvas class="embed-responsive-item" id="lineChartDemo"></canvas>
+                            <canvas class="embed-responsive-item" id="orderLineChart"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="tile">
-                        <h3 class="tile-title">Thống kê 6 tháng doanh thu</h3>
+                        <h3 class="tile-title">THỐNG KÊ 6 THÁNG DOANH THU</h3>
                         <div class="embed-responsive embed-responsive-16by9">
-                            <canvas class="embed-responsive-item" id="barChartDemo"></canvas>
+                            <canvas class="embed-responsive-item" id="revenueChart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -152,39 +158,8 @@
 <!--===============================================================================================-->
 <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
 <!--===============================================================================================-->
-<script type="text/javascript" th:src="@{/assets/js/plugins/chart.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!--===============================================================================================-->
-<script type="text/javascript">
-    var data = {
-        labels: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6"],
-        datasets: [{
-            label: "Dữ liệu đầu tiên",
-            fillColor: "rgba(255, 213, 59, 0.767), 212, 59)",
-            strokeColor: "rgb(255, 212, 59)",
-            pointColor: "rgb(255, 212, 59)",
-            pointStrokeColor: "rgb(255, 212, 59)",
-            pointHighlightFill: "rgb(255, 212, 59)",
-            pointHighlightStroke: "rgb(255, 212, 59)",
-            data: [20, 59, 90, 51, 56, 100]
-        },
-            {
-                label: "Dữ liệu kế tiếp",
-                fillColor: "rgba(9, 109, 239, 0.651)  ",
-                pointColor: "rgb(9, 109, 239)",
-                strokeColor: "rgb(9, 109, 239)",
-                pointStrokeColor: "rgb(9, 109, 239)",
-                pointHighlightFill: "rgb(9, 109, 239)",
-                pointHighlightStroke: "rgb(9, 109, 239)",
-                data: [48, 48, 49, 39, 86, 10]
-            }
-        ]
-    };
-    var ctxl = $("#lineChartDemo").get(0).getContext("2d");
-    var lineChart = new Chart(ctxl).Line(data);
-
-    var ctxb = $("#barChartDemo").get(0).getContext("2d");
-    var barChart = new Chart(ctxb).Bar(data);
-</script>
 <script type="text/javascript">
     //Thời Gian
     function time() {
@@ -258,10 +233,117 @@
                 console.error("Lỗi khi lấy tổng sản phẩm:", error);
             });
     })
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("/api/customer/getAllCustomer")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("total-customer").innerText = data.count + " Khách hàng";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy tổng khách hàng:", error);
+            });
+    })
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var rows = document.querySelectorAll("#customer-table tr");
+        var limit = 5; // Giới hạn số lượng khách hàng
+        for (var i = limit; i < rows.length; i++) {
+            rows[i].style.display = "none";  // Ẩn các dòng không cần thiết
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/bill/order-count-by-month")
+            .then(res => res.json())
+            .then(data => {
+                const currentMonth = new Date().getMonth() + 1; // Tháng hiện tại (1-12)
+
+                // Lấy 6 tháng gần nhất (bao gồm tháng hiện tại)
+                const last6Months = [];
+                for (let i = 5; i >= 0; i--) {
+                    let month = currentMonth - i;
+                    if (month <= 0) month += 12;
+                    last6Months.push("Tháng " + month);
+                }
+
+                const labels = last6Months;
+                const values = last6Months.map(label => data[label] || 0);
+
+                const ctx = document.getElementById("orderLineChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Số đơn hàng 6 tháng gần nhất',
+                            data: values,
+                            borderColor: 'blue',
+                            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/bill/revenue-by-month")
+            .then(res => res.json())
+            .then(data => {
+                const currentMonth = new Date().getMonth() + 1;
+
+                const last6Months = [];
+                for (let i = 5; i >= 0; i--) {
+                    let month = currentMonth - i;
+                    if (month <= 0) month += 12;
+                    last6Months.push("Tháng " + month);
+                }
+
+                const labels = last6Months;
+                const values = last6Months.map(label => data[label] || 0);
+
+                const ctx = document.getElementById("revenueChart").getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Doanh thu 6 tháng gần nhất',
+                            data: values,
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value.toLocaleString('vi-VN') + " đ";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+    });
 
 </script>
-
-
 </body>
 
 </html>

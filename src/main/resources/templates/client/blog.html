@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" >
 
   <head>
@@ -36,41 +36,8 @@
     
     
     <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="main-nav">
-                        <!-- ***** Logo Start ***** -->
-                        <a th:href="@{/}" class="logo">Car Dealer<em> Website</em></a>
-                        <!-- ***** Logo End ***** -->
-                        <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li><a th:href="@{/}">Home</a></li>
-                            <li><a th:href="@{/cars}">Cars</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle active" data-toggle="dropdown" th:href="@{#}" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-                              
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item"  th:href="@{/about}">About Us</a>
-                                    <a class="dropdown-item active" th:href="@{/blog}">Blog</a>
-                                    <a class="dropdown-item" th:href="@{/team}">Team</a>
-                                    <a class="dropdown-item" th:href="@{/testimonials}">Testimonials</a>
-                                    <a class="dropdown-item" th:href="@{/faq}">FAQ</a>
-                                    <a class="dropdown-item" th:href="@{/terms}">Terms</a>
-                                </div>
-                            </li>
-                            <li><a th:href="@{/contact}">Contact</a></li> 
-                        </ul>        
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
-                        <!-- ***** Menu End ***** -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div th:replace="~{client/include/header :: header}"></div>
+
     <!-- ***** Header Area End ***** -->
 
     <section class="section section-bg" id="call-to-action" th:style="|background-image: url('@{assets/images/banner-image-1-1920x500.jpg}')|">
@@ -80,8 +47,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Read our <em>Blog</em></h2>
-                        <p>Ut consectetur, metus sit amet aliquet placerat, enim est ultricies ligula</p>
+                        <h2 style="font-family: 'Roboto', sans-serif; font-weight: bold">Tin tức <em>xe</em></h2>
                     </div>
                 </div>
             </div>
@@ -97,14 +63,19 @@
                 <div class="col-lg-8">
                     <section class='tabs-content'>
                       <article>
-                        <img th:src="@{assets/images/blog-image-1-940x460.jpg}" alt="">
-                        <h4>Lorem ipsum dolor sit amet, consectetur adipisicing.</h4>
+                        <img th:src="@{assets/images/hyundai.jpg}" alt="">
+                        <h4>Mẫu SUV điện mới của Hyundai
+                            được hé lộ qua những hình ảnh teaser gần đây.</h4>
 
-                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
+                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.01.2025 5:20</p>
 
-                        <p>Phasellus convallis mauris sed elementum vulputate. Donec posuere leo sed dui eleifend hendrerit. Sed suscipit suscipit erat, sed vehicula ligula. Aliquam ut sem fermentum sem tincidunt lacinia gravida aliquam nunc. Morbi quis erat imperdiet, molestie nunc ut, accumsan diam.</p>
-                        <div class="main-button">
-                            <a th:href="@{/blog-details}">Continue Reading</a>
+                        <p>Hyundai đang chuẩn bị ra mắt một mẫu SUV chạy hoàn
+                            toàn bằng điện, được thiết kế đặc biệt cho
+                            thị trường Trung Quốc. Mẫu xe mới này là sản phẩm của liên doanh Hyundai Bắc Kinh và hiện
+                            vẫn chưa được đặt tên chính thức. Mới đây, hãng đã tung ra những hình ảnh teaser đầu tiên của
+                            mẫu xe này trước khi chính thức ra mắt dự kiến vào cuối năm nay.</p>
+                        <div class="main-button" style="font-family: 'Roboto', sans-serif; font-weight: bold">
+                            <a href="https://autopro.com.vn/hyundai-nha-hang-suv-la-co-the-la-ioniq-4-dang-bo-tron-den-hau-3d-uon-cong-khac-han-ioniq-5-dang-ban-tai-viet-nam-177250328161924555.chn">Tiếp tục đọc</a>
                         </div>
                       </article>
 
@@ -112,12 +83,19 @@
                       <br>
 
                       <article>
-                        <img th:src="@{assets/images/blog-image-2-940x460.jpg}" alt="">
-                        <h4>Aspernatur excepturi magni, placeat rerum nobis magnam libero! Soluta.</h4>
-                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
-                        <p>Integer dapibus, est vel dapibus mattis, sem mauris luctus leo, ac pulvinar quam tortor a velit. Praesent ultrices erat ante, in ultricies augue ultricies faucibus. Nam tellus nibh, ullamcorper at mattis non, rhoncus sed massa. Cras quis pulvinar eros. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                        <div class="main-button">
-                            <a th:href="@{/blog-details}">Continue Reading</a>
+                        <img th:src="@{assets/images/karoq.jpg}" alt="">
+                        <h4>Skoda Karoq được hãng mạnh tay ưu đãi, tạo "lực đẩy" cho Kushaq sắp ra mắt</h4>
+                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 01/04/2025 10:10</p>
+                        <p>heo đó, Skoda Karoq hiện đang được hãng ưu đãi 100% lệ phí trước bạ, tương đương với ưu đãi
+                            tiền mặt từ 100 - 130 triệu đồng (tùy phiên bản và tỉnh, thành đăng ký). Tại Việt Nam, Skoda
+                            Karoq đang được bán ra với hai phiên bản là Ambition giá 999 triệu đồng và Style giá 1,089 tỷ đồng.
+                            Ngoài ưu đãi về tài chính, Skoda Việt Nam còn tặng khách hàng bộ phụ kiện nâng cấp chính hãng
+                            nhập khẩu từ Châu Âu, bao gồm: 4 la-zăng thể thao, ốp bàn đạp ga/phanh, ốp cửa xe, bậc bước
+                            chân hai bên và thảm sàn. Đồng thời, khách hàng mua xe trong tháng 4
+                            sẽ được hưởng gói bảo hành 5 năm hoặc 150.000 km và miễn phí bảo dưỡng 1 năm hoặc 15.000 km,
+                            tùy điều kiện nào đến trước.</p>
+                        <div class="main-button" style="font-family: 'Roboto', sans-serif; font-weight: bold">
+                            <a href="https://xehay.vn/skoda-karoq-duoc-hang-manh-tay-uu-dai-tao-luc-day-cho-kushaq-sap-ra-mat.html">Tiếp tục đọc</a>
                         </div>
                       </article>
 
@@ -125,47 +103,45 @@
                       <br>
 
                       <article>
-                        <img th:src="@{assets/images/blog-image-3-940x460.jpg}" alt="">
-                        <h4>Sunt hic recusandae vitae explicabo quidem laudantium corrupti non adipisci nihil.</h4>
-                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i>  15 comments</p>
-                        <p>Fusce laoreet malesuada rhoncus. Donec ultricies diam tortor, id auctor neque posuere sit amet. Aliquam pharetra, augue vel cursus porta, nisi tortor vulputate sapien, id scelerisque felis magna id felis. Proin neque metus, pellentesque pharetra semper vel, accumsan a neque.</p>
-                        <div class="main-button">
-                            <a th:href="@{/blog-details}">Continue Reading</a>
+                        <img th:src="@{assets/images/slavia.jpg}" alt="">
+                        <h4>Đại lý nhận cọc Skoda Slavia: Sedan cỡ B mới "đối đầu" Toyota Vios</h4>
+                        <p><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 08/04/2025 16:10</p>
+                          <p>Mới đây, một số đại lý Skoda tại Việt Nam đã thông báo nhận cọc mẫu sedan Slavia. Theo tư vấn bán hàng,
+                              Skoda Slavia dự kiến sẽ chính thức trình làng trong khoảng tháng 5 hoặc tháng 6 năm nay, với hình t
+                              hức lắp ráp trong nước. Mặc dù Skoda Việt Nam chưa đưa ra xác nhận chính thức, nhưng trước đó, hồi tháng 3/2025, hãng từng đăng tải hình ảnh
+                              khuôn viên nhà máy nội địa với sự xuất hiện của cả Slavia lẫn Kushaq – hai mẫu xe đầu tiên
+                              được nội địa hóa tại Việt Nam. Skoda Slavia sẽ gia nhập phân khúc vốn đang rất sôi động với những cái tên quen thuộc như Toyota Vios, Hyundai Accent hay Honda City. Trong đó, Vios hiện là mẫu xe bán chạy nhất phân khúc.
+                              Cũng giống như các đối thủ, Slavia sẽ được lắp ráp tại Việt Nam, hứa hẹn tạo lợi thế về giá.</p>
+                        <div class="main-button" style="font-family: 'Roboto', sans-serif; font-weight: bold">
+                            <a href="https://xehay.vn/dai-ly-nhan-coc-skoda-slavia-sedan-co-b-moi-doi-dau-toyota-vios.html">Tiếp tục đọc</a>
                         </div>
                       </article>
                     </section>
                 </div>
 
                 <div class="col-lg-4">
-                    <h5 class="h5">Search</h5>
-                    
-                    <div class="contact-form">
-                        <form id="search_form" name="gs" method="GET" action="#">
-                          <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
-                        </form>
-                    </div>
 
                     <h5 class="h5">Recent posts</h5>
 
                     <ul>
-                        <li>
-                            <p><a th:href="@{/blog-details}">Dolorum corporis ullam, reiciendis inventore est repudiandae</a></p>
-                            <small><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10</small>
+                        <li style="font-family: 'Roboto', sans-serif">
+                            <p><a href="https://xehay.vn/du-doan-thiet-ke-toyota-corolla-cross-the-he-moi-co-nhieu-diem-chung-voi-camry.html">Dự đoán thiết kế Toyota Corolla Cross thế hệ mới: Có nhiều điểm chung với Camry</a></p>
+                            <small><i class="fa fa-user"></i> Hoang Sinh &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 08/04/2025 13:12</small>
                         </li>
 
                         <li><br></li>
 
-                        <li>
-                            <p><a th:href="@{/blog-details}">Culpa ab quasi in rerum dolorum impedit expedita</a></p>
-                            <small><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10</small>
+                        <li style="font-family: 'Roboto', sans-serif">
+                            <p><a href="https://xehay.vn/honda-hr-v-2025-chinh-thuc-ra-mat-viet-nam-gia-tu-699-trieu-dong-53750.html">Honda HR-V 2025 chính thức ra mắt Việt Nam: Giá từ 699 triệu đồng</a></p>
+                            <small><i class="fa fa-user"></i> Hoang Sinh &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 04/04/2025 10:34</small>
                         </li>
 
                         <li><br></li>
 
-                        <li>
-                          <p><a th:href="@{/blog-details}">Explicabo soluta corrupti dolor doloribus optio dolorum</a></p>
+                        <li style="font-family: 'Roboto', sans-serif">
+                          <p><a href="https://xehay.vn/toyota-land-cruiser-2025-cap-ben-viet-nam-khach-chap-nhan-kem-lac-de-nhan-xe-som.html">Toyota Land Cruiser 2025 "cập bến" Việt Nam: Khách chấp nhận "kèm lạc" để nhận xe sớm</a></p>
 
-                          <small><i class="fa fa-user"></i> John Doe &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 27.07.2020 10:10</small>
+                          <small><i class="fa fa-user"></i> Hoang Sinh &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 02/04/2025 10:09</small>
                         </li>
                     </ul>
                 </div>

@@ -3,6 +3,7 @@ package com.hdsinh.cardealer.repository.Product;
 import com.hdsinh.cardealer.entities.Product;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,10 @@ public interface ProductRepository extends JpaRepository<Product, Long>, Product
 
     @Query("SELECT p FROM Product p WHERE (SELECT COUNT(b) FROM Bill b WHERE b.productId = p.id) >= 3")
     List<Product> findProductsWithBills();
+
+    @Query("SELECT p FROM Product p WHERE (SELECT COUNT(b) FROM Bill b WHERE b.productId = p.id) > :count")
+    List<Product> findProductsWithBillCountGreaterThan(@Param("count") int count);
+
+    List<Product> findByQuantityEquals(int quantity);
+
 }

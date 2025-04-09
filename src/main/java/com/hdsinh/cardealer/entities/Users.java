@@ -3,7 +3,9 @@ package com.hdsinh.cardealer.entities;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "users")
 public class Users {

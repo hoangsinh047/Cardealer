@@ -159,7 +159,7 @@
                     <form id="addProduct" class="row" th:action="@{/api/product/add}" method="POST"
                           enctype="multipart/form-data">
                         <div class="form-group col-md-4">
-                            <label class="control-label">ID nhân viên</label>
+                            <label class="control-label">ID xe</label>
                             <input class="form-control" type="text" required name="code" id="employeeCode" readonly>
                         </div>
                         <div class="form-group col-md-3">
@@ -365,7 +365,6 @@ MODAL
         }
     }
 
-
 </script>
 <script>
     $("#addProduct").submit(function (e) {
@@ -424,102 +423,6 @@ MODAL
     }
 
     window.onload = generateEmployeeCode; // Gọi khi trang tải xong
-</script>
-<script>
-    document.getElementById("addManufacturerForm").addEventListener("submit", function (event) {
-        event.preventDefault(); // Ngăn chặn gửi form mặc định
-
-        let inputField = document.getElementById("manufacturerName");
-        let tenHangXe = inputField.value.trim();
-
-        // Xóa lỗi cũ nếu có
-        inputField.style.border = "";
-        document.getElementById("errorMessage")?.remove();
-
-        if (!tenHangXe) {
-            // Hiển thị lỗi nếu trống
-            inputField.style.border = "2px solid red";
-            let errorMsg = document.createElement("small");
-            errorMsg.id = "errorMessage";
-            errorMsg.style.color = "red";
-            errorMsg.innerText = "Tên hãng xe không được để trống!";
-            inputField.parentNode.appendChild(errorMsg);
-            return;
-        }
-
-        console.log("Gửi request đến API...");
-
-        let formData = new FormData();
-        formData.append("tenHangXe", tenHangXe);
-
-        fetch("/api/manufacturers/add", {
-            method: "POST",
-            body: formData
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Lỗi HTTP: " + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log("Phản hồi từ API:", data);
-                alert("Thêm hãng xe thành công!");
-                inputField.value = "";
-                $("#adddanhmuc").modal("hide"); // Ẩn modal
-            })
-            .catch(error => {
-                alert("Lỗi khi thêm hãng xe: " + error.message);
-                console.error("Error:", error);
-            });
-    });
-
-</script>
-<script>
-    // Hàm gọi API để lấy danh sách hãng xe
-    function loadManufacturers() {
-        fetch('http://localhost:8080/api/manufacturers/getList')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Lỗi khi tải danh sách: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const manufacturerList = document.getElementById('manufacturerList');
-
-                // Xóa nội dung hiện tại
-                manufacturerList.innerHTML = '';
-
-                // Kiểm tra nếu data là mảng và có dữ liệu
-                if (Array.isArray(data) && data.length > 0) {
-                    // Thêm từng hãng xe vào danh sách
-                    data.forEach(manufacturer => {
-                        const li = document.createElement('li');
-                        // Giả sử API trả về đối tượng có thuộc tính 'name' hoặc 'tenHangXe'
-                        // Điều chỉnh tùy theo cấu trúc thực tế của dữ liệu
-                        li.textContent = manufacturer.name || manufacturer.tenHangXe || manufacturer.ten || JSON.stringify(manufacturer);
-                        manufacturerList.appendChild(li);
-                    });
-                } else {
-                    // Hiển thị thông báo nếu không có dữ liệu
-                    const li = document.createElement('li');
-                    li.textContent = 'Không có hãng xe nào';
-                    manufacturerList.appendChild(li);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const manufacturerList = document.getElementById('manufacturerList');
-                manufacturerList.innerHTML = '<li style="color: red;">Lỗi khi tải danh sách hãng xe</li>';
-            });
-    }
-
-    // Gọi hàm khi trang được tải hoặc khi modal mở
-    document.addEventListener('DOMContentLoaded', loadManufacturers);
-
-    // Nếu bạn muốn tải lại danh sách mỗi khi modal được mở
-    $('#adddanhmuc').on('shown.bs.modal', loadManufacturers);
 </script>
 </body>
 </html>

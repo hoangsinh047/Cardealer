@@ -1,16 +1,26 @@
 package com.hdsinh.cardealer.api;
 
+import com.hdsinh.cardealer.dto.BillDto;
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Bill;
+import com.hdsinh.cardealer.entities.Employee;
+import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.services.Bill.BillService;
+import com.hdsinh.cardealer.services.Employee.EmployeeService;
+import com.hdsinh.cardealer.services.Product.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("api/bill")
@@ -18,8 +28,14 @@ import java.time.LocalDate;
 public class BillApi {
     private final BillService billService;
 
-    public BillApi(BillService billService) {
+    private final ProductService productService;
+
+    private final EmployeeService employeeService;
+
+    public BillApi(BillService billService, ProductService productService, EmployeeService employeeService) {
         this.billService = billService;
+        this.productService = productService;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/getAllBill")
@@ -41,15 +57,15 @@ public class BillApi {
 
     @PostMapping("/add")
     public ResponseEntity<Bill> addSale(
-            @RequestParam("code") String code,
-            @RequestParam("tenKhachHang") String name,
-            @RequestParam("soDienThoai") String phone,
-            @RequestParam("address") String address,
-            @RequestParam("tenNhanVien") Long employeeId,
-            @RequestParam("createdDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate createdDate ,
-            @RequestParam("tenSanPham") Long productId,
-            @RequestParam("soLuong") Integer quantity,
-            @RequestParam("tongGia") BigDecimal price) {
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "tenKhachHang", required = false) String name,
+            @RequestParam(value = "soDienThoai", required = false) String phone,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "tenNhanVien", required = false) Long employeeId,
+            @RequestParam(value = "createdDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate createdDate ,
+            @RequestParam(value = "tenSanPham", required = false) Long productId,
+            @RequestParam(value = "soLuong", required = false) Integer quantity,
+            @RequestParam(value = "tongGia", required = false) BigDecimal price) {
 
         // Tạo đối tượng sản phẩm
         Bill bill = new Bill();
@@ -69,10 +85,75 @@ public class BillApi {
         return ResponseEntity.ok(savedBill);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BillDto> getBill(@PathVariable Long id) {
+        Bill bill = billService.findById(id);
+        if (bill == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if (bill.getProductId() != null) {
+            Product product = productService.getProductById(bill.getProductId());
+            if (product != null) {
+                bill.setProductName(product.getName());
+            }
+        }
+
+        if (bill.getEmployeeId() != null) {
+            Employee employee = employeeService.getEmployeeById(bill.getEmployeeId());
+            if (employee != null) {
+                bill.setEmployeeName(employee.getName());
+            }
+        }
+
+        BillDto billDto = new BillDto(bill);
+        return ResponseEntity.ok(billDto);
+    }
+
     @GetMapping("/total-revenue")
     public ResponseEntity<Double> getTotalRevenue() {
         Double totalRevenue = billService.getTotalRevenue();
         return ResponseEntity.ok(totalRevenue);
     }
+
+    @GetMapping("/revenue-by-month")
+    public ResponseEntity<Map<String, Long>> getRevenueByMonth() {
+        List<Bill> bills = billService.findAll(); // hoặc repo.findAll()
+
+        Map<String, Long> revenueByMonth = new HashMap<>();
+        // Khởi tạo tất cả 12 tháng với 0
+        IntStream.rangeClosed(1, 12).forEach(i -> revenueByMonth.put("Tháng " + i, 0L));
+
+        for (Bill bill : bills) {
+            if (bill.getCreatedDate() != null && bill.getPrice() != null) {
+                LocalDate createdDate = bill.getCreatedDate();
+                if (createdDate.getYear() == LocalDateTime.now().getYear()) {
+                    String month = "Tháng " + createdDate.getMonthValue();
+                    revenueByMonth.put(month,
+                            revenueByMonth.get(month) + bill.getPrice().longValue());
+                }
+            }
+        }
+
+        return ResponseEntity.ok(revenueByMonth);
+    }
+    @GetMapping("/order-count-by-month")
+    public ResponseEntity<Map<String, Integer>> getOrderCountByMonth() {
+        List<Bill> bills = billService.findAll(); // hoặc billRepository.findAll()
+
+        Map<String, Integer> countByMonth = new LinkedHashMap<>();
+        IntStream.rangeClosed(1, 12).forEach(m -> countByMonth.put("Tháng " + m, 0));
+
+        for (Bill bill : bills) {
+            if (bill.getCreatedDate() != null && bill.getCreatedDate().getYear() == LocalDate.now().getYear()) {
+                int month = bill.getCreatedDate().getMonthValue();
+                String monthLabel = "Tháng " + month;
+                countByMonth.put(monthLabel, countByMonth.get(monthLabel) + 1);
+            }
+        }
+
+        return ResponseEntity.ok(countByMonth);
+    }
+
 
 }

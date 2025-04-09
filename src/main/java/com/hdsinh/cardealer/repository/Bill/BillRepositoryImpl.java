@@ -22,19 +22,19 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
         sql.append("SELECT ");
         sql.append("    s.ID id, ");
         sql.append("    e.CODE code, ");
+        sql.append("    e.NAME name, ");
+        sql.append("    e.PHONE phone, ");
+        sql.append("    e.ADDRESS address, ");
         sql.append("    s.PRODUCT_ID productId, ");
         sql.append("    s.EMPLOYEE_ID employeeId, ");
-        sql.append("    s.CUSTOMER_ID customerId, ");
         sql.append("    s.QUANTITY quantity, ");
         sql.append("    s.CREATED_DATE createdDate, ");
         sql.append("    s.PRICE price, ");
         sql.append("    p.NAME productName, ");
-        sql.append("    e.NAME employeeName, ");
-        sql.append("    c.NAME customerName ");
+        sql.append("    e.NAME employeeName ");
         sql.append("FROM SALE s ");
         sql.append("LEFT JOIN PRODUCTS p ON s.PRODUCT_ID = p.ID ");
         sql.append("LEFT JOIN EMPLOYEE e ON s.EMPLOYEE_ID = e.ID ");
-        sql.append("LEFT JOIN CUSTOMERS c ON s.CUSTOMER_ID = c.ID ");
         sql.append("WHERE 1=1 ");
 
         if (search != null && !search.isEmpty()) {
@@ -54,15 +54,16 @@ public class BillRepositoryImpl implements BillRepositoryCustom {
         Query query = entityManager.unwrap(Session.class).createNativeQuery(sql.toString())
                 .addScalar("id", StandardBasicTypes.LONG)
                 .addScalar("code", StandardBasicTypes.STRING)
+                .addScalar("name", StandardBasicTypes.STRING)
+                .addScalar("phone", StandardBasicTypes.STRING)
+                .addScalar("address", StandardBasicTypes.STRING)
                 .addScalar("productId", StandardBasicTypes.LONG)
                 .addScalar("employeeId", StandardBasicTypes.LONG)
-                .addScalar("customerId", StandardBasicTypes.LONG)
                 .addScalar("quantity", StandardBasicTypes.INTEGER)
-                .addScalar("createdDate", StandardBasicTypes.DATE)
+                .addScalar("createdDate", StandardBasicTypes.LOCAL_DATE)
                 .addScalar("price", StandardBasicTypes.BIG_DECIMAL)
                 .addScalar("productName", StandardBasicTypes.STRING)
                 .addScalar("employeeName", StandardBasicTypes.STRING)
-                .addScalar("customerName", StandardBasicTypes.STRING)
                 .setResultTransformer(Transformers.aliasToBean(BillDto.class));
 
         return query.getResultList();

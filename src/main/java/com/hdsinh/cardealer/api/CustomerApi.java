@@ -51,12 +51,12 @@ public class CustomerApi {
 
     @PostMapping("/add")
     public ResponseEntity<Customer> addCustomer(
-            @RequestParam("code") String code,
-            @RequestParam("tenKhachhang") String name,
-            @RequestParam("email") String email,
-            @RequestParam("phoneNumber") Integer phone,
-            @RequestParam("content") String content,
-            @RequestParam("tenSanPham") Long productId) {
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "tenKhachhang", required = false) String name,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "phoneNumber", required = false) Integer phone,
+            @RequestParam(value = "content", required = false) String content,
+            @RequestParam(value = "tenSanPham", required = false) Long productId) {
 
         // Tạo đối tượng sản phẩm
         Customer customer = new Customer();

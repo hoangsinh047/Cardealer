@@ -1,0 +1,494 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #1a1a1a;
+    --accent-color: #c8a45c;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+    --transition: all 0.3s ease;
+    font-size: 12px; /* Tăng font-size cơ bản */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #1a1a1a;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/images/logo.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.4);
+    transform: scale(1.1);
+}
+
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    justify-content: center;
+}
+
+.left-section {
+    width: 60%;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.brand-badges {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.brand-badge {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+.brand-badge:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-5px);
+}
+
+.showroom-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.showroom-subtitle {
+    font-size: 1.5rem; /* tăng từ 1.2rem */
+    color: #aaa;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.right-section {
+    width: 40%; /* Tăng kích thước vùng bên phải */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+}
+
+.login-card {
+    width: 60%;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.login-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #333 100%);
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+    position: relative;
+}
+
+.login-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-color) 50%, transparent 100%);
+}
+
+.login-logo-container {
+    background-color: white;
+    width: 6rem; /* tăng kích thước */
+    height: 6rem;
+    margin: 0 auto 0.75rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+    border: 2px solid var(--accent-color);
+}
+
+.login-logo {
+    font-size: 3rem; /* tăng kích thước logo */
+    color: var(--primary-color);
+}
+
+.login-header h3 {
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    font-size: 1.75rem; /* tăng từ 1.75rem */
+    letter-spacing: 1px;
+}
+
+.login-header p {
+    color: var(--accent-color);
+    margin-bottom: 0;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.2rem; /* tăng từ 1rem */
+}
+
+.login-body {
+    padding: 2em; /* tăng padding từ 2rem */
+    background-color: white;
+    color: var(--text-dark);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+
+.form-group .input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%; /* canh giữa input theo chiều dọc */
+    transform: translateY(-50%); /* đẩy icon lên 50% */
+    font-size: 1.5rem;
+    color: #999;
+    pointer-events: none; /* để icon không cản trở click */
+}
+
+.form-control {
+    height: 3.5rem;
+    padding-left: 3rem; /* thay 2.75rem bằng 3rem (hoặc 3.5rem) */
+    line-height: 1.5; /* giúp placeholder không bị chèn dính vào icon */
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    transition: var(--transition);
+    color: #333;
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(200, 164, 92, 0.25);
+}
+
+.form-control:focus + .input-icon {
+    color: var(--accent-color);
+}
+
+.alert {
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+    margin-bottom: 1.25rem;
+    border: none;
+    font-size: 1.125rem; /* tăng từ 0.875rem */
+    font-weight: 500;
+}
+
+.alert-danger {
+    background-color: #fff2f2;
+    color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+}
+
+.alert-success {
+    background-color: #f0fff4;
+    color: #2ecc71;
+    border-left: 4px solid #2ecc71;
+}
+
+.btn-login {
+    height: 3.5rem; /* tăng chiều cao */
+    background: linear-gradient(135deg, var(--primary-color) 0%, #333 100%);
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+    font-size: 1.125rem; /* tăng từ 1rem */
+}
+
+.btn-login::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #333 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+.btn-login:hover::after {
+    left: 100%;
+}
+
+.form-check-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.forgot-password {
+    font-size: 1rem;
+    color: #777;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.forgot-password:hover {
+    color: var(--accent-color);
+}
+
+.footer {
+    text-align: center;
+    padding: 0.75rem;
+    color: #999;
+    font-size: 1rem; /* tăng từ 0.75rem */
+    border-top: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+
+.btn-register {
+    width: 100%;
+    height: 3rem;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #444 100%);
+    border: none;
+    border-radius: 0.25rem;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: var(--transition);
+    margin-top: 0.5rem;
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #444 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+}
+
+.floating {
+    animation: floating 3s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.checkbox-gold {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.25rem;
+    position: relative;
+    cursor: pointer;
+    appearance: none;
+    border: 1px solid #c8a45c;
+    border-radius: 4px;
+    background-color: white;
+    transition: var(--transition);
+}
+
+.checkbox-gold:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.checkbox-gold:checked::before {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1rem;
+}
+
+.form-check {
+    display: flex;
+    align-items: flex-start;
+}
+
+.form-check-label {
+    font-size: 1.125rem;
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+/* Điều chỉnh đáp ứng */
+@media (min-width: 992px) {
+    .left-section {
+        width: 40%; /* Thu nhỏ lại phần bên trái */
+    }
+
+    .right-section {
+        width: 60%; /* Cân đối lại phần bên phải */
+    }
+}
+
+@media (min-width: 1200px) {
+    .login-card {
+        max-width: 800px;
+    }
+}
+
+@media (max-width: 991px) {
+    .left-section {
+        display: none;
+    }
+
+    .right-section {
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card {
+        max-width: 100%;
+    }
+
+    .login-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .login-logo-container {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .login-logo {
+        font-size: 2rem;
+    }
+}
+
+/* Wrapper chứa icon và input */
+.input-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    background-color: #f9f9f9;
+    height: 3.5rem;
+    padding: 0 0.75rem;
+    transition: var(--transition);
+}
+
+/* Kiểu cho icon */
+.input-container i {
+    font-size: 1.5rem;
+    color: #999;
+    margin-right: 0.5rem;
+}
+
+/* Kiểu cho input */
+.input-container .form-control {
+    border: none; /* Loại bỏ viền input riêng */
+    box-shadow: none; /* Loại bỏ shadow của input */
+    height: 100%;
+    flex: 1;
+    background-color: transparent;
+    font-size: 1.125rem;
+    color: #333;
+}
+
+/* Khi input được focus */
+.input-container:focus-within {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(200, 164, 92, 0.25);
+}
+
+/* Cập nhật lại style của label nếu cần */
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+    font-size: 1.125rem;
+    transition: var(--transition);
+}
+
+.register-text {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+.register-link {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.register-link:hover {
+    color: #b5894e;
+    text-decoration: underline;
+}
+

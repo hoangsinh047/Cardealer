@@ -86,9 +86,26 @@
                                         th:attr="data-id=${product.id}" onclick="myFunction(this)">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                                        th:data-id="${product.id}"
+                                        th:data-name="${product.name}"
+                                        th:data-code="${product.code}"
+                                        th:data-status="${product.status}"
+                                        th:data-description="${product.description}"
+                                        th:data-gearbox="${product.gearbox}"
+                                        th:data-fuel="${product.fuel}"
+                                        th:data-color="${product.color}"
+                                        th:data-manufacturerId="${product.manufacturerId}"
+                                        th:data-quantity="${product.quantity}"
+                                        th:data-odo="${product.odo}"
+                                        th:data-seat="${product.numSeat}"
+                                        th:data-type="${product.type}"
+                                        th:data-price="${product.price}"
+                                        th:data-firstregis="${product.firstRegis}"
                                         data-toggle="modal"
-                                        data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                        data-target="#ModalUP">
+                                    <i class="fas fa-edit"></i>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -116,51 +133,82 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
-                        <label class="control-label">Mã sản phẩm </label>
-                        <input class="form-control" type="number" value="71309005">
+                        <label class="control-label">Mã Xe </label>
+                        <input class="form-control" type="text" required name="code" id="edit-code" disabled>
                     </div>
                     <div class="form-group col-md-6">
-                        <label class="control-label">Tên sản phẩm</label>
-                        <input class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
-                    </div>
-                    <div class="form-group  col-md-6">
-                        <label class="control-label">Số lượng</label>
-                        <input class="form-control" type="number" required value="20">
+                        <label class="control-label">Tên xe</label>
+                        <input class="form-control" type="text" required name="tenXe" id="edit-name">
                     </div>
                     <div class="form-group col-md-6 ">
-                        <label for="exampleSelect1" class="control-label">Tình trạng sản phẩm</label>
-                        <select class="form-control">
-                            <option>Còn hàng</option>
-                            <option>Hết hàng</option>
-                            <option>Đang nhập hàng</option>
+                        <label for="edit-status" class="control-label">Tình trạng xe</label>
+                        <select class="form-control" name="tinhTrang" id="edit-status"
+                                onchange="ChangeStatus()">
+                            <option>Xe mới</option>
+                            <option>Xe cũ</option>
                         </select>
+                    </div>
+                    <div class="form-group col-md-6" id="soKmDiv" style="display: none;">
+                        <label class="control-label">Số KM đã đi</label>
+                        <input class="form-control" type="number" name="soKm" id="edit-odo">
+                    </div>
+
+                    <div class="form-group col-md-6" id="dangKyDiv" style="display: none;">
+                        <label class="control-label">Đăng ký</label>
+                        <input class="form-control" type="date" name="dangKy" id="edit-regis">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Số lượng</label>
+                        <input class="form-control" type="number" name="soLuong" id="edit-quantity">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="edit-gear" class="control-label">Hộp số</label>
+                        <select class="form-control" id="edit-gear" name="hopSo">
+                            <option>Số sàn</option>
+                            <option>Số tự động</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="edit-fuel" class="control-label">Nhiên liệu</label>
+                        <select class="form-control" id="edit-fuel" name="nhienLieu">
+                            <option>Xăng</option>
+                            <option>Dầu</option>
+                            <option>Động cơ Hybrid</option>
+                            <option>Điện</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="edit-type" class="control-label">Kiểu xe</label>
+                        <select class="form-control" id="edit-type" name="kieuXe">
+                            <option>Sedan</option>
+                            <option>Suv</option>
+                            <option>Cuv</option>
+                            <option>Hatchback</option>
+                            <option>Bán tải</option>
+                            <option>Sport</option>
+                            <option>Mpv</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Màu sắc</label>
+                        <input class="form-control" type="text" name="mauSac" id="edit-color">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Số ghế</label>
+                        <input class="form-control" type="text" name="soGhe" id="edit-seat">
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">Giá bán</label>
-                        <input class="form-control" type="text" value="5.600.000">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="exampleSelect1" class="control-label">Danh mục</label>
-                        <select class="form-control" id="exampleSelect1">
-                            <option>Bàn ăn</option>
-                            <option>Bàn thông minh</option>
-                            <option>Tủ</option>
-                            <option>Ghế gỗ</option>
-                            <option>Ghế sắt</option>
-                            <option>Giường người lớn</option>
-                            <option>Giường trẻ em</option>
-                            <option>Bàn trang điểm</option>
-                            <option>Giá đỡ</option>
-                        </select>
+                        <input class="form-control" type="text" name="giaBan" id="edit-price">
                     </div>
                 </div>
+                <div class="form-group col-md-12">
+                    <label class="control-label">Mô tả sản phẩm</label>
+                    <textarea class="form-control" name="mota" id="edit-mota"></textarea>
+                    <script>CKEDITOR.replace('mota');</script>
+                </div>
                 <BR>
-                <a href="#" style="    float: right;
-    font-weight: 600;
-    color: #ea0000;">Chỉnh sửa sản phẩm nâng cao</a>
-                <BR>
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
+                <button class="btn btn-save" type="button" id="save-button">Lưu lại</button>
                 <a class="btn btn-cancel" data-dismiss="modal" href="">Hủy bỏ</a>
                 <BR>
             </div>
@@ -174,15 +222,19 @@ MODAL
 -->
 
 <!-- Essential javascripts for application to work-->
-<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
-<script th:src="@{/assets/js/popper.min.js}"></script>
-<script th:src="@{/assets/js/bootstrap.min.js}"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script th:src="@{/assets/js/main.js}"></script>
+<!--<script th:src="@{/assets/vendor/report/report-3.2.1.min.js}"></script>-->
+<!--<script th:src="@{/assets/js/popper.min.js}"></script>-->
+<!--<script th:src="@{/assets/js/bootstrap.min.js}"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!--<script src="//ajax.googleapis.com/ajax/libs/report/1.11.1/report.min.js"></script>-->
+<!--<script th:src="@{/assets/js/main.js}"></script>-->
 <!-- The javascript plugin to display page loading on top-->
 <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
 <!-- Page specific javascripts-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <!-- Data table plugin-->
 <script type="text/javascript" th:src="@{/assets/js/plugins/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/plugins/dataTables.bootstrap.min.js}"></script>
@@ -268,58 +320,150 @@ MODAL
         });
     }
 
-    function loadProduct() {
-        fetch('/api/product/getAllProduct')
-            .then(response => response.json())
-            .then(result => {
-                // Giả sử result có cấu trúc: { count: số lượng, data: [ {...} ] }
-                const products = result.data;
-
-                // Lấy phần tử tbody của bảng
-                const tbody = document.querySelector('#sampleTable tbody');
-                tbody.innerHTML = ''; // Xóa nội dung cũ
-
-                products.forEach(product => {
-                    // Định dạng giá tiền với dấu phân cách hàng nghìn
-                    const formattedPrice = new Intl.NumberFormat('vi-VN').format(product.price);
-
-                    // Tạo một hàng mới cho sản phẩm
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                    <th width="10"><input type="checkbox"></th>
-                    <td>${product.code}</td>
-                    <td>${product.name}</td>
-                    <td>${product.gearbox}</td>
-                    <td>${product.quantity}</td>
-                    <td>${product.status}</td>
-                    <td>${formattedPrice} đ</td>
-                    <td>${product.manufacturerName}</td>
-                    <td width="150">
-                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                data-id="${product.id}" onclick="myFunction(this)">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                data-toggle="modal" data-target="#ModalUP" onclick="editProduct(${product.id})">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                `;
-
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error('Lỗi khi tải danh sách sản phẩm:', error);
-            });
-    }
-
     oTable = $('#sampleTable').dataTable();
     $('#all').click(function (e) {
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
     });
 </script>
+<SCRIPT>
+    function ChangeStatus() {
+        const statusSelected = document.getElementById("tinhTrangSelect").value;
+        if (statusSelected == "Xe cũ") {
+            document.getElementById("soKmDiv").style.display = 'inline';
+            document.getElementById("dangKyDiv").style.display = 'inline';
+        } else {
+            document.getElementById("soKmDiv").style.display = 'none';
+            document.getElementById("dangKyDiv").style.display = 'none';
+        }
+    }
+</SCRIPT>
+<script>
+    let currentProductId = null;
+
+    // Hàm load danh sách sản phẩm
+    function loadProduct() {
+        fetch('/api/product/getAllProduct')
+            .then(response => response.json())
+            .then(result => {
+                const products = result.data; // Đảm bảo sử dụng đúng tên dữ liệu trả về
+                const table = $('#sampleTable').DataTable();
+
+                table.clear(); // Xóa dữ liệu cũ
+
+                // Lặp qua danh sách sản phẩm
+                products.forEach(product => {
+                    const firstRegis = new Date(product.firstRegis);
+                    const formattedPrice = new Intl.NumberFormat('vi-VN').format(product.price); // Định dạng giá
+                    const row = [
+                        `<input type="checkbox">`,
+                        product.code,
+                        product.name,
+                        product.gearbox,
+                        product.quantity,
+                        product.status,
+                        formattedPrice, // Sử dụng giá trị đã định dạng
+                        product.manufacturerName,
+                        `
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" data-id="${product.id}" onclick="myFunction(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                            data-id="${product.id}"
+                            data-name="${product.name}"
+                            data-code="${product.code}"
+                            data-status="${product.status}"
+                            data-quantity="${product.quantity}"
+                            data-manu="${product.manufacturerName}"
+                            data-gearbox="${product.gearbox}"
+                            data-price="${product.price}"
+                            data-type="${product.type}"
+                            data-color="${product.color}"
+                            data-description="${product.description}"
+                            data-fuel="${product.fuel}"
+                            data-seat="${product.numSeat}"
+                            data-firstRegis="${product.firstRegis}"
+                            data-toggle="modal"
+                            data-target="#ModalUP">
+                            <i class="fas fa-edit"></i>
+                        </button>`
+                    ];
+                    table.row.add(row); // Thêm hàng vào bảng
+                });
+
+                table.draw(); // Vẽ lại bảng
+            })
+            .catch(error => {
+                console.error('Error loading products:', error);
+            });
+    }
+
+    $(document).ready(function () {
+        // Khởi tạo DataTable nếu chưa có
+        if (!$.fn.DataTable.isDataTable('#sampleTable')) {
+            $('#sampleTable').DataTable();
+        }
+
+        // Gọi hàm load danh sách khi trang sẵn sàng
+        loadProduct();
+
+        // Bắt sự kiện click nút "Chỉnh sửa" bằng event delegation
+        $(document).on('click', '.edit', function () {
+            currentProductId = $(this).data('id');
+            $('#edit-code').val($(this).data('code'));
+            $('#edit-name').val($(this).data('name'));
+            $('#edit-mota').val($(this).data('description'))
+            $('#edit-gear').val($(this).data('gearbox'));
+            $('#edit-status').val($(this).data('status'));
+            $('#edit-quantity').val($(this).data('quantity'));
+            $('#edit-price').val($(this).data('price'));
+            $('#edit-type').val($(this).data('type'));
+            $('#edit-color').val($(this).data('color'));
+            $('#edit-fuel').val($(this).data('fuel'));
+            $('#edit-seat').val($(this).data('seat'));
+            $('#edit-firstRegis').val($(this).data('firstRegis'));
+        });
+
+        // Bắt sự kiện click nút "Lưu lại"
+        $('#save-button').on('click', function () {
+            const updatedProduct = {
+                code: $('#edit-code').val(),
+                name: $('#edit-name').val(),
+                gearbox: $('#edit-gear').val(),
+                status: $('#edit-status').val(),
+                quantity: $('#edit-quantity').val(),
+                price: $('#edit-price').val(),
+                type: $('#edit-type').val(),
+                color: $('#edit-color').val(),
+                fuel: $('#edit-fuel').val(),
+                numSeat: $('#edit-seat').val(),
+                firstRegis: $('#edit-firstRegis').val() // Giả sử bạn lưu ngày đầu đăng ký
+            };
+
+            $.ajax({
+                url: `/api/product/${currentProductId}`, // Cập nhật sản phẩm dựa trên ID
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedProduct),
+                success: function (response) {
+                    if (response.status === 'success') {
+                        swal("Cập nhật thông tin thành công!");
+                        $('#ModalUP').modal('hide');
+                        loadProduct(); // Tải lại danh sách sản phẩm sau khi cập nhật
+                    } else {
+                        swal("Cập nhật thất bại. Vui lòng thử lại!");
+                        console.error("Server Response Status: ", response.status);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Lỗi khi cập nhật:", error);
+                    swal("Đã có lỗi xảy ra khi cập nhật thông tin.");
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 
 </html>

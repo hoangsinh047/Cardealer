@@ -1,6 +1,8 @@
 package com.hdsinh.cardealer.controllers;
 
+import com.hdsinh.cardealer.entities.Manufacturer;
 import com.hdsinh.cardealer.entities.Product;
+import com.hdsinh.cardealer.services.Manufacturer.ManufacturerService;
 import com.hdsinh.cardealer.services.Product.ProductService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ import java.util.List;
 public class ClientController {
     @Autowired
     ProductService productService;
+
+    @Autowired
+    private ManufacturerService manufacturerService;
 
     @GetMapping
     public String home(Model model) {
@@ -38,6 +43,18 @@ public class ClientController {
         model.addAttribute("product", products);
         model.addAttribute("activePage", "test-drive");
         return "client/testdrive";
+    }
+
+    @GetMapping("/blog")
+    public String blog(Model model) {
+        model.addAttribute("activePage", "blog");
+        return "client/blog";
+    }
+
+    @GetMapping("/blog-details")
+    public String blogDetails(Model model) {
+        model.addAttribute("activePage", "blog-details");
+        return "client/blog-details";
     }
 }
 

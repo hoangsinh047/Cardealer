@@ -15,6 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
 
 </head>
 
@@ -86,9 +88,21 @@
                                         th:attr="data-id=${employee.id}" onclick="myFunction(this)">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
+                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                                        th:data-id="${employee.id}"
+                                        th:data-name="${employee.name}"
+                                        th:data-code="${employee.code}"
+                                        th:data-address="${employee.address}"
+                                        th:data-phone="${employee.phone}"
+                                        th:data-email="${employee.email}"
+                                        th:data-sex="${employee.sex}"
+                                        th:data-birth="${#dates.format(employee.birth, 'yyyy-MM-dd')}"
+                                        th:data-position="${employee.position}"
                                         data-toggle="modal"
-                                        data-target="#ModalUP"><i class="fas fa-edit"></i></button>
+                                        data-target="#ModalUP">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+
                             </td>
                         </tr>
 
@@ -119,46 +133,48 @@ MODAL
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label class="control-label">ID nhân viên</label>
-                        <input class="form-control" type="text" required value="#CD2187" disabled>
+                        <input class="form-control" type="text" id="edit-code" required disabled>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">Họ và tên</label>
-                        <input class="form-control" type="text" required value="Võ Trường">
+                        <input class="form-control" type="text" id="edit-name" required>
                     </div>
                     <div class="form-group  col-md-6">
                         <label class="control-label">Số điện thoại</label>
-                        <input class="form-control" type="number" required value="09267312388">
+                        <input class="form-control" type="number" id="edit-phone" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">Địa chỉ email</label>
-                        <input class="form-control" type="text" required value="truong.vd2000@gmail.com">
+                        <input class="form-control" type="text" id="edit-email" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="control-label">Ngày sinh</label>
-                        <input class="form-control" type="date" value="15/03/2000">
+                        <input class="form-control" type="date" id="edit-birth">
                     </div>
                     <div class="form-group  col-md-6">
-                        <label for="exampleSelect1" class="control-label">Chức vụ</label>
-                        <select class="form-control" id="exampleSelect1">
-                            <option>Bán hàng</option>
-                            <option>Tư vấn</option>
-                            <option>Dịch vụ</option>
-                            <option>Thu Ngân</option>
-                            <option>Quản kho</option>
-                            <option>Bảo trì</option>
-                            <option>Kiểm hàng</option>
-                            <option>Bảo vệ</option>
-                            <option>Tạp vụ</option>
+                        <label for="edit-sex" class="control-label">Giới tính</label>
+                        <select class="form-control" id="edit-sex" required>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group  col-md-6">
+                        <label for="edit-position" class="control-label">Chức vụ</label>
+                        <select class="form-control" id="edit-position">
+                            <option value="Leader">Leader</option>
+                            <option value="Sale">Sale</option>
+                            <option value="Tư vấn">Tư vấn</option>
+                            <option value="Dịch vụ">Dịch vụ</option>
+                            <option value="Thu ngân">Thu Ngân</option>
+                            <option value="Bảo trì">Bảo trì</option>
+                            <option value="Kiểm hàng">Kiểm hàng</option>
+                            <option value="Bảo vệ">Bảo vệ</option>
+                            <option value="Tạp">Tạp vụ</option>
                         </select>
                     </div>
                 </div>
                 <BR>
-                <a href="#" style="    float: right;
-        font-weight: 600;
-        color: #ea0000;">Chỉnh sửa nâng cao</a>
-                <BR>
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
+                <button class="btn btn-save" type="button" id="save-button">Lưu lại</button>
                 <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
                 <BR>
             </div>
@@ -172,14 +188,19 @@ MODAL
 -->
 
 <!-- Essential javascripts for application to work-->
-<script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
-<script th:src="@{/assets/js/popper.min.js}"></script>
-<script th:src="@{/assets/js/bootstrap.min.js}"></script>
+<!--<script th:src="@{/assets/vendor/report/report-3.2.1.min.js}"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--<script th:src="@{/assets/js/popper.min.js}"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<!--<script th:src="@{/assets/js/bootstrap.min.js}"></script>-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script th:src="@{/assets/js/main.js}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script th:src="@{/assets/js/plugins/pace.min.js}"></script>
 <!-- Page specific javascripts-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
 <!-- Data table plugin-->
 <script type="text/javascript" th:src="@{/assets/js/plugins/jquery.dataTables.min.js}"></script>
 <script type="text/javascript" th:src="@{/assets/js/plugins/dataTables.bootstrap.min.js}"></script>
@@ -203,14 +224,14 @@ MODAL
                     .then(data => {
                         if (data.status === "success") {  // kiểm tra thuộc tính 'status'
                             console.log('dang xoa')
-                            swal("Đã xóa thành công!", { icon: "success" });
+                            swal("Đã xóa thành công!", {icon: "success"});
                             // Xóa dòng khỏi bảng, cập nhật lại danh sách
                             let row = button.closest("tr");
                             row.remove();
                             loadEmployees();
                         } else {
                             console.log('loi khi xoa')
-                            swal("Lỗi khi xóa!", { icon: "error" });
+                            swal("Lỗi khi xóa!", {icon: "error"});
                         }
                     })
                     .catch(error => {
@@ -222,75 +243,12 @@ MODAL
         });
     }
 
-    function loadEmployees() {
-        fetch('/api/employee/getAllEmployee')
-            .then(response => response.json())
-            .then(result => {
-                // Giả sử result có cấu trúc: { count: 1, data: [ {...} ] }
-                const employees = result.data; // Lấy mảng nhân viên từ thuộc tính data
-
-                // Lấy phần tử tbody của bảng
-                const tbody = document.querySelector('#sampleTable tbody');
-                // Xóa nội dung cũ
-                tbody.innerHTML = '';
-
-                employees.forEach(employee => {
-                    // Format ngày sinh theo định dạng yyyy-MM-dd
-                    const birthDate = new Date(employee.birth);
-                    const year = birthDate.getFullYear();
-                    let month = (birthDate.getMonth() + 1).toString().padStart(2, '0');
-                    let day = birthDate.getDate().toString().padStart(2, '0');
-                    const formattedBirth = `${year}-${month}-${day}`;
-
-                    // Tạo một hàng mới cho mỗi nhân viên
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                    <th width="10"><input type="checkbox" id=""></th>
-                    <td>${employee.code}</td>
-                    <td width="150">${employee.name}</td>
-                    <td width="300">${employee.address}</td>
-                    <td>${formattedBirth}</td>
-                    <td>${employee.sex}</td>
-                    <td>${employee.phone}</td>
-                    <td>${employee.position}</td>
-                    <td width="100">
-                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                data-id="${employee.id}" onclick="myFunction(this)">
-                            <i class="fas fa-trash-alt"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                data-toggle="modal" data-target="#ModalUP">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                    </td>
-                `;
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading employees:', error);
-            });
-    }
-
-
     // Xử lý checkbox chọn tất cả
     oTable = $('#sampleTable').dataTable();
     $('#all').click(function (e) {
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
     });
-
-
-    //EXCEL
-    // $(document).ready(function () {
-    //   $('#').DataTable({
-
-    //     dom: 'Bfrtip',
-    //     "buttons": [
-    //       'excel'
-    //     ]
-    //   });
-    // });
 
 
     //Thời Gian
@@ -344,29 +302,129 @@ MODAL
             win.print();
         }
     }
-    //     //Sao chép dữ liệu
-    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
-
-    // copyTextareaBtn.addEventListener('click', function(event) {
-    //   var copyTextarea = document.querySelector('.js-copytextarea');
-    //   copyTextarea.focus();
-    //   copyTextarea.select();
-
-    //   try {
-    //     var successful = document.execCommand('copy');
-    //     var msg = successful ? 'successful' : 'unsuccessful';
-    //     console.log('Copying text command was ' + msg);
-    //   } catch (err) {
-    //     console.log('Oops, unable to copy');
-    //   }
-    // });
 
 
-    //Modal
+    Modal
     $("#show-emp").on("click", function () {
         $("#ModalUP").modal({backdrop: false, keyboard: false})
     });
 </script>
+<script>
+    let currentEmployeeId = null;
+
+    // Hàm load danh sách nhân viên
+    function loadEmployees() {
+        fetch('/api/employee/getAllEmployee')
+            .then(response => response.json())
+            .then(result => {
+                const employees = result.data;
+                const table = $('#sampleTable').DataTable();
+
+                table.clear(); // Xóa dữ liệu cũ
+
+                employees.forEach(employee => {
+                    const birthDate = new Date(employee.birth);
+                    const formattedBirth = `${birthDate.getFullYear()}-${(birthDate.getMonth() + 1).toString().padStart(2, '0')}-${birthDate.getDate().toString().padStart(2, '0')}`;
+
+                    const row = [
+                        `<input type="checkbox">`,
+                        employee.code,
+                        employee.name,
+                        employee.address,
+                        formattedBirth,
+                        employee.sex,
+                        employee.phone,
+                        employee.position,
+                        `
+                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" data-id="${employee.id}" onclick="myFunction(this)">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
+                            data-id="${employee.id}"
+                            data-name="${employee.name}"
+                            data-code="${employee.code}"
+                            data-address="${employee.address}"
+                            data-phone="${employee.phone}"
+                            data-email="${employee.email}"
+                            data-sex="${employee.sex}"
+                            data-birth="${formattedBirth}"
+                            data-position="${employee.position}"
+                            data-toggle="modal"
+                            data-target="#ModalUP">
+                            <i class="fas fa-edit"></i>
+                        </button>`
+                    ];
+                    table.row.add(row);
+                });
+
+                table.draw();
+            })
+            .catch(error => {
+                console.error('Error loading employees:', error);
+            });
+    }
+
+    $(document).ready(function () {
+        // Khởi tạo DataTable nếu chưa có
+        if (!$.fn.DataTable.isDataTable('#sampleTable')) {
+            $('#sampleTable').DataTable();
+        }
+
+        // Gọi hàm load danh sách khi trang sẵn sàng
+        loadEmployees();
+
+        // Bắt sự kiện click nút "Chỉnh sửa" bằng event delegation
+        $(document).on('click', '.edit', function () {
+            currentEmployeeId = $(this).data('id');
+            $('#edit-code').val($(this).data('code'));
+            $('#edit-name').val($(this).data('name'));
+            $('#edit-phone').val($(this).data('phone'));
+            $('#edit-email').val($(this).data('email'));
+            $('#edit-birth').val($(this).data('birth'));
+            $('#edit-sex').val($(this).data('sex'));
+            $('#edit-address').val($(this).data('address'));
+            $('#edit-position').val($(this).data('position'));
+        });
+
+        // Bắt sự kiện click nút "Lưu lại"
+        $('#save-button').on('click', function () {
+            const updatedEmployee = {
+                code: $('#edit-code').val(),
+                name: $('#edit-name').val(),
+                phone: $('#edit-phone').val(),
+                email: $('#edit-email').val(),
+                birth: $('#edit-birth').val(),
+                sex: $('#edit-sex').val(),
+                address: $('#edit-address').val(),
+                position: $('#edit-position').val()
+            };
+
+            $.ajax({
+                url: `/api/employee/${currentEmployeeId}`,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(updatedEmployee),
+                success: function (response) {
+                    console.log("RESPONSE:", response);
+                    if (response.status === 'success') {
+                        swal("Cập nhật thông tin thành công!");
+                        $('#ModalUP').modal('hide');
+                        loadEmployees(); // Load lại danh sách sau khi cập nhật
+                    } else {
+                        swal("Cập nhật thất bại. Vui lòng thử lại!");
+                        console.error("Server Response Status: ", response.status);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Lỗi khi cập nhật:", error);
+                    swal("Đã có lỗi xảy ra khi cập nhật thông tin.");
+                }
+            });
+        });
+    });
+</script>
+
+
 </body>
 
 </html>

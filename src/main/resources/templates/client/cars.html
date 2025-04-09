@@ -72,8 +72,8 @@
         <div class="contact-form" style="font-family: 'Roboto', sans-serif">
             <form action="#" id="contact">
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
-                        <div class="form-group" >
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="form-group">
                             <label>Từ khóa:</label>
                             <input type="text" id="keyword" class="form-control" placeholder="Nhập từ khóa">
                         </div>
@@ -83,8 +83,8 @@
                             <label>Used/New:</label>
                             <select id="status">
                                 <option value="">--All --</option>
-                                <option value="new">Xe mới</option>
-                                <option value="used">Xe cũ</option>
+                                <option value="Xe mới">Xe mới</option>
+                                <option value="Xe cũ">Xe cũ</option>
                             </select>
                         </div>
                     </div>
@@ -95,13 +95,13 @@
 
                             <select id="type">
                                 <option value="">--All --</option>
-                                <option value="">Sedan</option>
-                                <option value="">Suv</option>
-                                <option value="">Cuv</option>
-                                <option value="">Hatchback</option>
-                                <option value="">Bán tải</option>
-                                <option value="">Sport</option>
-                                <option value="">Mpv</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="Suv">Suv</option>
+                                <option value="Cuv">Cuv</option>
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="Bán tải">Bán tải</option>
+                                <option value="Sport">Sport</option>
+                                <option value="Mpv">Mpv</option>
                             </select>
                         </div>
                     </div>
@@ -112,12 +112,9 @@
 
                             <select id="brand">
                                 <option value="">-- All --</option>
-                                <option value="">Toyota</option>
-                                <option value="">Hyundai</option>
-                                <option value="">Honda</option>
-                                <option value="">Kia</option>
-                                <option value="">Mitsubishi</option>
-                                <option value="">Nissan</option>
+                                <option th:each="manufacturer : ${manufacturer}"
+                                        th:value="${manufacturer.id}"
+                                        th:text="${manufacturer.name}"></option>
                             </select>
                         </div>
                     </div>
@@ -127,22 +124,22 @@
                             <label>Khoảng giá:</label>
 
                             <select id="price">
-                                <option value="">-- All --</option>
-                                <option value=""> All</option>
-                                <option value=""> All</option>
-                                <option value=""> All</option>
+                                <option value="">--Tất cả--</option>
+                                <option value="1">Dưới 500 triệu</option>
+                                <option value="2">500 triệu - 1 tỷ</option>
+                                <option value="3">Trên 1 tỷ</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
-                            <label >Odo:</label>
-                            <select id="mileage">
-                                <option value="">-- All --</option>
-                                <option value=""> All</option>
-                                <option value=""> All</option>
-                                <option value=""> All</option>
+                            <label>Odo:</label>
+                            <select id="odo">
+                                <option value="">--Tất cả--</option>
+                                <option value="1">Dưới 50,000 km</option>
+                                <option value="2">50,000 - 100,000 km</option>
+                                <option value="3">Trên 100,000 km</option>
                             </select>
                         </div>
                     </div>
@@ -150,13 +147,12 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label>Nhiên liệu:</label>
-
                             <select id="fuel">
                                 <option value="">-- All --</option>
-                                <option value="">Xăng</option>
-                                <option value="">Dầu</option>
-                                <option value="">Hybrid</option>
-                                <option value="">Điện</option>
+                                <option value="Xăng">Xăng</option>
+                                <option value="Dầu">Dầu</option>
+                                <option value="Động cơ Hybrid">Hybrid</option>
+                                <option value="Điện">Điện</option>
                             </select>
                         </div>
                     </div>
@@ -164,11 +160,10 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label>Hộp số:</label>
-
                             <select id="gearbox">
                                 <option value="">-- All --</option>
-                                <option value="">Số sàn</option>
-                                <option value="">Số tự động</option>
+                                <option value="Số sàn">Số sàn</option>
+                                <option value="Số tự động">Số tự động</option>
                             </select>
                         </div>
                     </div>
@@ -184,7 +179,7 @@
             </form>
         </div>
 
-        <div class="row">
+        <div class="row" id="car-results">
             <div class="col-lg-4" th:each="product : ${products}">
                 <div class="trainer-item">
                     <div class="image-thumb">
@@ -201,7 +196,7 @@
                         <p>
                             <i class="fa fa-dashboard"></i> <span th:text="${product.odo}"></span> km &nbsp;&nbsp;&nbsp;
                             <i class="fa fa-cog"></i> <span th:text="${product.gearbox}"></span> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-cube"></i> <span th:text="${product.manufacturerName}"></span>
+                            <i class="fa fa-tag"></i> <span th:text="${product.manufacturerName}"></span>
                         </p>
 
                         <ul class="social-icons">
@@ -215,23 +210,7 @@
         <br>
 
         <nav>
-            <ul class="pagination pagination-lg justify-content-center">
-                <li class="page-item">
-                    <a class="page-link" th:href="@{#}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" th:href="@{#}">1</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{#}">2</a></li>
-                <li class="page-item"><a class="page-link" th:href="@{#}">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" th:href="@{#}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
+            <ul class="pagination pagination-lg justify-content-center" id="pagination"></ul>
         </nav>
 
     </div>
@@ -261,54 +240,176 @@
 <!-- Global Init -->
 <script th:src="@{assets/js/custom.js}"></script>
 <script>
-    let cars = [];
-
-    async function fetchData() {
-        try {
-            let response = await fetch("http://localhost:8080/api/product/getAllProduct"); // Thay bằng API của bạn
-            let data = await response.json();
-            cars = data.data; // Lưu danh sách xe từ API
-            console.log("Dữ liệu xe:", cars);
-        } catch (error) {
-            console.error("Lỗi tải dữ liệu:", error);
-        }
-    }
-
-    function searchCars() {
-        let keyword = document.getElementById("keyword").value.toLowerCase();
-        let status = document.getElementById("status").value;
-        let manufacturer = document.getElementById("manufacturer").value;
-
-        let filteredCars = cars.filter(car =>
-            (keyword === "" || car.name.toLowerCase().includes(keyword) || car.description.toLowerCase().includes(keyword)) &&
-            (status === "" || car.status === status) &&
-            (manufacturer === "" || car.manufacturerName === manufacturer)
-        );
-
-        displayResults(filteredCars);
-    }
-
-    function displayResults(results) {
-        let resultDiv = document.getElementById("car-results");
-        resultDiv.innerHTML = results.length > 0
-            ? results.map(car => `
-                <div>
-                    <img src="${car.imageUrl}" alt="${car.name}" width="150">
-                    <p><b>${car.name}</b> - ${car.status} - ${car.manufacturerName} - ${car.price.toLocaleString()} VND</p>
-                </div>
-            `).join("")
-            : "<p>Không tìm thấy xe phù hợp.</p>";
-    }
-
-    // Gọi API khi trang tải
-    fetchData();
-</script>
-<script>
     // Mobile menu toggle
-    $('.menu-trigger').click(function() {
+    $('.menu-trigger').click(function () {
         $('.nav').toggleClass('active2');
     });
 </script>
+<script>
+    let start = 0;
+    const total = 6; // Số sản phẩm mỗi trang
+    document.addEventListener("DOMContentLoaded", function () {
+        searchCars(); // Gọi hàm ngay khi trang load
+    });
+
+    // Hàm format số tiền sang định dạng Việt Nam
+    function formatCurrency(amount) {
+        return amount.toLocaleString('vi-VN') + ' đ';
+    }
+
+    // Hàm hiển thị kết quả tìm kiếm
+    function displayResults(results) {
+        const container = document.getElementById("car-results");
+        container.innerHTML = ''; // Xóa kết quả cũ
+
+        if (results.length === 0) {
+            container.innerHTML = '<div class="col-12 text-center"><p>Không tìm thấy xe phù hợp.</p></div>';
+            return;
+        }
+
+        results.forEach(product => {
+            const image = product.imageUrl ? product.imageUrl.split(',')[0] : 'assets/images/no-image.jpg';
+            const price = formatCurrency(product.price);
+            const html = `
+                <div class="col-lg-4">
+                    <div class="trainer-item">
+                        <div class="image-thumb">
+                            <img src="${image}" alt="Car Image">
+                        </div>
+                        <div class="down-content">
+                            <span><sup>Giá từ: </sup><span>${price}</span></span>
+                            <h4>${product.name}</h4>
+                            <p>
+                                <i class="fa fa-dashboard"></i> ${product.odo} km &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-cog"></i> ${product.gearbox} &nbsp;&nbsp;&nbsp;
+                                <i class="fa fa-tag"></i> ${product.manufacturerName || ''}
+                            </p>
+                            <ul class="social-icons">
+                                <li><a href="/cars/${product.id}">+ View Car</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>`;
+            container.innerHTML += html;
+        });
+    }
+
+    // Hàm hiển thị phân trang
+    function setupPagination(totalItems, currentStart) {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        const pageSize = 6;
+        const totalPages = Math.ceil(totalItems / pageSize);
+        const currentPage = Math.floor(currentStart / pageSize);
+
+        // Nút Previous
+        if (currentPage > 0) {
+            pagination.innerHTML += `
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous" onclick="searchCars(${currentStart - pageSize})">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>`;
+        }
+
+        // Số trang
+        for (let i = 0; i < totalPages; i++) {
+            const pageStart = i * pageSize;
+            pagination.innerHTML += `
+            <li class="page-item ${i === currentPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="searchCars(${pageStart})">${i + 1}</a>
+            </li>`;
+        }
+
+        // Nút Next
+        if (currentPage < totalPages - 1) {
+            pagination.innerHTML += `
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next" onclick="searchCars(${currentStart + pageSize})">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>`;
+        }
+    }
+
+    // Hàm tìm kiếm xe với phân trang dựa trên start và total
+    async function searchCars(newStart = 0) {
+        start = newStart;
+
+        const keyword = document.getElementById('keyword').value.trim();
+        const status = document.getElementById('status').value;
+        const type = document.getElementById('type').value;
+        const brand = document.getElementById('brand').value;
+        const price = document.getElementById('price').value;
+        const odo = document.getElementById('odo').value;
+        const fuel = document.getElementById('fuel').value;
+        const gearbox = document.getElementById('gearbox').value;
+
+        // Xử lý giá cho khoảng giá
+        let minPrice = null, maxPrice = null;
+        if (price === "1") {
+            minPrice = 0;
+            maxPrice = 500000000;
+        } else if (price === "2") {
+            minPrice = 500000000;
+            maxPrice = 1000000000;
+        } else if (price === "3") {
+            minPrice = 1000000000;
+        }
+
+        // Xử lý Odometer
+        let minOdo = null, maxOdo = null;
+        if (odo === "1") {
+            minOdo = 0;
+            maxOdo = 50000;
+        } else if (odo === "2") {
+            minOdo = 50000;
+            maxOdo = 100000;
+        } else if (odo === "3") {
+            minOdo = 100000;
+        }
+
+        // Gọi API
+        let url = '/api/product/getAllProduct?search=' + encodeURIComponent(keyword) +
+            '&status=' + encodeURIComponent(status) +
+            '&type=' + encodeURIComponent(type) +
+            '&manufacturer=' + encodeURIComponent(brand) +
+            '&fuel=' + encodeURIComponent(fuel) +
+            '&gearbox=' + encodeURIComponent(gearbox) +
+            '&start=' + start +
+            '&total=' + total;
+
+        if (minPrice !== null) url += '&minPrice=' + encodeURIComponent(minPrice);
+        if (maxPrice !== null) url += '&maxPrice=' + encodeURIComponent(maxPrice);
+        if (minOdo !== null) url += '&minOdo=' + encodeURIComponent(minOdo);
+        if (maxOdo !== null) url += '&maxOdo=' + encodeURIComponent(maxOdo);
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            console.log(data); // 👈 thêm dòng này để xem toàn bộ dữ liệu trả về
+
+
+            displayResults(data.data);
+            const pagination = document.getElementById("pagination");
+            if (data.count <= total) {
+                pagination.classList.add("d-none");
+                pagination.innerHTML = ''; // 👈 xoá nút nếu có từ lần trước
+            } else {
+                pagination.classList.remove("d-none"); // 👈 hiển thị lại nếu đủ trang
+                setupPagination(data.count, start);
+            }
+
+        } catch (error) {
+            console.error('Lỗi khi tìm kiếm:', error);
+        }
+    }
+</script>
+
 
 </body>
 </html>

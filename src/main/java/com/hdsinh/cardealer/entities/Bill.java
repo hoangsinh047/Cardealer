@@ -1,14 +1,15 @@
 package com.hdsinh.cardealer.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "sale")
 public class Bill {
@@ -29,16 +30,12 @@ public class Bill {
     private Long productId;
 
     @Basic
-    @Column(name = "employee_id")
-    private Long employeeId;
-
-    @Basic
-    @Column(name = "customer_id")
-    private Long customerId;
-
-    @Basic
     @Column(name = "phone")
     private String phone;
+
+    @Basic
+    @Column(name = "employee_id")
+    private Long employeeId;
 
     @Basic
     @Column(name = "address")

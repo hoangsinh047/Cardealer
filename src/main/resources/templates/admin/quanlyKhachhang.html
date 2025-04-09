@@ -63,15 +63,15 @@
                             <th width="10"><input type="checkbox" id="all"></th>
                             <th>ID khách hàng</th>
                             <th width="150">Họ và tên</th>
-                            <th width="300">Số điện thoại</th>
+                            <th width="100">Số điện thoại</th>
                             <th>Email</th>
-                            <th>Content</th>
+                            <th width="250">Content</th>
                             <th>Thời gian</th>
                             <th width="100">Tính năng</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="customer : ${customer}">
+                        <tr th:each="customer : ${customer}" max>
                             <th width="10"><input type="checkbox" id=""></th>
                             <td th:text="${customer.code}"></td>
                             <td th:text="${customer.name}"></td>

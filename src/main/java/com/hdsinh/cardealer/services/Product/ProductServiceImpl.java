@@ -1,8 +1,10 @@
 package com.hdsinh.cardealer.services.Product;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
-import com.hdsinh.cardealer.entities.Employee;
+import com.hdsinh.cardealer.dto.ProductDto;
 import com.hdsinh.cardealer.entities.Product;
+import com.hdsinh.cardealer.repository.Bill.BillRepository;
+import com.hdsinh.cardealer.repository.Manufacturer.ManufacturerRepository;
 import com.hdsinh.cardealer.repository.Product.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,39 +12,76 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
+    private final BillRepository billRepository;
     private final ProductRepository productRepository;
+    private final ManufacturerRepository manufacturerRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(BillRepository billRepository, ProductRepository productRepository, ManufacturerRepository manufacturerRepository) {
+        this.billRepository = billRepository;
         this.productRepository = productRepository;
+        this.manufacturerRepository = manufacturerRepository;
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.loadAll("", 0, 100);
+        return productRepository.findAll();
     }
 
     public Product getProductById(Long id) {
         return productRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Optional<Product> findById(Long id) {
+        return productRepository.findById(id);
+    }
+
     public Long getLowStockCount() {
         return productRepository.countLowStockProducts();
     }
 
+    public List<Product> findAll() {
+        List<Product> products = productRepository.findAll();
+
+        for (Product product : products) {
+            // Lấy tên sản phẩm từ productId
+            manufacturerRepository.findById(product.getManufacturerId()).ifPresent(manufacturer ->
+                    product.setManufacturerName(manufacturer.getName())
+            );
+        }
+
+        return products;
+    }
+
     @Override
-    public ObjectDto loadAll(String search, Integer start, Integer total) {
+    public ObjectDto loadAll(String search, String status, String type, Long manufacturerId, String fuel,
+                             BigDecimal minPrice, BigDecimal maxPrice, Integer minOdo, Integer maxOdo, String gearbox,
+                             Integer start, Integer total) {
         ObjectDto res = new ObjectDto();
 
         // Lấy danh sách từ repository
-        List<Product> list = productRepository.loadAll(search, start, total);
+        List<Product> list = productRepository.loadAll(search, status, manufacturerId, type, minPrice, maxPrice,
+                minOdo, maxOdo, fuel, gearbox, start, total);
+
+        List<Product> products = productRepository.findAll();
+
+        for (Product product : products) {
+            if (product.getManufacturerId() != null) {
+                manufacturerRepository.findById(product.getManufacturerId()).ifPresent(manufacturer ->
+                        product.setManufacturerName(manufacturer.getName())
+                );
+            }
+        }
 
         // Lấy tổng số bản ghi thỏa điều kiện
         Long count = productRepository.countAll(search);
@@ -93,8 +132,6 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-
-
     public boolean delete(Long id) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
@@ -102,6 +139,10 @@ public class ProductServiceImpl implements ProductService{
             return true;
         }
         return false;
+    }
+
+    public void updateProduct(Product product) {
+        productRepository.save(product);
     }
 
 
@@ -114,5 +155,30 @@ public class ProductServiceImpl implements ProductService{
             }
         }
         return products;
+    }
+
+    public List<ProductDto> getBestSellingProduct() {
+        List<Object[]> results = billRepository.findTotalQuantitySoldForProducts();
+        List<ProductDto> bestSellingProducts = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Long productId = (Long) result[0];
+            Long totalQuantity = (Long) result[1];
+
+            Optional<Product> productOpt = productRepository.findById(productId);
+            productOpt.ifPresent(product -> {
+                ProductDto dto = new ProductDto(product);
+                dto.setTotalSoldQuantity(totalQuantity); // cần thêm field này trong DTO
+                bestSellingProducts.add(dto);
+
+
+            });
+        }
+
+        return bestSellingProducts;
+    }
+
+    public List<Product> getOutOfStockProducts() {
+        return productRepository.findByQuantityEquals(0);
     }
 }

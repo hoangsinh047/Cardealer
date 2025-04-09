@@ -46,4 +46,21 @@ function RegexEmail(inputId) {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();  // Ngăn submit mặc định
+
+        // Giả sử hàm validate() trả về true nếu dữ liệu hợp lệ
+        if (validate()) {
+            // Nếu cần xử lý gì thêm trước khi submit, có thể thực hiện ở đây
+            form.submit();  // Submit form sau khi validate thành công
+        }
+        // Nếu validate() trả về false thì form không được submit
+    });
+});
+
+
+
+
 

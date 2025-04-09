@@ -1,7 +1,9 @@
 package com.hdsinh.cardealer.controllers;
 
 import com.hdsinh.cardealer.dto.ProductDto;
+import com.hdsinh.cardealer.entities.Manufacturer;
 import com.hdsinh.cardealer.entities.Product;
+import com.hdsinh.cardealer.services.Manufacturer.ManufacturerService;
 import com.hdsinh.cardealer.services.Product.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,12 @@ import java.util.List;
 @Controller
 @RequestMapping("/cars")
 public class ProductController {
-    private final ProductService productService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private ManufacturerService manufacturerService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -30,6 +37,13 @@ public class ProductController {
     @GetMapping
     public String showCarsList(Model model) {
         List<Product> products = productService.getAllProducts();
+        for (Product product : products) {
+            if (product.getManufacturer() != null) {
+                product.setManufacturerName(product.getManufacturer().getName());
+            }
+        }
+        List<Manufacturer> manufacturers = manufacturerService.getAllManufacturers();
+        model.addAttribute("manufacturer", manufacturers);
         model.addAttribute("products", products);
         model.addAttribute("activePage", "cars");
         return "client/cars";

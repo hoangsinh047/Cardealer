@@ -52,15 +52,15 @@ public class EmployeeApi {
 
     @PostMapping("/add")
     public ResponseEntity<Employee> addEmployee(
-            @RequestParam("code") String code,
-            @RequestParam("tenNhanVien") String name,
-            @RequestParam("email") String email,
-            @RequestParam("address") String address,
-            @RequestParam("phoneNumber") Integer phone,
-            @RequestParam("sex") String sex,
-            @RequestParam("birthDay") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birth,
-            @RequestParam("position") String position,
-            @RequestParam("degree") String degree) {
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "tenNhanVien", required = false) String name,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "address", required = false) String address,
+            @RequestParam(value = "phoneNumber", required = false) Integer phone,
+            @RequestParam(value = "sex", required = false) String sex,
+            @RequestParam(value = "birthDay", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date birth,
+            @RequestParam(value = "position", required = false) String position,
+            @RequestParam(value = "degree", required = false) String degree) {
 
         // Tạo đối tượng sản phẩm
         Employee employee = new Employee();
@@ -88,4 +88,31 @@ public class EmployeeApi {
         response.put("status", "success");
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> updateEmployee(@PathVariable("id") Long id, @RequestBody Employee updatedEmployee) {
+        Optional<Employee> employeeOptional = employeeService.findById(id);
+        if (!employeeOptional.isPresent()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "fail");
+            response.put("message", "Employee not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        Employee existingEmployee = employeeOptional.get();
+        existingEmployee.setCode(updatedEmployee.getCode());
+        existingEmployee.setName(updatedEmployee.getName());
+        existingEmployee.setPhone(updatedEmployee.getPhone());
+        existingEmployee.setEmail(updatedEmployee.getEmail());
+        existingEmployee.setBirth(updatedEmployee.getBirth());
+        existingEmployee.setSex(updatedEmployee.getSex());
+        existingEmployee.setPosition(updatedEmployee.getPosition());
+        employeeService.save(existingEmployee);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("employee", existingEmployee);
+        return ResponseEntity.ok(response);
+    }
+
+
 }

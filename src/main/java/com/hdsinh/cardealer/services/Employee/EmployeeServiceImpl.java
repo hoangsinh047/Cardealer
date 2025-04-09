@@ -30,6 +30,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return this.employeeRepository.findAll();
     }
 
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
+
     public String generateEmployeeCode() {
         Random random = new Random();
         int number = random.nextInt(10000); // Tạo số ngẫu nhiên từ 0 đến 9999
@@ -68,5 +72,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Optional<Employee> findById(Long id) {
+        return employeeRepository.findById(id);
     }
 }

@@ -1,11 +1,11 @@
 package com.hdsinh.cardealer.entities;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "Manufacturer")
 public class Manufacturer {

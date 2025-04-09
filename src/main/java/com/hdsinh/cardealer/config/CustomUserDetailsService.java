@@ -2,6 +2,7 @@ package com.hdsinh.cardealer.config;
 
 import com.hdsinh.cardealer.entities.Users;
 import com.hdsinh.cardealer.repository.User.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
