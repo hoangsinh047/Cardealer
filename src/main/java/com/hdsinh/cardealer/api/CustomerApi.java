@@ -2,7 +2,7 @@ package com.hdsinh.cardealer.api;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Customer;
-import com.hdsinh.cardealer.services.Customer.CustomerService;
+import com.hdsinh.cardealer.service.Customer.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

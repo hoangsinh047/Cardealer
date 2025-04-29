@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Testdrive;
+package com.hdsinh.cardealer.service.Testdrive;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Testdrive;

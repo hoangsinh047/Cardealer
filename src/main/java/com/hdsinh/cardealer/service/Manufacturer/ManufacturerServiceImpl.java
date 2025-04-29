@@ -1,6 +1,5 @@
-package com.hdsinh.cardealer.services.Manufacturer;
+package com.hdsinh.cardealer.service.Manufacturer;
 
-import com.hdsinh.cardealer.entities.Employee;
 import com.hdsinh.cardealer.entities.Manufacturer;
 import com.hdsinh.cardealer.repository.Manufacturer.ManufacturerRepository;
 import lombok.extern.slf4j.Slf4j;

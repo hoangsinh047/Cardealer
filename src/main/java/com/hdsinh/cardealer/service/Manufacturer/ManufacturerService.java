@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Manufacturer;
+package com.hdsinh.cardealer.service.Manufacturer;
 
 import com.hdsinh.cardealer.entities.Manufacturer;
 

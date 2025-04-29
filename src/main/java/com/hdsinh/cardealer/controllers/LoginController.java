@@ -1,7 +1,7 @@
 package com.hdsinh.cardealer.controllers;
 
 import com.hdsinh.cardealer.entities.Users;
-import com.hdsinh.cardealer.services.UserService;
+import com.hdsinh.cardealer.service.User.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

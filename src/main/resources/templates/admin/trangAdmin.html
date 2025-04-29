@@ -17,7 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
+    <link rel="stylesheet" th:href="@{/assets/css/chatadmin.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
@@ -25,7 +27,16 @@
 <div th:replace="~{admin/template/header :: header}"></div>
 
 <!-- Sidebar menu-->
-<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+<div th:replace="~{admin/template/sidebar :: sidebar(loggedInUser=${loggedInUser})}"></div>
+
+<!-- ***** Chat Area Start ***** -->
+<div th:replace="~{admin/template/chat :: chat}"></div>
+
+<div class="chat-toggle" onclick="toggleChat()">
+    <i class="fa fa-comments" style="font-size: 24px; color: white;"></i>
+</div>
+
+<!-- ***** Chat Area End ***** -->
 
 <main class="app-content">
     <div class="row">
@@ -160,6 +171,8 @@
 <!--===============================================================================================-->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!--===============================================================================================-->
+<script th:src="@{/assets/js/chatadmin.js}"></script>
+
 <script type="text/javascript">
     //Thời Gian
     function time() {
@@ -344,6 +357,8 @@
     });
 
 </script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 </body>
 
 </html>

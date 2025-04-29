@@ -1,11 +1,11 @@
-<div th:fragment="sidebar" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar(loggedInUser)" xmlns:th="http://www.thymeleaf.org">
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
         <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" th:src="@{/assets/images/avt.jpg}"
                                             width="50px"
                                             alt="User Image">
             <div>
-                <p class="app-sidebar__user-name"><b>Hoàng Sinh</b></p>
+                <p class="app-sidebar__user-name"><b th:text="${loggedInUser.employeeName}">Tên người dùng</b></p>
                 <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
             </div>
         </div>
@@ -13,19 +13,22 @@
         <ul class="app-menu">
             <li><a class="app-menu__item" th:href="@{/admin}"><i class='app-menu__icon bx bx-tachometer'></i>
                 <span class="app-menu__label">Bảng điều khiển</span></a></li>
+            <li><a class="app-menu__item" th:href="@{/admin/tai-khoan}"><i
+                    class='app-menu__icon bx bxs-user-account'></i>
+                <span class="app-menu__label">Quản lý tài khoản</span></a></li>
             <li><a class="app-menu__item" th:href="@{/admin/nhan-vien}"><i class='app-menu__icon bx bx-id-card'></i>
                 <span class="app-menu__label">Quản lý nhân viên</span></a></li>
             <li><a class="app-menu__item " th:href="@{/admin/hang-xe}"><i
                     class='app-menu__icon bx bx-purchase-tag-alt'></i><span
                     class="app-menu__label">Quản lý hãng xe</span></a></li>
             <li><a class="app-menu__item " th:href="@{/admin/san-pham}"><i
-                    class='app-menu__icon bx bx-purchase-tag-alt'></i><span
+                    class='app-menu__icon bx bx-car'></i><span
                     class="app-menu__label">Quản lý sản phẩm</span></a></li>
             <li><a class="app-menu__item" th:href="@{/admin/khach-hang}"><i class='app-menu__icon bx bx-user'></i>
                 <span class="app-menu__label">Quản lý khách hàng</span></a></li>
             <li><a class="app-menu__item" th:href="@{/admin/lai-thu}"><i class='app-menu__icon bx bx-task'></i>
                 <span class="app-menu__label">Danh sách đăng ký lái thử</span></a></li>
-            <li><a class="app-menu__item" th:href="@{/admin/don-hang}"><i class='app-menu__icon bx bx-task'></i>
+            <li><a class="app-menu__item" th:href="@{/admin/don-hang}"><i class='app-menu__icon bx bx-receipt'></i>
                 <span class="app-menu__label">Quản lý hóa đơn</span></a></li>
             <li><a class="app-menu__item" th:href="@{/admin/bao-cao}"><i
                     class='app-menu__icon bx bx-pie-chart-alt-2'></i>

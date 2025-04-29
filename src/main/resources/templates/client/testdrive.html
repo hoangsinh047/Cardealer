@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{assets/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{assets/css/font-awesome.css}">
     <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{assets/css/chat.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -119,8 +122,17 @@
 
 <!-- ***** Header Area Start ***** -->
 <div th:replace="~{client/include/header :: header}"></div>
-
 <!-- ***** Header Area End ***** -->
+
+<!-- ***** Chat Area Start ***** -->
+<div th:replace="~{client/include/chat :: chat}"></div>
+
+<!-- Nút mở chat -->
+<div class="chat-toggle">
+    <i class="fa fa-comments" style="font-size: 24px; color: white;"></i>
+</div>
+
+<!-- ***** Chat Area End ***** -->
 
 <!-- ***** Call to Action Start ***** -->
 <section class="section section-bg" id="call-to-action"
@@ -238,7 +250,9 @@
 
 <!-- Global Init -->
 <script th:src="@{assets/js/custom.js}"></script>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script th:src="@{/assets/js/chat.js}"></script>
 <script>
     $(document).ready(function() {
         // Set minimum date for test drive to tomorrow

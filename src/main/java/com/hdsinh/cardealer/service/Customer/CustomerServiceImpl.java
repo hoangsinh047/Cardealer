@@ -1,10 +1,8 @@
-package com.hdsinh.cardealer.services.Customer;
+package com.hdsinh.cardealer.service.Customer;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Customer;
-import com.hdsinh.cardealer.entities.Employee;
 import com.hdsinh.cardealer.repository.Customer.CustomerRepository;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

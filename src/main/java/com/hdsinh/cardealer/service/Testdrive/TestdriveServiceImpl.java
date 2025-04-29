@@ -1,10 +1,8 @@
-package com.hdsinh.cardealer.services.Testdrive;
+package com.hdsinh.cardealer.service.Testdrive;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
-import com.hdsinh.cardealer.entities.Customer;
 import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.entities.Testdrive;
-import com.hdsinh.cardealer.repository.Customer.CustomerRepository;
 import com.hdsinh.cardealer.repository.Product.ProductRepository;
 import com.hdsinh.cardealer.repository.Testdrive.TestdriveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ public class TestdriveServiceImpl implements TestdriveService {
 
     @Autowired
     private ProductRepository productRepository;
+
     public TestdriveServiceImpl(TestdriveRepository testdriveRepository) {
         this.testdriveRepository = testdriveRepository;
     }

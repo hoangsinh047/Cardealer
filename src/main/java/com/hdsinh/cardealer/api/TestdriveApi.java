@@ -2,7 +2,7 @@ package com.hdsinh.cardealer.api;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Testdrive;
-import com.hdsinh.cardealer.services.Testdrive.TestdriveService;
+import com.hdsinh.cardealer.service.Testdrive.TestdriveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

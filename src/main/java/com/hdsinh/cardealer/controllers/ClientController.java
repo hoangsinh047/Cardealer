@@ -1,10 +1,8 @@
 package com.hdsinh.cardealer.controllers;
 
-import com.hdsinh.cardealer.entities.Manufacturer;
 import com.hdsinh.cardealer.entities.Product;
-import com.hdsinh.cardealer.services.Manufacturer.ManufacturerService;
-import com.hdsinh.cardealer.services.Product.ProductService;
-import lombok.Getter;
+import com.hdsinh.cardealer.service.Manufacturer.ManufacturerService;
+import com.hdsinh.cardealer.service.Product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

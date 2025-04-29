@@ -4,7 +4,7 @@ import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.dto.ProductDto;
 import com.hdsinh.cardealer.entities.Product;
 import com.hdsinh.cardealer.repository.Manufacturer.ManufacturerRepository;
-import com.hdsinh.cardealer.services.Product.ProductService;
+import com.hdsinh.cardealer.service.Product.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

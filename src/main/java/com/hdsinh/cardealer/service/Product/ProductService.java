@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Product;
+package com.hdsinh.cardealer.service.Product;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.dto.ProductDto;

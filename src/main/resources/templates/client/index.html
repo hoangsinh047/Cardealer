@@ -17,9 +17,26 @@
     <link rel="stylesheet" type="text/css" th:href="@{assets/css/font-awesome.css}">
 
     <link rel="stylesheet" th:href="@{assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/chat.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style>
+        .image-thumb {
+            width: 100%;
+            height: 200px; /* hoặc giá trị phù hợp với thiết kế của bạn */
+            overflow: hidden;
+        }
+
+        .image-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -89,14 +106,21 @@
 
 <!-- ***** Header Area Start ***** -->
 <div th:replace="~{client/include/header :: header}"></div>
-
 <!-- ***** Header Area End ***** -->
 
 <!-- ***** Main Banner Area Start ***** -->
 <div th:replace="~{client/include/banner :: banner}"></div>
-
 <!-- ***** Main Banner Area End ***** -->
 
+<!-- ***** Chat Area Start ***** -->
+<div th:replace="~{client/include/chat :: chat}"></div>
+
+<!-- Nút mở chat -->
+<div class="chat-toggle">
+    <i class="fa fa-comments" style="font-size: 24px; color: white;"></i>
+</div>
+
+<!-- ***** Chat Area End ***** -->
 <!-- ***** Cars Starts ***** -->
 <section class="section" id="trainers">
     <div class="container">
@@ -210,7 +234,8 @@
                         <p style="font-family: 'Roboto', sans-serif">Hyundai đang chuẩn bị ra mắt một mẫu SUV chạy hoàn
                             toàn bằng điện, được thiết kế đặc biệt cho
                             thị trường Trung Quốc. Mẫu xe mới này là sản phẩm của liên doanh Hyundai Bắc Kinh và hiện
-                            vẫn chưa được đặt tên chính thức. Mới đây, hãng đã tung ra những hình ảnh teaser đầu tiên của
+                            vẫn chưa được đặt tên chính thức. Mới đây, hãng đã tung ra những hình ảnh teaser đầu tiên
+                            của
                             mẫu xe này trước khi chính thức ra mắt dự kiến vào cuối năm nay.</p>
                     </article>
                     <article id='tabs-2'>
@@ -220,8 +245,10 @@
                             10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i> 15 comments</p>
                         <p>Theo đó, Skoda Karoq hiện đang được hãng ưu đãi 100% lệ phí trước bạ, tương đương với ưu đãi
                             tiền mặt từ 100 - 130 triệu đồng (tùy phiên bản và tỉnh, thành đăng ký). Tại Việt Nam, Skoda
-                            Karoq đang được bán ra với hai phiên bản là Ambition giá 999 triệu đồng và Style giá 1,089 tỷ đồng.
-                            Ngoài ưu đãi về tài chính, Skoda Việt Nam còn tặng khách hàng bộ phụ kiện nâng cấp chính hãng
+                            Karoq đang được bán ra với hai phiên bản là Ambition giá 999 triệu đồng và Style giá 1,089
+                            tỷ đồng.
+                            Ngoài ưu đãi về tài chính, Skoda Việt Nam còn tặng khách hàng bộ phụ kiện nâng cấp chính
+                            hãng
                             nhập khẩu từ Châu Âu, bao gồm: 4 la-zăng thể thao, ốp bàn đạp ga/phanh, ốp cửa xe, bậc bước
                             chân hai bên và thảm sàn. Đồng thời, khách hàng mua xe trong tháng 4
                             sẽ được hưởng gói bảo hành 5 năm hoặc 150.000 km và miễn phí bảo dưỡng 1 năm hoặc 15.000 km,
@@ -232,12 +259,18 @@
                         <h4>Đại lý nhận cọc Skoda Slavia: Sedan cỡ B mới "đối đầu" Toyota Vios</h4>
                         <p><i class="fa fa-user"></i> Hoang Sinh &nbsp;|&nbsp; <i class="fa fa-calendar"></i> 08/04/2025
                             10:10 &nbsp;|&nbsp; <i class="fa fa-comments"></i> 15 comments</p>
-                        <p>Mới đây, một số đại lý Skoda tại Việt Nam đã thông báo nhận cọc mẫu sedan Slavia. Theo tư vấn bán hàng,
-                            Skoda Slavia dự kiến sẽ chính thức trình làng trong khoảng tháng 5 hoặc tháng 6 năm nay, với hình t
-                            hức lắp ráp trong nước. Mặc dù Skoda Việt Nam chưa đưa ra xác nhận chính thức, nhưng trước đó, hồi tháng 3/2025, hãng từng đăng tải hình ảnh
+                        <p>Mới đây, một số đại lý Skoda tại Việt Nam đã thông báo nhận cọc mẫu sedan Slavia. Theo tư vấn
+                            bán hàng,
+                            Skoda Slavia dự kiến sẽ chính thức trình làng trong khoảng tháng 5 hoặc tháng 6 năm nay, với
+                            hình t
+                            hức lắp ráp trong nước. Mặc dù Skoda Việt Nam chưa đưa ra xác nhận chính thức, nhưng trước
+                            đó, hồi tháng 3/2025, hãng từng đăng tải hình ảnh
                             khuôn viên nhà máy nội địa với sự xuất hiện của cả Slavia lẫn Kushaq – hai mẫu xe đầu tiên
-                            được nội địa hóa tại Việt Nam. Skoda Slavia sẽ gia nhập phân khúc vốn đang rất sôi động với những cái tên quen thuộc như Toyota Vios, Hyundai Accent hay Honda City. Trong đó, Vios hiện là mẫu xe bán chạy nhất phân khúc.
-                            Cũng giống như các đối thủ, Slavia sẽ được lắp ráp tại Việt Nam, hứa hẹn tạo lợi thế về giá.</p>
+                            được nội địa hóa tại Việt Nam. Skoda Slavia sẽ gia nhập phân khúc vốn đang rất sôi động với
+                            những cái tên quen thuộc như Toyota Vios, Hyundai Accent hay Honda City. Trong đó, Vios hiện
+                            là mẫu xe bán chạy nhất phân khúc.
+                            Cũng giống như các đối thủ, Slavia sẽ được lắp ráp tại Việt Nam, hứa hẹn tạo lợi thế về
+                            giá.</p>
                     </article>
                 </section>
             </div>
@@ -291,6 +324,10 @@
 <script th:src="@{/assets/js/mixitup.js}"></script>
 <script th:src="@{/assets/js/accordions.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 
 <!-- Global Init -->
 <script th:src="@{assets/js/custom.js}"></script>
@@ -303,9 +340,10 @@
     updateTime();
 
     // Mobile menu toggle
-    $('.menu-trigger').click(function() {
+    $('.menu-trigger').click(function () {
         $('.nav').toggleClass('active1');
     });
+
 </script>
 <script>
     // Hiển thị modal khi trang được tải
@@ -324,41 +362,41 @@
 </script>
 <script>
     $("#addCustomer").submit(function (e) {
-    e.preventDefault();
-    console.log("Form submitted!"); // Kiểm tra form có submit không
+        e.preventDefault();
+        console.log("Form submitted!"); // Kiểm tra form có submit không
 
-    var formData = new FormData(this);
+        var formData = new FormData(this);
 
-    $.ajax({
-        url: "/api/customer/add",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            console.log("Success:", response); // Kiểm tra phản hồi từ server
-            Swal.fire({
-                title: "Gửi yêu cầu tư vấn thành công!",
-                icon: "success",
-                timer: 2000,
-                showConfirmButton: false
-            });
-            setTimeout(() => {
-                closeForm(); // Đóng modal sau khi alert hiển thị xong
-            }, 2000);
-            $("#addCustomer")[0].reset(); // Reset form
-        },
-        error: function (xhr, status, error) {
-            console.error("Lỗi: " + error);
-            Swal.fire({
-                title: "Có lỗi xảy ra!",
-                text: xhr.responseText,
-                icon: "error"
-            });
-        }
+        $.ajax({
+            url: "/api/customer/add",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("Success:", response); // Kiểm tra phản hồi từ server
+                Swal.fire({
+                    title: "Gửi yêu cầu tư vấn thành công!",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    closeForm(); // Đóng modal sau khi alert hiển thị xong
+                }, 2000);
+                $("#addCustomer")[0].reset(); // Reset form
+            },
+            error: function (xhr, status, error) {
+                console.error("Lỗi: " + error);
+                Swal.fire({
+                    title: "Có lỗi xảy ra!",
+                    text: xhr.responseText,
+                    icon: "error"
+                });
+            }
+        });
     });
-});
 </script>
-
+<script type="module" th:src="@{/assets/js/chat.js}"></script>
 </body>
 </html>

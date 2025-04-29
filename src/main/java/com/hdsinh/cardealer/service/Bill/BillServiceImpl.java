@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Bill;
+package com.hdsinh.cardealer.service.Bill;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.dto.BillDto;
@@ -19,10 +19,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+
 import java.math.BigDecimal;
-import java.net.URL;
 import java.util.List;
 
 @Service

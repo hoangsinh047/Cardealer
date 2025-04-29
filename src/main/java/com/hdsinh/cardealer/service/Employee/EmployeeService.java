@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Employee;
+package com.hdsinh.cardealer.service.Employee;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Employee;

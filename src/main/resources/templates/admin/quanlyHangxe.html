@@ -15,6 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/chatadmin.css}">
 
 </head>
 
@@ -23,7 +24,16 @@
 <div th:replace="~{admin/template/header :: header}"></div>
 
 <!-- Sidebar menu-->
-<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+<div th:replace="~{admin/template/sidebar :: sidebar(loggedInUser=${loggedInUser})}"></div>
+
+<!-- ***** Chat Area Start ***** -->
+<div th:replace="~{admin/template/chat :: chat}"></div>
+
+<div class="chat-toggle" onclick="toggleChat()">
+    <i class="fa fa-comments" style="font-size: 24px; color: white;"></i>
+</div>
+
+<!-- ***** Chat Area End ***** -->
 
 <main class="app-content">
     <div class="app-title">
@@ -154,9 +164,6 @@ MODAL
         </div>
     </div>
 </div>
-<!--
-MODAL
--->
 
 <!-- Essential javascripts for application to work-->
 <script th:src="@{/assets/vendor/jquery/jquery-3.2.1.min.js}"></script>
@@ -250,19 +257,6 @@ MODAL
         e.stopImmediatePropagation();
     });
 
-
-    //EXCEL
-    // $(document).ready(function () {
-    //   $('#').DataTable({
-
-    //     dom: 'Bfrtip',
-    //     "buttons": [
-    //       'excel'
-    //     ]
-    //   });
-    // });
-
-
     //Thời Gian
     function time() {
         var today = new Date();
@@ -314,29 +308,15 @@ MODAL
             win.print();
         }
     }
-    //     //Sao chép dữ liệu
-    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
-
-    // copyTextareaBtn.addEventListener('click', function(event) {
-    //   var copyTextarea = document.querySelector('.js-copytextarea');
-    //   copyTextarea.focus();
-    //   copyTextarea.select();
-
-    //   try {
-    //     var successful = document.execCommand('copy');
-    //     var msg = successful ? 'successful' : 'unsuccessful';
-    //     console.log('Copying text command was ' + msg);
-    //   } catch (err) {
-    //     console.log('Oops, unable to copy');
-    //   }
-    // });
-
 
     //Modal
     $("#show-emp").on("click", function () {
         $("#ModalUP").modal({backdrop: false, keyboard: false})
     });
 </script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script th:src="@{/assets/js/chatadmin.js}"></script>
 </body>
 
 </html>

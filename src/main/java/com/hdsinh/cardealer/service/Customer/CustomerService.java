@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Customer;
+package com.hdsinh.cardealer.service.Customer;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Customer;

@@ -18,6 +18,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/chatadmin.css}">
+
     <style>
         .click-effect {
             color: #333;
@@ -42,7 +44,16 @@
 <div th:replace="~{admin/template/header :: header}"></div>
 
 <!-- Sidebar menu-->
-<div th:replace="~{admin/template/sidebar :: sidebar}"></div>
+<div th:replace="~{admin/template/sidebar :: sidebar(loggedInUser=${loggedInUser})}"></div>
+
+<!-- ***** Chat Area Start ***** -->
+<div th:replace="~{admin/template/chat :: chat}"></div>
+
+<div class="chat-toggle" onclick="toggleChat()">
+    <i class="fa fa-comments" style="font-size: 24px; color: white;"></i>
+</div>
+
+<!-- ***** Chat Area End ***** -->
 
 <main class="app-content">
     <div class="app-title">
@@ -293,124 +304,10 @@
         XLSX.writeFile(wb, fileName);
     }
 </script>
-<!--<script>-->
-<!--    let currentEmployeeId = null;-->
-
-<!--    // Hàm load danh sách nhân viên-->
-<!--    function loadBill() {-->
-<!--        fetch('/api/bill/getAllBill')-->
-<!--            .then(response => response.json())-->
-<!--            .then(result => {-->
-<!--                const bill = result.data;-->
-<!--                const table = $('#sampleTable').DataTable();-->
-
-<!--                table.clear(); // Xóa dữ liệu cũ-->
-
-<!--                bill.forEach(employee => {-->
-<!--                    const created = new Date(bill.createdDate);-->
-<!--                    const formattedCreatedDate = `${created.getFullYear()}-${(created.getMonth() + 1).toString().padStart(2, '0')}-${created.getDate().toString().padStart(2, '0')}`;-->
-
-<!--                    const row = [-->
-<!--                        `<input type="checkbox">`,-->
-<!--                        bill.code,-->
-<!--                        bill.name,-->
-<!--                        bill.employeeName,-->
-<!--                        bill.productName,-->
-<!--                        bill.quantity,-->
-<!--                        formattedCreatedDate,-->
-<!--                        bill.phone,-->
-<!--                        bill.price,-->
-<!--                        `-->
-<!--                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa" data-id="${employee.id}" onclick="myFunction(this)">-->
-<!--                            <i class="fas fa-trash-alt"></i>-->
-<!--                        </button>-->
-<!--                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"-->
-<!--                            data-id="${bill.id}"-->
-<!--                            data-name="${bill.name}"-->
-<!--                            data-code="${bill.code}"-->
-<!--                            data-employee="${bill.employeeId}"-->
-<!--                            data-product="${bill.productId}"-->
-<!--                            data-phone="${bill.phone}"-->
-<!--                            data-address="${bill.address}"-->
-<!--                            data-created="${formattedCreatedDate}"-->
-<!--                            data-quantity="${bill.quantity}"-->
-<!--                            data-price="${bill.price}"-->
-<!--                            data-toggle="modal"-->
-<!--                            data-target="#ModalUP">-->
-<!--                            <i class="fas fa-edit"></i>-->
-<!--                        </button>`-->
-<!--                    ];-->
-<!--                    table.row.add(row);-->
-<!--                });-->
-
-<!--                table.draw();-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('Error loading employees:', error);-->
-<!--            });-->
-<!--    }-->
-
-<!--    $(document).ready(function () {-->
-<!--        // Khởi tạo DataTable nếu chưa có-->
-<!--        if (!$.fn.DataTable.isDataTable('#sampleTable')) {-->
-<!--            $('#sampleTable').DataTable();-->
-<!--        }-->
-
-<!--        // Gọi hàm load danh sách khi trang sẵn sàng-->
-<!--        loadEmployees();-->
-
-<!--        // Bắt sự kiện click nút "Chỉnh sửa" bằng event delegation-->
-<!--        $(document).on('click', '.edit', function () {-->
-<!--            currentEmployeeId = $(this).data('id');-->
-<!--            $('#edit-code').val($(this).data('code'));-->
-<!--            $('#edit-name').val($(this).data('name'));-->
-<!--            $('#edit-phone').val($(this).data('phone'));-->
-<!--            $('#edit-product').val($(this).data('productName'));-->
-<!--            $('#edit-employee').val($(this).data('employeeName'));-->
-<!--            $('#edit-quantity').val($(this).data('quentity'));-->
-<!--            $('#edit-address').val($(this).data('address'));-->
-<!--            $('#edit-position').val($(this).data('position'));-->
-<!--        });-->
-
-<!--        // Bắt sự kiện click nút "Lưu lại"-->
-<!--        $('#save-button').on('click', function () {-->
-<!--            const updatedEmployee = {-->
-<!--                code: $('#edit-code').val(),-->
-<!--                name: $('#edit-name').val(),-->
-<!--                phone: $('#edit-phone').val(),-->
-<!--                email: $('#edit-email').val(),-->
-<!--                birth: $('#edit-birth').val(),-->
-<!--                sex: $('#edit-sex').val(),-->
-<!--                address: $('#edit-address').val(),-->
-<!--                position: $('#edit-position').val()-->
-<!--            };-->
-
-<!--            $.ajax({-->
-<!--                url: `/api/employee/${currentEmployeeId}`,-->
-<!--                type: 'PUT',-->
-<!--                contentType: 'application/json',-->
-<!--                data: JSON.stringify(updatedEmployee),-->
-<!--                success: function (response) {-->
-<!--                    console.log("RESPONSE:", response);-->
-<!--                    if (response.status === 'success') {-->
-<!--                        swal("Cập nhật thông tin thành công!");-->
-<!--                        $('#ModalUP').modal('hide');-->
-<!--                        loadEmployees(); // Load lại danh sách sau khi cập nhật-->
-<!--                    } else {-->
-<!--                        swal("Cập nhật thất bại. Vui lòng thử lại!");-->
-<!--                        console.error("Server Response Status: ", response.status);-->
-<!--                    }-->
-<!--                },-->
-<!--                error: function (xhr, status, error) {-->
-<!--                    console.error("Lỗi khi cập nhật:", error);-->
-<!--                    swal("Đã có lỗi xảy ra khi cập nhật thông tin.");-->
-<!--                }-->
-<!--            });-->
-<!--        });-->
-<!--    });-->
-<!--</script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
+<script th:src="@{/assets/js/chatadmin.js}"></script>
 </body>
 
 </html>

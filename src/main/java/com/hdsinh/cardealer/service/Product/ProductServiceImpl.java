@@ -1,4 +1,4 @@
-package com.hdsinh.cardealer.services.Product;
+package com.hdsinh.cardealer.service.Product;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.dto.ProductDto;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service

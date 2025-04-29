@@ -2,21 +2,13 @@ package com.hdsinh.cardealer.api;
 
 import com.hdsinh.cardealer.dto.ObjectDto;
 import com.hdsinh.cardealer.entities.Employee;
-import com.hdsinh.cardealer.entities.Manufacturer;
-import com.hdsinh.cardealer.entities.Product;
-import com.hdsinh.cardealer.repository.Employee.EmployeeRepository;
-import com.hdsinh.cardealer.repository.Employee.EmployeeRepositoryImpl;
-import com.hdsinh.cardealer.services.Employee.EmployeeService;
+import com.hdsinh.cardealer.service.Employee.EmployeeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
